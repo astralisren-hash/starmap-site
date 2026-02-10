@@ -46,3 +46,7 @@ codex/site/baselines/
 
 # local binary
 node
+
+.vscode/
+astro.config.mjs.bak
+checksum.sha256
