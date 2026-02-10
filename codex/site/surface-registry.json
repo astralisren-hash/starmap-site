@@ -1,0 +1,233 @@
+{
+  "generated_at": "2026-02-08T08:53:08.409Z",
+  "source_route_map": "codex/site/route-history/ROUTE-MAP-2026-02-08_0237.txt",
+  "routes": [
+    {
+      "path": "/",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE",
+        "ENTRY",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
+      "path": "/admin",
+      "classification": {
+        "tier": "STEWARD",
+        "surface": "OPS"
+      },
+      "tags": [
+        "STEWARD",
+        "OPS"
+      ]
+    },
+    {
+      "path": "/arrival",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE",
+        "ENTRY",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
+      "path": "/courtyard",
+      "classification": {
+        "tier": "SEMI",
+        "surface": "INTERACTION"
+      },
+      "tags": [
+        "SEMI",
+        "INTERACTION",
+        "COURTYARD"
+      ]
+    },
+    {
+      "path": "/current-sky",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
+      "path": "/dashboard",
+      "classification": {
+        "tier": "STEWARD",
+        "surface": "OPS"
+      },
+      "tags": [
+        "STEWARD",
+        "OPS"
+      ]
+    },
+    {
+      "path": "/discovery",
+      "classification": {
+        "tier": "SEMI",
+        "surface": "INTERACTION"
+      },
+      "tags": [
+        "SEMI",
+        "INTERACTION"
+      ]
+    },
+    {
+      "path": "/dream-guardian",
+      "classification": {
+        "tier": "SEMI",
+        "surface": "INTERACTION"
+      },
+      "tags": [
+        "SEMI",
+        "INTERACTION",
+        "DG"
+      ]
+    },
+    {
+      "path": "/edge",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
+      "path": "/field",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
+      "path": "/n",
+      "classification": {
+        "tier": "PERSONAL",
+        "surface": "TRACK"
+      },
+      "tags": [
+        "PERSONAL",
+        "TRACK"
+      ]
+    },
+    {
+      "path": "/now",
+      "classification": {
+        "tier": "SEMI",
+        "surface": "INTERACTION"
+      },
+      "tags": [
+        "SEMI",
+        "INTERACTION"
+      ]
+    },
+    {
+      "path": "/orientation",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE",
+        "ORIENT",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
+      "path": "/seed",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE",
+        "SEED",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
+      "path": "/track/adam/arrival",
+      "classification": {
+        "tier": "PERSONAL",
+        "surface": "TRACK"
+      },
+      "tags": [
+        "PERSONAL",
+        "TRACK",
+        "ADAM"
+      ]
+    },
+    {
+      "path": "/track/mrs/arrival",
+      "classification": {
+        "tier": "PERSONAL",
+        "surface": "TRACK"
+      },
+      "tags": [
+        "PERSONAL",
+        "TRACK",
+        "MRS"
+      ]
+    },
+    {
+      "path": "/track/mrs/first-room",
+      "classification": {
+        "tier": "PERSONAL",
+        "surface": "TRACK"
+      },
+      "tags": [
+        "PERSONAL",
+        "TRACK",
+        "MRS"
+      ]
+    },
+    {
+      "path": "/track/mrs/room-v2",
+      "classification": {
+        "tier": "PERSONAL",
+        "surface": "TRACK"
+      },
+      "tags": [
+        "PERSONAL",
+        "TRACK",
+        "MRS"
+      ]
+    },
+    {
+      "path": "/walk",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE",
+        "OBSERVATIONAL"
+      ]
+    }
+  ]
+}

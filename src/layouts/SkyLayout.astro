@@ -1,0 +1,138 @@
+
+---
+import "../styles/global.css";
+import "../styles/sky-layout.css";
+
+const {
+  title = "StarMap",
+  bg = "plain",          // "plain" | "sky"
+  class: pageClass = "", // allows <SkyLayout class="...">
+} = Astro.props;
+
+const bodyClass = bg === "sky" ? "bg-sky" : "bg-plain";
+const layoutClass = `layout ${pageClass}`.trim();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+
+<style>
+      /* Shared typography for SkyLayout pages */
+
+      .status {
+        margin: 0 0 0.75rem 0;
+        color: rgba(230, 235, 255, 0.88);
+        font-size: 1.05rem;
+        line-height: 1.45;
+      }
+
+      .ambient {
+        margin: 0.35rem 0;
+        color: rgba(230, 235, 255, 0.74);
+        font-size: 1rem;
+        line-height: 1.55;
+      }
+
+      .faint {
+        margin-top: 1.25rem;
+        color: rgba(230, 235, 255, 0.5);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+/* Seed / Threshold surfaces */
+.seed,
+.threshold {
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+/* Seed: softer, image-led */
+.seed .seed-figure {
+  margin: 2rem auto;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(10,12,22,0.25);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+}
+ .seed .seed-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+  color: rgba(235,238,255,0.92);
+  letter-spacing: 0.02em;
+}
+
+/* Threshold: clearer boundaries */
+.threshold .boundary {
+  color: rgba(230,235,255,0.78);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(12,14,26,0.35);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  backdrop-filter: blur(6px);
+}
+
+/* Typography helpers for both */
+.faint {
+  color: rgba(230,235,255,0.55);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.status {
+  color: rgba(235,238,255,0.86);
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.ambient {
+  color: rgba(230,235,255,0.72);
+  line-height: 1.6;
+}
+/* Seed / Threshold surfaces */
+.seed,
+.threshold {
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+/* Seed: softer, image-led */
+.seed .seed-figure {
+  margin: 2rem auto;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(10,12,22,0.25);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+}
+
+.seed .seed-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+  color: rgba(235,238,255,0.92);
+}
+    </style>
+ </head>
+
+  <body class={bodyClass}>
+    <div class="corner-mark">StarMap</div>
+
+    <main>
+      <div class={layoutClass}>
+        <slot />
+      </div>
+    </main>
+  </body>
+</html>

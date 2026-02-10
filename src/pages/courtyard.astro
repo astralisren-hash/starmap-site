@@ -1,0 +1,75 @@
+---
+import SkyLayout from "../layouts/SkyLayout.astro";
+import raw from "../content/courtyard.state.json";
+
+type State = "open" | "quiet" | "closed";
+type Season = "I" | "II" | "III" | "IV" | "V";
+
+const steward: boolean = !!raw.steward;
+const requested: State = (raw.state as State) ?? "quiet";
+const season: Season = (raw.season as Season) ?? "II";
+const allowInput: boolean = ("allowInput" in raw) ? !!raw.allowInput : true;
+
+const state: State = steward ? requested : "quiet";
+
+const statusLine: Record<State, string> = {
+  open: "The Courtyard is open.",
+  quiet: "The Courtyard is quiet right now.",
+  closed: "The Courtyard is closed."
+};
+
+const ambientBySeason: Record<Season, string[]> = {
+  I: ["You may arrive.", "Nothing is required.", "You can stay as long as you like."],
+  II: ["Silence counts.", "Presence remains."],
+  III: ["Nothing needs to happen.", "Writing is paused."],
+  IV: ["This space is not active.", "Return is not scheduled."],
+  V: ["You may linger."]
+};
+
+let ambient: string[] = ambientBySeason[season] ?? ["Nothing is required."];
+ambient = (season === "I") ? ambient.slice(0, 2) : ambient.slice(0, 1);
+
+const showInput = state === "open" && allowInput === true;
+---
+
+<SkyLayout title="Courtyard" bg="sky" class="courtyard">
+  <section class="card gold-edge">
+    <p class="status">{statusLine[state]}</p>
+    {ambient.map((line) => <p class="ambient">{line}</p>)}
+
+    <p class="faint" style="margin-top:1rem;">
+      This is an observational space, not an instructional one.
+    </p>
+  </section>
+
+  {showInput ? (
+    <section class="card zone-light" style="margin-top:1.25rem;">
+      <form class="note" id="courtyard-note" autocomplete="off" novalidate>
+        <textarea class="note__field" rows="3" placeholder="If you wish."></textarea>
+        <button class="note__btn" type="submit">Place words</button>
+      </form>
+
+      <script is:inline>
+        (function () {
+          var form = document.getElementById("courtyard-note");
+          if (!form) return;
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            form.remove(); // store nothing
+          });
+        })();
+      </script>
+    </section>
+  ) : null}
+<nav style="margin-top:1.25rem;">
+  <a class="enter" href="/orientation">orientation</a>
+  <span style="opacity:.45;margin:0 .75rem;">•</span>
+  <a class="enter" href="/now">now</a>
+  <span style="opacity:.45;margin:0 .75rem;">•</span>
+  <a class="enter" href="/discovery">discovery</a>
+  <span style="opacity:.45;margin:0 .75rem;">•</span>
+  <a class="enter" href="/walk">walk</a>
+  <span style="opacity:.45;margin:0 .75rem;">•</span>
+  <a class="enter" href="/edge">exit</a>
+</nav>
+</SkyLayout>

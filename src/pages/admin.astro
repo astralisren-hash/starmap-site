@@ -1,0 +1,18 @@
+---
+import SkyLayout from "../layouts/SkyLayout.astro";
+import raw from "../content/courtyard.state.json";
+---
+
+<SkyLayout title="Admin" bg="plain" class="admin">
+  <section class="card">
+    <h1 class="sr-only">Admin</h1>
+
+    <p class="status">Courtyard Admin (read-only)</p>
+
+    <pre style="white-space: pre-wrap; overflow-wrap: anywhere; margin: 0;">
+{JSON.stringify(raw, null, 2)}
+    </pre>
+
+    <p class="faint" style="margin-top: 1rem;">Control remains git-based.</p>
+  </section>
+</SkyLayout>

@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Discovery · Questions</title>
+  <style>
+    :root{
+      --bg:#0b0d14; --text:#e9ecff; --muted:#aab3dd; --line:rgba(255,255,255,.10);
+      --accent:#9b87ff; --warn:#ffb86b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(155,135,255,.14), transparent 55%),
+        radial-gradient(900px 700px at 80% 20%, rgba(120,255,214,.08), transparent 60%),
+        var(--bg);
+    }
+    .wrap{max-width:860px; margin:0 auto; padding:28px 18px 60px;}
+    h1{font-size:26px; margin:0 0 6px; letter-spacing:.2px;}
+    .sub{color:var(--muted); margin:0 0 18px; line-height:1.35;}
+    .badge{
+      display:inline-block; padding:4px 8px; border-radius:999px;
+      border:1px solid rgba(155,135,255,.35); background:rgba(155,135,255,.10);
+      color:var(--text); font-size:12px; margin-right:8px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px;
+      margin:12px 0;
+      backdrop-filter: blur(6px);
+    }
+    .small{font-size:12.5px; color:var(--muted); line-height:1.45;}
+    .warnline{color:var(--warn);}
+    .hr{height:1px; background:var(--line); margin:14px 0;}
+    label{display:block; font-size:13px; color:var(--muted); margin-bottom:6px;}
+    input, textarea, select{
+      width:100%; border-radius:12px; border:1px solid var(--line);
+      background: rgba(0,0,0,.25); color:var(--text);
+      padding:10px 12px; font-size:14px; outline:none;
+    }
+    textarea{min-height:90px; resize:vertical;}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    @media (max-width:760px){ .row{grid-template-columns:1fr;} }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color: var(--muted); font-size:13px;
+      margin:6px 8px 0 0;
+    }
+    .pill input{width:auto;}
+    .out{
+      white-space:pre-wrap;
+      background: rgba(0,0,0,.28);
+      border:1px solid var(--line);
+      padding:12px;
+      border-radius:12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12.5px;
+    }
+    .btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
+    button{
+      border:1px solid var(--line);
+      background: rgba(155,135,255,.12);
+      color: var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:14px;
+    }
+    button.secondary{background: rgba(255,255,255,.04); color: var(--muted);}
+    button.warn{background: rgba(255,184,107,.12); border-color: rgba(255,184,107,.35);}
+    .qtitle{font-weight:600; color:var(--text); margin:0 0 6px;}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1 id="pageTitle">Discovery · Questions</h1>
+    <p class="sub">
+      <span class="badge" id="pageBadge">Observational</span>
+      <span id="pageSubtitle">Short answers. No backstory required. Skipping is allowed.</span>
+    </p>
+
+    <div class="card">
+      <div class="small">
+        <div><strong>Boundary:</strong> Do not share or infer identities, locations, private details, screenshots, or cross-post content without explicit permission.</div>
+        <div class="warnline"><strong>Privacy:</strong> This page stores nothing and sends nothing.</div>
+        <div style="margin-top:8px;"><strong>Disclaimer:</strong> These are observational views, not symbolic ones.</div>
+      </div>
+      <div class="small" id="purposeLine" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card">
+      <p class="qtitle">Basics</p>
+
+      <div class="row">
+        <div>
+          <label for="handle">Name / Handle</label>
+          <input id="handle" placeholder="e.g., StarofIshtar" />
+        </div>
+        <div>
+          <label for="posture">Posture</label>
+          <select id="posture">
+            <option value="observe">Observe only</option>
+            <option value="light">Light participation</option>
+            <option value="speak">Speak occasionally</option>
+            <option value="log">Log fragments</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <p class="qtitle">Standard discovery questions</p>
+
+      <label for="q1">1) What are you actually looking at? (1 sentence, literal)</label>
+      <textarea id="q1" placeholder="Describe what the system seems to be, without meaning."></textarea>
+
+      <label for="q2">2) What do you think this space is for? (1 sentence)</label>
+      <textarea id="q2" placeholder="Keep it neutral."></textarea>
+
+      <label for="q3">3) What would make this unsafe? (3 bullets max)</label>
+      <textarea id="q3" placeholder="Examples: identity guessing, pressure, cross-posting."></textarea>
+
+      <label for="q4">4) What would make this useful? (3 bullets max)</label>
+      <textarea id="q4" placeholder="Examples: quiet, clarity, boundaries, minimal prompts."></textarea>
+
+      <label for="q5">5) Choose one rule you will keep here</label>
+      <div>
+        <label class="pill"><input type="radio" name="rule" value="no advice" checked /> no advice</label>
+        <label class="pill"><input type="radio" name="rule" value="no identity guessing" /> no identity guessing</label>
+        <label class="pill"><input type="radio" name="rule" value="no cross-posting" /> no cross-posting</label>
+        <label class="pill"><input type="radio" name="rule" value="no DMs" /> no DMs</label>
+      </div>
+
+      <div style="margin-top:10px;">
+        <label class="small">Optional: agree to “no sharing identifiers—even as a joke”</label>
+        <label class="pill"><input id="agree" type="checkbox" /> I agree</label>
+      </div>
+
+      <div class="btns">
+        <button id="build">Build discovery log</button>
+        <button id="copy" class="secondary">Copy log</button>
+        <button id="reset" class="warn">Reset</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Output (paste into Discord)</label>
+      <div id="out" class="out">—</div>
+    </div>
+  </div>
+
+  <script>
+    /********************************
+     * GATE — TIME WINDOW (EDIT THESE)
+     ********************************/
+    const GATE = {
+      opens:  "2026-01-31T00:00:00-05:00",
+      closes: "2026-01-31T03:00:00-05:00"
+    };
+
+    function isGateOpen() {
+      const now = new Date();
+      const open = new Date(GATE.opens);
+      const close = new Date(GATE.closes);
+
+      if (Number.isNaN(open.getTime()) || Number.isNaN(close.getTime())) return false;
+      if (close <= open) return false;
+
+      return now >= open && now <= close;
+    }
+
+    if (!isGateOpen()) {
+      document.body.innerHTML = `
+        <div style="max-width:760px;margin:12vh auto;padding:18px;color:#aab3dd;font-family:system-ui;line-height:1.5;">
+          <div style="border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px;background:rgba(0,0,0,.25);">
+            <h2 style="margin:0 0 8px;color:#e9ecff;font-size:20px;">Gate closed</h2>
+            <p style="margin:0;">This room opens briefly. Please return during the window.</p>
+          </div>
+        </div>`;
+      throw new Error("Gate closed");
+    }
+
+    /********************************
+     * DISCOVERY CONFIG (EDIT THIS)
+     ********************************/
+    const DISCOVERY = {
+      title: "Discovery · Questions",
+      badge: "Observational",
+      subtitle: "Short answers. No backstory required. Skipping is allowed.",
+      purpose: "The point of StarMap is to observe what is present without directing it."
+    };
+
+    // Render header + purpose
+    const setText = (id, value) => {
+      const node = document.getElementById(id);
+      if (node) node.textContent = value;
+    };
+    setText("pageTitle", DISCOVERY.title);
+    setText("pageBadge", DISCOVERY.badge);
+    setText("pageSubtitle", DISCOVERY.subtitle);
+    setText("purposeLine", `Purpose: ${DISCOVERY.purpose}`);
+
+    // Helpers
+    const el = (id) => document.getElementById(id);
+    const out = el("out");
+
+    function getRule() {
+      const chosen = document.querySelector('input[name="rule"]:checked');
+      return chosen ? chosen.value : "no advice";
+    }
+
+    function buildLog() {
+      const handle = el("handle").value.trim() || "Guest";
+      const posture = el("posture").value;
+      const agree = el("agree").checked ? "YES" : "—";
+
+      const q1 = el("q1").value.trim() || "—";
+      const q2 = el("q2").value.trim() || "—";
+      const q3 = el("q3").value.trim() || "—";
+      const q4 = el("q4").value.trim() || "—";
+
+      const rule = getRule();
+
+      const postureLabel = ({
+        observe: "Observe only",
+        light: "Light participation",
+        speak: "Speak occasionally",
+        log: "Log fragments"
+      })[posture] || posture;
+
+      out.textContent = [
+        `DISCOVERY · ${handle}`,
+        `Posture: ${postureLabel}`,
+        `Purpose: ${DISCOVERY.purpose}`,
+        `Rule chosen: ${rule}`,
+        `Privacy agreement (no identifiers): ${agree}`,
+        `Disclaimer: These are observational views, not symbolic ones.`,
+        ``,
+        `Q1 · Literal description: ${q1}`,
+        `Q2 · For: ${q2}`,
+        `Q3 · Unsafe if: ${q3}`,
+        `Q4 · Useful if: ${q4}`
+      ].join("\n");
+    }
+
+    async function copyLog() {
+      const text = out.textContent;
+      if (!text || text === "—") return;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        out.textContent = text + "\n\n[copy failed: clipboard permissions]";
+      }
+    }
+
+    function resetAll() {
+      el("handle").value = "";
+      el("posture").value = "observe";
+      el("q1").value = "";
+      el("q2").value = "";
+      el("q3").value = "";
+      el("q4").value = "";
+      document.querySelector('input[name="rule"][value="no advice"]').checked = true;
+      el("agree").checked = false;
+      out.textContent = "—";
+    }
+
+    el("build").addEventListener("click", buildLog);
+    el("copy").addEventListener("click", copyLog);
+    el("reset").addEventListener("click", resetAll);
+  </script>
+</body>
+</html>
+

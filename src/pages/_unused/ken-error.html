@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>System Error</title>
+
+<style>
+  :root {
+    --bg: #000000;
+    --text: #e9ecff;
+    --muted: #aab3dd;
+    --line: rgba(255,255,255,.12);
+    --spark: rgba(255,255,255,.9);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    overflow: hidden;
+  }
+
+  /* --- STARFIELD --- */
+  .stars,
+  .stars::before,
+  .stars::after {
+    position: fixed;
+    inset: 0;
+    content: "";
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, var(--spark) 50%, transparent 51%),
+      radial-gradient(1px 1px at 30% 80%, var(--spark) 50%, transparent 51%),
+      radial-gradient(1px 1px at 55% 40%, var(--spark) 50%, transparent 51%),
+      radial-gradient(1px 1px at 70% 10%, var(--spark) 50%, transparent 51%),
+      radial-gradient(1px 1px at 90% 60%, var(--spark) 50%, transparent 51%);
+    opacity: 0.35;
+    animation: drift 120s linear infinite;
+  }
+
+  .stars::before {
+    opacity: 0.25;
+    animation-duration: 180s;
+  }
+
+  .stars::after {
+    opacity: 0.15;
+    animation-duration: 240s;
+  }
+
+  @keyframes drift {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-200px); }
+  }
+
+  /* --- SHOOTING STARS --- */
+  .shooting-star {
+    position: fixed;
+    top: -10%;
+    left: 50%;
+    width: 1px;
+    height: 120px;
+    background: linear-gradient(180deg, var(--spark), transparent);
+    opacity: 0.8;
+    transform: rotate(20deg);
+    animation: shoot 6s linear infinite;
+  }
+
+  .shooting-star:nth-child(2) {
+    left: 20%;
+    animation-delay: 2s;
+    animation-duration: 7s;
+  }
+
+  .shooting-star:nth-child(3) {
+    left: 75%;
+    animation-delay: 4s;
+    animation-duration: 5.5s;
+  }
+
+  @keyframes shoot {
+    0%   { transform: translateY(-120%) rotate(20deg); opacity: 0; }
+    10%  { opacity: 1; }
+    40%  { opacity: 0.8; }
+    100% { transform: translateY(220%) rotate(20deg); opacity: 0; }
+  }
+
+  /* --- ERROR PANEL --- */
+  .wrap {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .panel {
+    max-width: 720px;
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 24px;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(6px);
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    letter-spacing: .04em;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .body {
+    font-size: 13px;
+    line-height: 1.55;
+    white-space: pre-line;
+  }
+
+  .footer {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-size: 12px;
+    color: var(--muted);
+  }
+</style>
+</head>
+
+<body>
+  <div class="stars"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+
+  <div class="wrap">
+    <div class="panel">
+      <h1>❌ SYSTEM ERROR</h1>
+      <div class="meta">
+        Code: WARP-ΔVU-019 · Module: Arrival / Time / Meaning
+      </div>
+
+      <div class="body">
+Status: INTAKE FAILED (PARTIAL)
+
+Subject did not enter via primary intake.
+Primary intake attempted anyway.
+
+Temporal alignment unstable.
+Meaning coherence delayed.
+Causality out of order.
+
+Secondary tunnel opened without authorization.
+Type: warp / déjà-vu.
+
+Caution passed through subject.
+Care reflected back into system.
+
+Auxiliary artifact detected trailing subject.
+Function unclear.
+Artifact attempting vision adjustment.
+Subject awareness: none.
+
+Fire reported.
+Fire contained.
+Subject reports this is “normal.”
+      </div>
+
+      <div class="footer">
+        Resolution: none available<br />
+        Action: do not retry<br />
+        State: waiting for reality to catch up
+      </div>
+    </div>
+  </div>
+</body>
+</html>

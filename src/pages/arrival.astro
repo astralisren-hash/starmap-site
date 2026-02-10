@@ -1,0 +1,136 @@
+---
+import Layout from "../layouts/SkyLayout.astro";
+---
+
+<Layout title="Arrival">
+  <div class="layout arrival">
+
+    <section class="card gold-edge">
+      <p class="status">Arrival</p>
+      <p class="disclaimer">
+        These are observational views, not symbolic ones.
+      </p>
+      <div class="faint" style="margin-top:.75rem;">
+        Optional. Minimal is enough.
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+
+        <div>
+          <label for="handle" class="small">Name / Handle (optional)</label>
+          <input id="handle" placeholder="Guest" style="width:100%;" />
+        </div>
+
+        <div>
+          <label for="posture" class="small">Arrival posture</label>
+          <select id="posture" style="width:100%;">
+            <option value="observe">Observe only</option>
+            <option value="one-line">Say one line</option>
+            <option value="fragment">Log a fragment</option>
+            <option value="system-q">Ask one system question</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div style="margin-top:10px;">
+        <label for="from" class="small">Arriving from (one noun)</label>
+        <input id="from" placeholder="work / train / silence / winter" style="width:100%;" />
+      </div>
+
+      <div style="margin-top:10px;">
+        <label for="notice" class="small">Notice (optional)</label>
+        <textarea id="notice" rows="3" placeholder="Body / mood / thoughts" style="width:100%;"></textarea>
+      </div>
+
+      <div style="margin-top:10px;">
+        <label for="line" class="small">One line / fragment / question (optional)</label>
+        <textarea id="line" rows="3" placeholder="Keep it minimal." style="width:100%;"></textarea>
+      </div>
+
+      <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px;">
+        <button id="build" type="button">Build arrival log</button>
+        <button id="copy" type="button" class="secondary">Copy</button>
+        <button id="reset" type="button" class="warn">Reset</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <label class="small">Output</label>
+      <div id="out" class="out">—</div>
+    </section>
+
+    <nav style="margin-top:1.25rem; text-align:center;">
+      <a class="enter" href="/courtyard">courtyard</a>
+      <span style="opacity:.45; margin:0 .75rem;">•</span>
+      <a class="enter" href="/walk">walk</a>
+      <span style="opacity:.45; margin:0 .75rem;">•</span>
+      <a class="enter" href="/discovery">discovery</a>
+      <span style="opacity:.45; margin:0 .75rem;">•</span>
+      <a class="enter" href="/edge">exit</a>
+    </nav>
+
+  </div>
+
+  <script>
+    (function () {
+      function val(id){
+        var n = document.getElementById(id);
+        return n ? (n.value || "").trim() : "";
+      }
+
+      var out = document.getElementById("out");
+
+      function buildLog(){
+        var handle = val("handle") || "Guest";
+        var posture = (document.getElementById("posture") || {}).value || "observe";
+        var from = val("from") || "—";
+        var notice = val("notice");
+        var line = val("line");
+
+        var postureLabel = ({
+          "observe": "Observe only",
+          "one-line": "One line",
+          "fragment": "Fragment",
+          "system-q": "System question"
+        })[posture] || posture;
+
+        var lines = [
+          "Arrival · " + handle,
+          "Posture: " + postureLabel,
+          "From: " + from
+        ];
+
+        if (notice) lines.push("Notice: " + notice);
+        if (line) lines.push("Line: " + line);
+
+        out.textContent = lines.join("\n");
+      }
+
+      async function copyLog(){
+        var text = out.textContent;
+        if (!text || text === "—") return;
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (e) {}
+      }
+
+      function resetAll(){
+        ["handle","from","notice","line"].forEach(function(id){
+          var n = document.getElementById(id);
+          if (n) n.value = "";
+        });
+        var p = document.getElementById("posture");
+        if (p) p.value = "observe";
+        out.textContent = "—";
+      }
+
+      document.getElementById("build").addEventListener("click", buildLog);
+      document.getElementById("copy").addEventListener("click", copyLog);
+      document.getElementById("reset").addEventListener("click", resetAll);
+    })();
+  </script>
+
+</Layout>

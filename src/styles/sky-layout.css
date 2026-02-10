@@ -1,0 +1,168 @@
+:root {
+  --ink: #070812;
+  --void: #0b0d12;
+  --midnight: #0a0d18;
+  --purple: #7b5cff;
+  --aura: #a082ff;
+  --gold: #d7b25a;
+  --text: rgba(235, 240, 255, 0.86);
+  --muted: rgba(235, 240, 255, 0.68);
+  --faint: rgba(235, 240, 255, 0.46);
+
+  --card: rgba(12, 14, 26, 0.50);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --card-glow: rgba(140, 160, 255, 0.10);
+  --gold-edge: rgba(215, 178, 90, 0.38);
+
+  --radius: 14px;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+}
+
+.bg-plain {
+  background: var(--void);
+  min-height: 100vh;
+}
+
+.bg-sky {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 18% 10%, rgba(160, 130, 255, 0.18), transparent 60%),
+    radial-gradient(900px 600px at 82% 18%, rgba(120, 220, 255, 0.10), transparent 60%),
+    radial-gradient(900px 620px at 55% 85%, rgba(255, 190, 90, 0.07), transparent 62%),
+    linear-gradient(180deg, var(--ink) 0%, var(--midnight) 48%, var(--ink) 100%);
+  background-attachment: fixed;
+}
+
+.bg-sky::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8) 50%, transparent 51%),
+    radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 55% 35%, rgba(255,255,255,0.7) 50%, transparent 51%),
+    radial-gradient(1px 1px at 80% 60%, rgba(255,255,255,0.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 90% 25%, rgba(255,255,255,0.5) 50%, transparent 51%);
+  background-size: 650px 650px;
+  filter: blur(0.25px);
+}
+
+.corner-mark {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: none;
+  color: rgba(200, 210, 255, 0.42);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.layout {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 3.25rem 1.25rem 3rem;
+}
+
+h1 {
+  margin: 0 0 0.75rem 0;
+  font-size: 2rem;
+  letter-spacing: 0.01em;
+}
+
+h2 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.15rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+p {
+  margin: 0 0 1rem 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+a {
+  color: rgba(170, 160, 255, 0.92);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.card {
+  padding: 1.5rem 1.75rem;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(170, 200, 255, 0.06),
+    0 0 28px var(--card-glow);
+}
+
+.zone-light {
+  background: rgba(235, 240, 255, 0.07);
+  border: 1px solid rgba(235, 240, 255, 0.14);
+}
+
+.gold-edge {
+  border-color: var(--gold-edge);
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(215, 178, 90, 0.10);
+}
+
+.muted { color: var(--muted); }
+.faint { color: var(--faint); }
+
+.status {
+  margin: 0 0 0.75rem 0;
+  color: var(--text);
+  font-weight: 650;
+}
+
+.ambient {
+  margin: 0 0 0.75rem 0;
+  color: var(--muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.arrival-card,
+.psa-card {
+  max-width: 42rem;
+  margin-left: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.arrival {
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  opacity: 0.85;
+  margin-bottom: 0.75rem;
+}

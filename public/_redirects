@@ -1,0 +1,5 @@
+# Canonical trailing slash normalization (static routes)
+# Skip assets/files (anything with a dot segment)
+# Force 301 to the slash version
+
+/*[^./]  /:splat/  301

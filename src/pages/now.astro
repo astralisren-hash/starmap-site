@@ -1,0 +1,40 @@
+---
+import SkyLayout from "../layouts/SkyLayout.astro";
+import raw from "../content/now.state.json";
+
+type Mode = "live" | "quiet" | "dark";
+type Season = "I" | "II" | "III" | "IV" | "V";
+
+const mode: Mode = (raw.mode as Mode) ?? "quiet";
+const season: Season = (raw.season as Season) ?? "II";
+const line: string = (raw.line ?? "").toString();
+
+// Seasonal softening by absence (no labels, minimal changes)
+const renderedLine = (season === "IV") ? line.replace(/\.+$/, "") : line;
+
+// Dark mode = empty body (still 200 OK)
+const isDark = mode === "dark";
+const showLine = mode === "live" && renderedLine.trim().length > 0;
+---
+
+{isDark ? null : (
+  <SkyLayout title="Now" bg="sky" class="now">
+    <section class="card gold-edge">
+      <h1 class="sr-only">Now</h1>
+
+      {showLine ? (
+        <p class="status">{renderedLine}</p>
+      ) : (
+        <p class="faint"> </p>
+      )}
+
+<nav style="margin-top:1.25rem;">
+  <a class="enter" href="/courtyard">courtyard</a>
+  <span style="opacity:.45;margin:0 .75rem;">•</span>
+  <a class="enter" href="/discovery">discovery</a>
+  <span style="opacity:.45;margin:0 .75rem;">•</span>
+  <a class="enter" href="/edge">exit</a>
+</nav>
+    </section>
+  </SkyLayout>
+)}

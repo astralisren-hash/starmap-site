@@ -1,0 +1,310 @@
+---
+import SkyLayout from "../layouts/SkyLayout.astro";
+---
+
+<SkyLayout title="Discovery" bg="sky" class="discovery">
+  <style>
+    .card {
+      max-width: 48rem;
+      margin: 0 auto 1.25rem auto;
+      padding: 1.25rem 1.25rem;
+      background: rgba(12, 14, 26, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    .status {
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: rgba(235, 238, 255, 0.92);
+      margin: 0 0 0.5rem 0;
+    }
+    .ambient {
+      margin: 0.35rem 0 0 0;
+      color: rgba(220, 225, 255, 0.78);
+      line-height: 1.55;
+    }
+    .faint {
+      margin: 0.75rem 0 0 0;
+      color: rgba(220, 225, 255, 0.55);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    label {
+      display: block;
+      margin: 0.75rem 0 0.35rem 0;
+      color: rgba(220, 225, 255, 0.75);
+      font-size: 0.9rem;
+    }
+    input, textarea, select {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.22);
+      color: rgba(235, 238, 255, 0.92);
+      padding: 0.65rem 0.75rem;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+    @media (max-width: 760px) { .row { grid-template-columns: 1fr; } }
+    .pill {
+      display: inline-flex;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.45rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.18);
+      margin: 0.35rem 0.5rem 0 0;
+      color: rgba(220, 225, 255, 0.75);
+      font-size: 0.88rem;
+    }
+    .pill input { width: auto; }
+    .btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.9rem; }
+    button {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(160, 130, 255, 0.12);
+      color: rgba(235, 238, 255, 0.92);
+      padding: 0.65rem 0.8rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    button.secondary { background: rgba(255,255,255,0.04); color: rgba(220,225,255,0.72); }
+    button.warn { background: rgba(255, 184, 107, 0.10); border-color: rgba(255, 184, 107, 0.28); }
+    .out {
+      white-space: pre-wrap;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.26);
+      padding: 0.85rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.92rem;
+      color: rgba(230, 235, 255, 0.86);
+      overflow-wrap: anywhere;
+    }
+    .nav {
+      margin-top: 1.25rem;
+    }
+    .nav a {
+      color: rgba(170, 160, 255, 0.85);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .nav a:hover { text-decoration: underline; }
+  </style>
+
+  <section class="card">
+    <h1 class="sr-only">Discovery</h1>
+    <p class="status">Discovery (public)</p>
+    <p class="ambient">These prompts are optional. This page stores nothing and sends nothing.</p>
+    <p class="faint">Disclaimer: These are observational views, not symbolic ones.</p>
+    <p class="faint">
+      Boundary: avoid identifying details, locations, screenshots, or cross-posting without explicit permission.
+    </p>
+  </section>
+
+  <section class="card">
+    <div class="row">
+      <div>
+        <label for="name">Name / Handle</label>
+        <input id="name" placeholder="e.g., Star" />
+      </div>
+
+      <div>
+        <label for="posture">Arrival posture</label>
+        <select id="posture">
+          <option value="observe">Observe only</option>
+          <option value="one-line">Say one line</option>
+          <option value="fragment">Log a fragment (no explanation)</option>
+          <option value="system-q">Ask one system question (not personal)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="from">Arriving from (one noun)</label>
+        <input id="from" placeholder="work / train / silence / winter / argument" />
+      </div>
+
+      <div>
+        <label for="format">If speaking: format</label>
+        <select id="format">
+          <option value="silence">Silence</option>
+          <option value="one-line">One line</option>
+          <option value="three-bullets">Three bullets</option>
+          <option value="quote">Quote</option>
+          <option value="image-only">Image-only</option>
+        </select>
+      </div>
+    </div>
+
+    <label>Choose one constraint you will keep here</label>
+    <div>
+      <label class="pill"><input type="radio" name="constraint" value="no advice" checked /> no advice</label>
+      <label class="pill"><input type="radio" name="constraint" value="no identity guessing" /> no identity guessing</label>
+      <label class="pill"><input type="radio" name="constraint" value="no cross-posting" /> no cross-posting</label>
+      <label class="pill"><input type="radio" name="constraint" value="no DMs" /> no DMs</label>
+    </div>
+
+    <label class="pill" style="margin-top:0.75rem;">
+      <input id="privacyAgree" type="checkbox" />
+      Privacy acknowledgement: no identifiers (even as a joke)
+    </label>
+
+    <hr style="border:none; height:1px; background:rgba(255,255,255,0.10); margin:1rem 0;" />
+
+    <!-- 6 questions -->
+    <label for="q1">1) Current intention for this season</label>
+    <textarea id="q1" placeholder="What you're aiming toward, practicing, or opening."></textarea>
+
+    <label for="q2">2) What feels off or unclear right now</label>
+    <textarea id="q2" placeholder="Any tension, confusion, stuckness, or overwhelm."></textarea>
+
+    <label for="q3">3) What feels strong, aligned, or opening</label>
+    <textarea id="q3" placeholder="Where energy is flowing, what feels right or promising."></textarea>
+
+    <label for="q4">4) Immediate needs or supports</label>
+    <textarea id="q4" placeholder="What would help you feel steadier, clearer, or supported."></textarea>
+
+    <label for="q5">5) Next small step (doable within a day or two)</label>
+    <textarea id="q5" placeholder="One small action. No story required."></textarea>
+
+    <label for="q6">6) Notice yourself (optional): body / thoughts / feelings</label>
+    <textarea id="q6" placeholder="Neutral observation. No interpretation required."></textarea>
+
+    <div class="btns">
+      <button id="build" type="button">Build</button>
+      <button id="copy" type="button" class="secondary">Copy</button>
+      <button id="reset" type="button" class="warn">Reset</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <label>Output (paste into Discord)</label>
+    <div id="out" class="out">—</div>
+
+    <div class="nav">
+      <a href="/courtyard">courtyard</a>
+      <span style="opacity:0.45; margin: 0 0.75rem;">•</span>
+      <a href="/walk">walk</a>
+      <span style="opacity:0.45; margin: 0 0.75rem;">•</span>
+      <a href="/edge">exit</a>
+    </div>
+  </section>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+    const out = el("out");
+
+    function getConstraint() {
+      const chosen = document.querySelector('input[name="constraint"]:checked');
+      return chosen ? chosen.value : "no advice";
+    }
+
+    function labelPosture(v) {
+      return ({
+        "observe": "Observe only",
+        "one-line": "Say one line",
+        "fragment": "Log a fragment",
+        "system-q": "Ask one system question"
+      })[v] || v;
+    }
+
+    function labelFormat(v) {
+      return ({
+        "silence": "Silence",
+        "one-line": "One line",
+        "three-bullets": "Three bullets",
+        "quote": "Quote",
+        "image-only": "Image-only"
+      })[v] || v;
+    }
+
+    function clean(s) {
+      return (s || "").toString().trim();
+    }
+
+    function build() {
+      const name = clean(el("name").value) || "Guest";
+      const posture = labelPosture(el("posture").value);
+      const from = clean(el("from").value) || "—";
+      const format = labelFormat(el("format").value);
+      const constraint = getConstraint();
+      const agree = el("privacyAgree").checked ? "YES" : "—";
+
+      const q1 = clean(el("q1").value) || "—";
+      const q2 = clean(el("q2").value) || "—";
+      const q3 = clean(el("q3").value) || "—";
+      const q4 = clean(el("q4").value) || "—";
+      const q5 = clean(el("q5").value) || "—";
+      const q6 = clean(el("q6").value) || "—";
+
+      const lines = [
+        `DISCOVERY · ${name}`,
+        `1) Intention (season): ${q1}`,
+        `2) Off/unclear: ${q2}`,
+        `3) Strong/aligned/opening: ${q3}`,
+        `4) Needs/supports: ${q4}`,
+        `5) Next small step: ${q5}`,
+        `6) Notice self (optional): ${q6}`,
+        ``,
+        `ARRIVAL · ${name}`,
+        `Posture: ${posture}`,
+        `From: ${from}`,
+        `Format: ${format}`,
+        `Constraint: ${constraint}`,
+        `Privacy acknowledgement (no identifiers): ${agree}`,
+        `Disclaimer: These are observational views, not symbolic ones.`
+      ];
+
+      out.textContent = lines.join("\\n");
+    }
+
+    async function copyOut() {
+      const text = out.textContent;
+      if (!text || text === "—") return;
+      try {
+        await navigator.clipboard.writeText(text);
+        out.textContent = text + "\\n\\n[copied]";
+      } catch {
+        out.textContent = text + "\\n\\n[copy failed: clipboard permissions]";
+      }
+    }
+
+    function resetAll() {
+      el("name").value = "";
+      el("posture").value = "observe";
+      el("from").value = "";
+      el("format").value = "silence";
+      document.querySelector('input[name="constraint"][value="no advice"]').checked = true;
+      el("privacyAgree").checked = false;
+      el("q1").value = "";
+      el("q2").value = "";
+      el("q3").value = "";
+      el("q4").value = "";
+      el("q5").value = "";
+      el("q6").value = "";
+      out.textContent = "—";
+    }
+
+    el("build").addEventListener("click", build);
+    el("copy").addEventListener("click", copyOut);
+    el("reset").addEventListener("click", resetAll);
+  </script>
+<nav style="margin-top:1.25rem;">
+  <a class="enter" href="/courtyard">courtyard</a>
+  <span style="opacity:.45;margin:0 .75rem;">•</span>
+  <a class="enter" href="/arrival">arrival</a>
+  <span style="opacity:.45;margin:0 .75rem;">•</span>
+  <a class="enter" href="/edge">exit</a>
+</nav>
+</SkyLayout>

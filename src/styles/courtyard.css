@@ -1,0 +1,66 @@
+:root{
+  --bg: #0b0c0f;
+  --fg: rgba(255,255,255,0.78);
+  --fg-dim: rgba(255,255,255,0.56);
+  --fg-faint: rgba(255,255,255,0.38);
+}
+
+*{ box-sizing: border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.field{
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 10vh 1.25rem 12vh;
+}
+
+.status{
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 0 0 2.25rem;
+}
+
+.ambient{
+  color: var(--fg-dim);
+  margin: 0 0 1.25rem;
+}
+
+.faint{
+  color: var(--fg-faint);
+}
+
+.note{
+  margin-top: 2.25rem;
+}
+
+.note__field{
+  width: 100%;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 0.85rem 0.9rem;
+  resize: vertical;
+  outline: none;
+}
+
+.note__field::placeholder{
+  color: rgba(255,255,255,0.28);
+}
+
+.note__btn{
+  margin-top: 0.75rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: rgba(255,255,255,0.56);
+  font: inherit;
+  cursor: pointer;
+}

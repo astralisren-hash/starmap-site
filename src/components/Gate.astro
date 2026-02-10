@@ -1,0 +1,13 @@
+---
+const key = "starmap";
+const promptText = "Hello.\n\nIf you have the word, you can enter.";
+const failTo = "/edge";
+---
+
+<script is:inline>
+  (function () {
+    var key = "starmap";
+    var entry = prompt("Hello.\n\nIf you have the word, you can enter.");
+    if (entry !== key) location.href = "/edge";
+  })();
+</script>

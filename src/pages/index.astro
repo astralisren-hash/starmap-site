@@ -1,0 +1,37 @@
+---
+import SkyLayout from "../layouts/SkyLayout.astro";
+---
+
+<SkyLayout title="StarMap" bg="sky" class="home arrival-page">
+  <main>
+    <!-- Arrival card -->
+    <section class="arrival-card" aria-labelledby="arrival-title">
+      <h1 id="arrival-title">Arrival Field</h1>
+      <p class="arrival">Threshold</p>
+
+      <p class="disclaimer">
+        These are observational views, not symbolic ones.
+      </p>
+
+<div class="entry-row">
+  <a href="/orientation" class="enter">Enter</a>
+  <a href="/edge" class="exit">Exit</a>
+</div>
+
+<style>
+  .entry-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  .exit {
+    text-align: right;
+  }
+</style>
+   </section>
+  </main>
+ </nav>
+</SkyLayout>

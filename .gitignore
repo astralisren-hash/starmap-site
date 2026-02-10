@@ -1,0 +1,48 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+
+# archives / backups
+*.zip
+*.tgz
+*_backup*
+*_baseline*
+_baseline*
+_backups/
+_releases/
+_owned/
+deploy.zip
+starmap-site-source.zip
+starmap-upload.zip
+
+# codex generated history
+codex/site/registry-history/
+codex/site/route-history/
+codex/site/surface-diff/
+codex/site/surface-baselines/
+codex/site/baselines/
+
+# local binary
+node
