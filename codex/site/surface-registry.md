@@ -1,7 +1,7 @@
 # Surface Registry
 
-- Generated: 2026-02-08T08:53:08.409Z
-- From: codex/site/route-history/ROUTE-MAP-2026-02-08_0237.txt
+- Generated: 2026-02-11T07:14:08.004Z
+- From: codex/site/route-history/ROUTE-MAP-2026-02-11_0208.txt
 - Route count: 19
 
 ## PUBLIC
