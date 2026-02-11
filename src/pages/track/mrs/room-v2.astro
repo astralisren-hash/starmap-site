@@ -4,157 +4,275 @@ import Base from "../../../layouts/Base.astro";
 
 <Base title="Mrs · Room">
 
-  <style>
-    :root { --activation: 5; }
+<style>
+  :root { --energy: 5; --activation: 5; --social: 5; }
 
-.mrs-room{
-  min-height: 70vh;
-  padding: 24px;
-  border-radius: 16px;
+  .mrs-room{
+    min-height: 70vh;
+    padding: 24px;
+    border-radius: 16px;
 
-  background:
-    radial-gradient(1200px 600px at 50% 35%,
-      rgba(255,255,255,0.06),
-      rgba(0,0,0,0.92)
-    );
+    /* keep the quiet compression look */
+    background:
+      radial-gradient(1200px 600px at 50% 35%,
+        rgba(255,255,255,0.06),
+        rgba(0,0,0,0.92)
+      );
+    box-shadow:
+      inset 0 0 140px rgba(0,0,0,0.45),
+      inset 0 0 60px rgba(0,0,0,0.25);
 
-  box-shadow:
-    inset 0 0 140px rgba(0,0,0,0.45),
-    inset 0 0 60px rgba(0,0,0,0.25);
+    transition: filter 4s ease;
+    filter:
+      contrast(calc(1 - (var(--activation) * 0.04)))
+      brightness(calc(0.85 + (var(--energy) * 0.02)));
+  }
 
-  /* Quiet compression */
-  transition: filter 4s ease;
-  filter:
-  contrast(calc(1 - (var(--activation) * 0.04)))
-  brightness(calc(0.85 + (var(--energy) * 0.02)));
-}
+  /* hard-center the arch regardless of screen/layout */
+  .mrs-room .arch{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 
-    .mrs-room .arch{
-      width: min(560px, 92vw);
-      height: 300px;
-      margin: 18px auto 20px;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-bottom: 0;
-      border-top-left-radius: 999px;
-      border-top-right-radius: 999px;
-      box-shadow:
-        0 0 calc(20px + (var(--energy) * 6px))
-        rgba(255,205,140, calc(0.04 + (var(--energy) *
-     0.01)));
+    width: min(560px, 92vw);
+    height: 300px;
+    margin: 18px 0 20px;
 
-      background:
-        radial-gradient(800px 400px at 50% 80%, rgba(255,205,140,0.08), rgba(0,0,0,0));
-      transform-origin: center bottom;
-      animation: breathe 90s infinite ease-in-out;
-    }
+    border: 1px solid rgba(255,255,255,0.18);
+    border-bottom: 0;
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
 
-    .mrs-room .door{
-      width: clamp(54px, 12vw, 90px);
-      max-width: 90px;
-      min-width: 54px;
-      height: 180px;
-      margin: 0 auto 28px;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 14px;
-      background: linear-gradient(
-        to bottom,
+    background:
+      radial-gradient(800px 400px at 50% 80%,
         rgba(255,205,140,0.08),
         rgba(0,0,0,0)
       );
-      box-shadow:
-        0 0 30px rgba(255,205,140,0.06),
-        inset 0 0 20px rgba(255,255,255,0.03),
-        inset 0 -20px 40px rgba(255,205,140,0.04);
 
-      transition: transform 10s ease, opacity 10s ease;
-      transform-origin: center bottom;
-
-      /* subtle narrowing */
-      transform: scaleX(
-  calc(
-    1
-    - (var(--activation) * 0.008)
-    - (var(--social) * 0.01)
-  )
-);
-
+    transform-origin: center bottom;
+    animation: breathe 90s infinite ease-in-out;
+    opacity: calc(0.55 + (var(--energy) * 0.04));
+    box-shadow:
+      0 24px 80px rgba(0,0,0,0.35),
+      0 0 calc(20px + (var(--energy) * 6px)) rgba(255,205,140,0.18);
   }
 
-    .dial-panel{
-      max-width: 520px;
-      margin: 0 auto;
-      display: grid;
-      gap: 10px;
-      color: rgba(255,255,255,0.85);
-    }
+  .mrs-room .door{
+    width: clamp(54px, 12vw, 90px);
+    height: 180px;
+    margin: 0 auto 28px;
 
-    .snapshot{
-      max-width: 520px;
-      margin: 14px auto 0;
-      color: rgba(255,255,255,0.85);
-      font-size: 16px;
-    }
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
 
-    @keyframes breathe{
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.01); }
-      100% { transform: scale(1); }
-    }
-  </style>
+    background: linear-gradient(
+      to bottom,
+      rgba(255,205,140,0.08),
+      rgba(0,0,0,0)
+    );
+
+    box-shadow:
+      0 0 30px rgba(255,205,140,0.06),
+      inset 0 0 20px rgba(255,255,255,0.03),
+      inset 0 -20px 40px rgba(255,205,140,0.04);
+
+    transition: transform 10s ease, opacity 10s ease;
+    transform-origin: center bottom;
+
+    /* narrowing on activation + social load */
+    transform: scaleX(calc(1 - (var(--activation) * 0.008) - (var(--social) * 0.01)));
+    opacity: calc(1 - (var(--activation) * 0.02));
+  }
+
+  .dial-panel{
+    max-width: 520px;
+    margin: 0 auto;
+    display: grid;
+    gap: 10px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .snapshot{
+    max-width: 520px;
+    margin: 14px auto 0;
+    color: rgba(255,255,255,0.85);
+    font-size: 16px;
+  }
+
+  .pattern-line{
+    max-width: 520px;
+    margin: 10px auto 0;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    opacity: 0.45;
+    text-align: center;
+    transition: opacity 0.6s ease;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .status-strip{
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    font-family: system-ui, sans-serif;
+    pointer-events: none;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .status-strip.visible{ opacity: 0.55; }
+
+  @keyframes breathe{
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.01); }
+    100% { transform: translateX(-50%) scale(1); }
+  }
+</style>
 
   <div class="mrs-room">
     <div class="arch"></div>
     <div class="door"></div>
 
     <div class="dial-panel">
-      <label>Energy</label>
+      <label for="energy">Energy</label>
       <input type="range" id="energy" min="0" max="10" value="5" />
 
-      <label>Activation</label>
+      <label for="activation">Activation</label>
       <input type="range" id="activation" min="0" max="10" value="5" />
 
-      <label>Social Load</label>
+      <label for="social">Social Load</label>
       <input type="range" id="social" min="0" max="10" value="5" />
     </div>
 
     <div id="snapshot" class="snapshot"></div>
+    <div id="pattern" class="pattern-line"></div>
+
+    <div class="status-strip">
+      <span id="status-energy"></span>
+      <span id="status-activation"></span>
+      <span id="status-social"></span>
+    </div>
   </div>
 
   <script type="module">
     const energy = document.getElementById("energy");
     const activation = document.getElementById("activation");
     const social = document.getElementById("social");
+
     const snapshot = document.getElementById("snapshot");
+    const patternLine = document.getElementById("pattern");
+    const statusStrip = document.querySelector(".status-strip");
 
-    function updateRoom() {
-      const e = parseInt(energy.value);
-      const a = parseInt(activation.value);
-      const s = parseInt(social.value);
+    let idleTimer;
 
-      document.documentElement.style.setProperty("--energy", e);
-      document.documentElement.style.setProperty("--activation", a);
-      document.documentElement.style.setProperty("--social", s);
-
-      snapshot.innerText = generateSnapshot(e, a, s);
-      saveState(e, a, s);
-    }
-
-    function generateSnapshot(e, a, s) {
-      if (e < 4 && a > 6) return "Low energy + high activation. System may feel narrow.";
-      if (e > 6 && a < 4) return "Stable and resourced.";
-      return "Balanced but variable.";
+    function loadLastState() {
+      const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
+      const last = history.at?.(-1) ?? history[history.length - 1];
+      if (!last) return null;
+      return { e: Number(last.e), a: Number(last.a), s: Number(last.s) };
     }
 
     function saveState(e, a, s) {
       const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
       history.push({ date: Date.now(), e, a, s });
+      while (history.length > 200) history.shift();
       localStorage.setItem("mrsHistory", JSON.stringify(history));
+    }
+
+    function generateSnapshot(e, a, s) {
+      if (e < 4 && a > 6) return "Low energy + high activation. System may feel narrow.";
+      if (e > 6 && a < 4) return "Stable and resourced.";
+      if (s > 7) return "High social load.";
+      return "Balanced but variable.";
+    }
+
+    function generatePattern() {
+      const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
+      if (history.length < 3) return "Pattern: forming.";
+
+      const last = history.slice(-5);
+      const avg = (key) => last.reduce((sum, h) => sum + Number(h[key] ?? 0), 0) / last.length;
+
+      const e = avg("e");
+      const a = avg("a");
+      const s = avg("s");
+
+      if (e < 4 && a > 6) return "Pattern: compressed and under-resourced.";
+      if (e > 6 && a < 5) return "Pattern: stable and resourced.";
+      if (s > 7) return "Pattern: high external load.";
+
+      const spread = (key) => Math.max(...last.map(h => h[key])) - Math.min(...last.map(h => h[key]));
+      const eVar = spread("e");
+      const aVar = spread("a");
+      const sVar = spread("s");
+
+      if (aVar >= 5 || sVar >= 5) return "Pattern: fluctuating.";
+      if (eVar <= 2 && aVar <= 2 && sVar <= 2) return "Pattern: steady.";
+
+      return "Pattern: mixed.";
+    }
+
+    function showSignals(ms = 4000) {
+      statusStrip.classList.add("visible");
+      patternLine.classList.add("visible");
+
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        statusStrip.classList.remove("visible");
+        patternLine.classList.remove("visible");
+      }, ms);
+    }
+
+    function updateRoom() {
+      const e = parseInt(energy.value, 10);
+      const a = parseInt(activation.value, 10);
+      const s = parseInt(social.value, 10);
+
+      document.documentElement.style.setProperty("--energy", e);
+      document.documentElement.style.setProperty("--activation", a);
+      document.documentElement.style.setProperty("--social", s);
+
+      document.getElementById("status-energy").innerText = `Energy ${e}`;
+      document.getElementById("status-activation").innerText = `Activation ${a}`;
+      document.getElementById("status-social").innerText = `Social ${s}`;
+
+      snapshot.innerText = generateSnapshot(e, a, s);
+      saveState(e, a, s);
+
+      patternLine.innerText = generatePattern();
+      showSignals(4000);
     }
 
     energy.addEventListener("input", updateRoom);
     activation.addEventListener("input", updateRoom);
     social.addEventListener("input", updateRoom);
+
+    // Restore last state (A)
+    const last = loadLastState();
+    if (last) {
+      energy.value = String(last.e);
+      activation.value = String(last.a);
+      social.value = String(last.s);
+    }
+
     updateRoom();
+
+    // Arrival acknowledgement (subtle warm lift, then return)
+    setTimeout(() => {
+      const current = parseInt(energy.value, 10);
+      document.documentElement.style.setProperty("--energy", Math.min(10, current + 1));
+      setTimeout(() => {
+        document.documentElement.style.setProperty("--energy", current);
+      }, 1200);
+    }, 200);
+
+    // Brief initial visibility
+    showSignals(3000);
   </script>
 
 </Base>
