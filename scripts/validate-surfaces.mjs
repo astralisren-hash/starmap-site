@@ -26,7 +26,7 @@ if (!reg?.routes || !Array.isArray(reg.routes)) {
 const ALLOW = {
   STEWARD: new Set(["/admin", "/dashboard"]),
   SEMI: new Set(["/courtyard", "/discovery", "/dream-guardian", "/now"]),
-  PUBLIC: new Set(["/", "/arrival", "/orientation", "/seed", "/current-sky", "/field", "/edge", "/walk"]),
+  PUBLIC: new Set(["/", "/arrival", "/threshold", "/orientation", "/seed", "/current-sky", "/field", "/edge", "/walk"]),
 };
 
 // Canonical personal identities allowed under /track/<id>/*

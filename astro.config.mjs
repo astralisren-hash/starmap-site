@@ -1,7 +1,8 @@
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
+import { defineConfig } from "astro/config";
+import react from "@astrojs/react";
 
 export default defineConfig({
-  trailingSlash: "always",
-  integrations: [react()]
+  site: "https://www.starmap.direct",
+  trailingSlash: "ignore",
+  integrations: [react()],
 });

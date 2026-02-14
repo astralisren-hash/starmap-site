@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-02-11T07:14:08.004Z",
-  "source_route_map": "codex/site/route-history/ROUTE-MAP-2026-02-11_0208.txt",
+  "generated_at": "2026-02-14T11:54:39.528Z",
+  "source_route_map": "codex/site/route-history/ROUTE-MAP-2026-02-14_0654.txt",
   "routes": [
     {
       "path": "/",
@@ -166,6 +166,18 @@
         "PUBLIC",
         "PRESENCE",
         "SEED",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
+      "path": "/threshold",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE",
         "OBSERVATIONAL"
       ]
     },

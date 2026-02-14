@@ -16,9 +16,104 @@ const renderedLine = (season === "IV") ? line.replace(/\.+$/, "") : line;
 const isDark = mode === "dark";
 const showLine = mode === "live" && renderedLine.trim().length > 0;
 ---
+<section class="now-psa">
+  <div class="star"></div>
 
-{isDark ? null : (
-  <SkyLayout title="Now" bg="sky" class="now">
+  <h1>Public System Announcement</h1>
+
+  <p>
+    Deep work is underway.
+  </p>
+
+  <p>
+    Multiple layers are being rebuilt.
+    Structural alignment in progress.
+    Routing, rendering, surface logic — stabilized.
+  </p>
+
+  <p>
+    If something looks different, it is.
+  </p>
+
+  <p class="quiet">
+    This is not disruption.
+    This is refinement.
+  </p>
+
+  <p class="small">
+    Thank you for moving through the field while it recalibrates.
+  </p>
+</section>
+
+<style>
+.now-psa{
+  min-height: 70vh;
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 80px 20px;
+  color: rgba(255,255,255,0.88);
+  position: relative;
+}
+
+.now-psa h1{
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 18px;
+  margin-bottom: 36px;
+  opacity: 0.75;
+}
+
+.now-psa p{
+  margin: 14px 0;
+  line-height: 1.6;
+}
+
+.now-psa .quiet{
+  opacity: 0.65;
+  margin-top: 28px;
+}
+
+.now-psa .small{
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  opacity: 0.4;
+  margin-top: 40px;
+}
+
+.star{
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  margin: 0 auto 40px;
+  box-shadow: 0 0 18px rgba(255,255,255,0.7);
+  animation: pulse 3.8s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%   { opacity: 0.3; transform: scale(0.9); }
+  50%  { opacity: 1;   transform: scale(1.25); }
+  100% { opacity: 0.3; transform: scale(0.9); }
+}
+</style>
+
+<SkyLayout title="Now" bg="sky" class="now">
+  {isDark ? (
+    <section class="card gold-edge">
+      <h1 class="sr-only">Now</h1>
+      <p class="status">System in dark mode.</p>
+      <p class="ambient">Surface view is intentionally reduced.</p>
+      <nav style="margin-top:1.25rem;">
+        <a class="enter" href="/courtyard/">courtyard</a>
+        <span style="opacity:.45;margin:0 .75rem;">•</span>
+        <a class="enter" href="/discovery/">discovery</a>
+        <span style="opacity:.45;margin:0 .75rem;">•</span>
+        <a class="enter" href="/edge/">exit</a>
+      </nav>
+    </section>
+  ) : (
     <section class="card gold-edge">
       <h1 class="sr-only">Now</h1>
 
@@ -28,13 +123,13 @@ const showLine = mode === "live" && renderedLine.trim().length > 0;
         <p class="faint"> </p>
       )}
 
-<nav style="margin-top:1.25rem;">
-  <a class="enter" href="/courtyard">courtyard</a>
-  <span style="opacity:.45;margin:0 .75rem;">•</span>
-  <a class="enter" href="/discovery">discovery</a>
-  <span style="opacity:.45;margin:0 .75rem;">•</span>
-  <a class="enter" href="/edge">exit</a>
-</nav>
+      <nav style="margin-top:1.25rem;">
+        <a class="enter" href="/courtyard/">courtyard</a>
+        <span style="opacity:.45;margin:0 .75rem;">•</span>
+        <a class="enter" href="/discovery/">discovery</a>
+        <span style="opacity:.45;margin:0 .75rem;">•</span>
+        <a class="enter" href="/edge/">exit</a>
+      </nav>
     </section>
-  </SkyLayout>
-)}
+  )}
+</SkyLayout>

@@ -1,18 +1,9 @@
 ---
-import SkyLayout from "../layouts/SkyLayout.astro";
-import DreamGuardianFlow from "../components/dream-guardian/DreamGuardianFlow";
 ---
 
-<SkyLayout title="Dream Guardian" bg="sky" class="dream-guardian">
-  <section class="card gold-edge" style="max-width: 26.25rem; margin: 0 auto;">
-    <h1 class="sr-only">Dream Guardian</h1>
-
-    <DreamGuardianFlow client:load />
-  </section>
-
-  <nav aria-label="Dream Guardian navigation" style="max-width: 26.25rem; margin: 1rem auto 0;">
-    <a href="/courtyard">Courtyard</a>
-    <span class="faint" style="margin: 0 0.75rem;">•</span>
-    <a href="/now">Now</a>
-  </nav>
-</SkyLayout>
+<meta http-equiv="refresh" content="0; url=/now" />
+<link rel="canonical" href="/now" />
+<meta name="robots" content="noindex" />
+<script>
+  window.location.replace("/now");
+</script>

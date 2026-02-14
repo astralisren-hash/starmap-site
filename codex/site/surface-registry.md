@@ -1,8 +1,8 @@
 # Surface Registry
 
-- Generated: 2026-02-11T07:14:08.004Z
-- From: codex/site/route-history/ROUTE-MAP-2026-02-11_0208.txt
-- Route count: 19
+- Generated: 2026-02-14T11:54:39.528Z
+- From: codex/site/route-history/ROUTE-MAP-2026-02-14_0654.txt
+- Route count: 20
 
 ## PUBLIC
 
@@ -13,6 +13,7 @@
 - `/field` — PUBLIC · PRESENCE · OBSERVATIONAL
 - `/orientation` — PUBLIC · PRESENCE · ORIENT · OBSERVATIONAL
 - `/seed` — PUBLIC · PRESENCE · SEED · OBSERVATIONAL
+- `/threshold` — PUBLIC · PRESENCE · OBSERVATIONAL
 - `/walk` — PUBLIC · PRESENCE · OBSERVATIONAL
 
 ## SEMI

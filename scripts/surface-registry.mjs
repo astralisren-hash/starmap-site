@@ -66,7 +66,7 @@ function classifyRoute(path) {
   }
 
   // Public presence
-  if (["/", "/arrival", "/orientation", "/seed", "/current-sky", "/field", "/edge", "/walk"].includes(path)) {
+  if (["/", "/arrival", "/orientation", "/seed", "/current-sky", "/field", "/edge", "/walk", "/threshold"].includes(path)) {
     return { tier: "PUBLIC", surface: "PRESENCE" };
   }
 

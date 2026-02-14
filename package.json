@@ -2,48 +2,37 @@
   "name": "starmap-site",
   "type": "module",
   "version": "0.0.6",
-
   "scripts": {
     "dev": "npm run validate:prebuild && astro dev",
     "validate:courtyard": "node scripts/validate-courtyard-state.mjs",
     "validate:now": "node scripts/validate-now-state.mjs",
-
     "validate:prebuild": "npm run validate:courtyard && npm run validate:now && npm run surface:registry && npm run validate:aliases && npm run validate:surfaces",
     "validate:postbuild": "npm run validate:dist",
-
     "validate:all": "npm run validate:prebuild",
-
     "build:core": "npm run validate:prebuild && astro build && npm run validate:postbuild",
     "build": "npm run route:map && npm run registry:snapshot",
-
     "route:map": "node scripts/route-map.mjs",
     "surface:registry": "node scripts/surface-registry.mjs",
     "validate:surfaces": "node scripts/validate-surfaces.mjs",
     "validate:aliases": "node scripts/validate-alias-redirects.mjs",
     "validate:dist": "node scripts/validate-dist-namespaces.mjs",
-
     "registry:snapshot": "node scripts/registry-snapshot.mjs",
     "registry:diff": "node scripts/registry-diff.mjs",
     "surface:diff": "node scripts/surface-diff.mjs",
-
     "release": "node scripts/release.mjs"
   },
-
   "dependencies": {
     "astro": "^5.17.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
-
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
     "@astrojs/react": "^4.4.2",
+    "@tailwindcss/postcss": "^4.1.18",
+    "autoprefixer": "^10.4.24",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   }
 }
-
-
-
-
-
-

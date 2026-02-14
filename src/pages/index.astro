@@ -1,37 +1,29 @@
 ---
-import SkyLayout from "../layouts/SkyLayout.astro";
 ---
 
-<SkyLayout title="StarMap" bg="sky" class="home arrival-page">
-  <main>
-    <!-- Arrival card -->
-    <section class="arrival-card" aria-labelledby="arrival-title">
-      <h1 id="arrival-title">Arrival Field</h1>
-      <p class="arrival">Threshold</p>
+<meta http-equiv="refresh" content="0; url=/now/" />
+<link rel="canonical" href="/now/" />
+<script>
+  window.location.replace("/now");
+</script>
 
-      <p class="disclaimer">
-        These are observational views, not symbolic ones.
-      </p>
+<body>
+  <a href="/threshold" class="enter-mark">
+    <img src="/images/glyph/starmap-mark.png" alt="StarMap" />
+  </a>
 
-<div class="entry-row">
-  <a href="/orientation" class="enter">Enter</a>
-  <a href="/edge" class="exit">Exit</a>
-</div>
+  <style>
+    .enter-mark{
+      display: inline-block;
+      width: 84px;
+      height: 84px;
+    }
 
-<style>
-  .entry-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-top: 2rem;
-  }
-
-  .exit {
-    text-align: right;
-  }
-</style>
-   </section>
-  </main>
- </nav>
-</SkyLayout>
+    .enter-mark img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+  </style>
+</body>

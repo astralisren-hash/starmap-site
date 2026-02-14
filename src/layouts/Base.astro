@@ -1,18 +1,27 @@
 ---
+import "../styles/global.css";
+import "../styles/sky-layout.css";
+
 const {
   title = "StarMap",
   bodyClass = "",
+  bg = "plain", // allow Base pages to opt into bg="sky" if ever needed
 } = Astro.props;
+
+const baseBgClass = bg === "sky" ? "bg-sky" : "bg-plain";
+const cls = `${baseBgClass} ${bodyClass}`.trim();
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <link rel="stylesheet" href="/src/styles/courtyard.css" />
   </head>
-  <body class={bodyClass}>
+
+  <body class={cls}>
+    <div class="corner-mark">StarMap</div>
     <main class="field">
       <slot />
     </main>

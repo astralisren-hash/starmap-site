@@ -29,6 +29,7 @@ const ALLOW_DIRS = new Set([
   "orientation",
   "seed",
   "track",
+  "threshold",
   "walk",
 ]);
 
