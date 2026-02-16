@@ -1,0 +1,26 @@
+{
+  "registry_id": "starmap.identity.overlays",
+  "version": "1.0",
+  "policy_ref": "../overlay.policy.v1.json",
+  "entries": [
+    {
+      "overlay_id": "overlay.state.active.v1",
+      "file": "overlay.state.active.v1.json",
+      "category": "state",
+      "applies_to": ["persona"]
+    },
+    {
+      "overlay_id": "overlay.state.archived.v1",
+      "file": "overlay.state.archived.v1.json",
+      "category": "state",
+      "applies_to": ["persona"]
+    },
+    {
+      "overlay_id": "overlay.state.private.v1",
+      "file": "overlay.state.private.v1.json",
+      "category": "access",
+      "applies_to": ["persona"]
+    }
+  ]
+}
+

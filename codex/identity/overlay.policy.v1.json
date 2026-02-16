@@ -1,0 +1,14 @@
+{
+  "policy_id": "starmap.identity.overlay_policy",
+  "version": "1.0",
+  "stacking": {
+    "allowed": true,
+    "max_overlays": 3,
+    "rule": "one_per_category",
+    "render_order": ["state", "phase", "access"]
+  },
+  "constraints": {
+    "must_not_modify_base": true,
+    "max_combined_visual_weight_ratio": 0.2
+  }
+}
