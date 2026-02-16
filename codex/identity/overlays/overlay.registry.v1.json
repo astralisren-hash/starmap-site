@@ -3,24 +3,40 @@
   "version": "1.0",
   "policy_ref": "../overlay.policy.v1.json",
   "entries": [
-    {
-      "overlay_id": "overlay.state.active.v1",
-      "file": "overlay.state.active.v1.json",
-      "category": "state",
-      "applies_to": ["persona"]
-    },
-    {
-      "overlay_id": "overlay.state.archived.v1",
-      "file": "overlay.state.archived.v1.json",
-      "category": "state",
-      "applies_to": ["persona"]
-    },
-    {
-      "overlay_id": "overlay.state.private.v1",
-      "file": "overlay.state.private.v1.json",
-      "category": "access",
-      "applies_to": ["persona"]
+  {
+    "overlay_id": "overlay.state.active.v1",
+    "file": "overlay.state.active.v1.json",
+    "category": "state",
+    "applies_to": ["persona"],
+    "sealed": true,
+    "seal": {
+      "method": "sha256",
+      "value": "8a5d921c75542795e53546c6214adcc50d594b9acc71c993b0d137f6aa42ad23",
+      "generated_at": "2026-02-16"
     }
-  ]
-}
-
+  },
+  {
+    "overlay_id": "overlay.state.archived.v1",
+    "file": "overlay.state.archived.v1.json",
+    "category": "state",
+    "applies_to": ["persona"],
+    "sealed": true,
+    "seal": {
+      "method": "sha256",
+      "value": "00099a1c0f05bf3c3711927b1ecbaff3e0eb4b7ee6d6c47e834326e07d2b4f9c",
+      "generated_at": "2026-02-16"
+    }
+  },
+  {
+    "overlay_id": "overlay.state.private.v1",
+    "file": "overlay.state.private.v1.json",
+    "category": "access",
+    "applies_to": ["persona"],
+    "sealed": true,
+    "seal": {
+      "method": "sha256",
+      "value": "d4ce1290012e7a884322d89abc2fc81e8aea305d4dd9c8114418bce92b94691c",
+      "generated_at": "2026-02-16"
+    }
+  }
+]
