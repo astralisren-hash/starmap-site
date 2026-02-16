@@ -1,0 +1,18 @@
+{
+  "registry_id": "starmap.identity.tokens",
+  "version": "1.0",
+  "entries": [
+    {
+      "token_id": "star.token.v2",
+      "file": "star.token.v2.json",
+      "token_class": "persona",
+      "sealed": true,
+      "seal": {
+        "method": "sha256",
+        "value": "4f435185990695da4b4c9260fa7b115276dc3f338638a135e690ccc95badec7f ",
+        "generated_at": ""generated_at": "2026-02-16T<01:14>-05:00",
+        "notes": "Fill value + timestamp after generating checksum."
+      }
+    }
+  ]
+}
