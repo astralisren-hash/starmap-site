@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- base roundel -->
+  <circle cx="512" cy="512" r="440" fill="#6F2DBD"/>
+
+  <!-- wings (placeholder) -->
+  <path d="M140,520 C260,430 360,430 460,520 C360,610 260,610 140,520 Z" fill="#B5179E" opacity="0.9"/>
+  <path d="M884,520 C764,430 664,430 564,520 C664,610 764,610 884,520 Z" fill="#B5179E" opacity="0.9"/>
+
+  <!-- flame (placeholder) -->
+  <path d="M512,220 C620,360 600,470 512,540 C424,470 404,360 512,220 Z"
+        fill="#6F2DBD" filter="url(#softGlow)"/>
+
+  <!-- crown (placeholder) -->
+  <path d="M320,310 L380,250 L450,310 L512,240 L574,310 L644,250 L704,310 L704,380 L320,380 Z"
+        fill="#F9C74F" opacity="0.95"/>
+
+  <!-- starburst mark (simple 7-ray placeholder) -->
+  <g stroke="#F9C74F" stroke-width="14" opacity="0.8" stroke-linecap="round">
+    <line x1="512" y1="422" x2="512" y2="602"/>
+    <line x1="452" y1="444" x2="572" y2="580"/>
+    <line x1="424" y1="500" x2="600" y2="524"/>
+    <line x1="452" y1="580" x2="572" y2="444"/>
+    <line x1="512" y1="602" x2="512" y2="422"/>
+    <line x1="600" y1="524" x2="424" y2="500"/>
+    <line x1="572" y1="580" x2="452" y2="444"/>
+  </g>
+
+  <!-- outline -->
+  <circle cx="512" cy="512" r="440" fill="none" stroke="#0B0B10" stroke-width="18" opacity="0.9"/>
+</svg>

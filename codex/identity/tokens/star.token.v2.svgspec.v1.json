@@ -1,0 +1,29 @@
+{
+  "spec_id": "starmap.identity.svgspec.star.token.v2",
+  "version": "1.0",
+  "token_id": "star.token.v2",
+  "canvas": {
+    "viewBox": "0 0 1024 1024",
+    "background": "transparent"
+  },
+  "geometry": {
+    "center": [512, 512],
+    "roundel_radius": 440,
+    "outline_thickness": 18,
+    "safe_radius": 400
+  },
+  "layers": [
+    { "id": "base_roundel", "type": "circle", "radius": 440, "fill": "palette.primary", "opacity": 1.0 },
+    { "id": "wings", "type": "symmetric_wing_paths", "anchor": "center", "span": 780, "height": 220, "fill": "palette.secondary", "opacity": 0.9 },
+    { "id": "flame", "type": "flame_path", "anchor": "center", "height": 560, "width": 360, "fill": "palette.primary", "glow": true },
+    { "id": "crown", "type": "crown_path", "anchor": "top_center", "y": 220, "width": 420, "height": 220, "fill": "palette.accent", "opacity": 0.95 },
+    { "id": "mark", "type": "glyph_starburst_7", "anchor": "center", "radius": 90, "stroke": "palette.accent", "strokeWidth": 14, "opacity": 0.8 },
+    { "id": "outline", "type": "circle_stroke", "radius": 440, "stroke": "palette.ink", "strokeWidth": 18, "opacity": 0.9 }
+  ],
+  "overlay_application": {
+    "allowed": true,
+    "policy_ref": "../overlay.policy.v1.json",
+    "render_order": ["state", "phase", "access"],
+    "max_overlays": 3
+  }
+}
