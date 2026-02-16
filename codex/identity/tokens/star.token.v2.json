@@ -1,0 +1,29 @@
+{
+  "token_id": "star.token.v2",
+  "token_class": "persona",
+  "version": "2.0",
+  "shape": "sigil_roundel",
+  "palette": {
+    "primary": "#6F2DBD",
+    "secondary": "#B5179E",
+    "accent": "#F9C74F",
+    "ink": "#0B0B10"
+  },
+  "motifs": ["purple_flame", "wings", "crown"],
+  "markings": {
+    "glyph": "starburst_7",
+    "stroke_style": "soft_glow"
+  },
+  "privacy": {
+    "contains_face": false,
+    "contains_body": false,
+    "identifying_features": "none"
+  },
+  "render": {
+    "base_style": "flat_sigil",
+    "detail_level": "medium",
+    "background": "transparent",
+    "outline": true
+  },
+  "overlays_allowed": true
+}

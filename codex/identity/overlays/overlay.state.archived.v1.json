@@ -1,0 +1,8 @@
+{
+  "overlay_id": "overlay.state.archived.v1",
+  "category": "state",
+  "applies_to": ["persona"],
+  "geometry": { "type": "outer_ring", "thickness_ratio": 0.02, "pattern": "dotted" },
+  "style": { "color": "#CFCFD6", "opacity": 0.55 },
+  "constraints": { "must_not_modify_base": true, "max_visual_weight_ratio": 0.1 }
+}

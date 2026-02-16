@@ -1,0 +1,8 @@
+{
+  "overlay_id": "overlay.state.private.v1",
+  "category": "access",
+  "applies_to": ["persona"],
+  "geometry": { "type": "corner_glyph", "position": "4oclock", "glyph": "lock_small", "scale_ratio": 0.12 },
+  "style": { "color": "#CFCFD6", "opacity": 0.6 },
+  "constraints": { "must_not_modify_base": true, "max_visual_weight_ratio": 0.08 }
+}
