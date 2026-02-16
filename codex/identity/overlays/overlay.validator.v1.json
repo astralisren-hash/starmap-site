@@ -1,0 +1,74 @@
+{
+  "validator_id": "starmap.identity.overlay_validator",
+  "version": "1.0",
+  "inputs": {
+    "token_id": "string",
+    "overlay_ids": ["string"]
+  },
+  "references": {
+    "overlay_registry": "overlay.registry.v1.json",
+    "policy": "../overlay.policy.v1.json",
+    "token_registry": "../tokens/token.registry.v1.json"
+  },
+  "requirements": [
+    {
+      "id": "REQ-01",
+      "name": "Token must be sealed",
+      "rule": "token_id MUST exist in token registry AND token entry must be sealed:true"
+    },
+    {
+      "id": "REQ-02",
+      "name": "Overlays must be registered",
+      "rule": "each overlay_id MUST exist as an entry in overlay registry"
+    },
+    {
+      "id": "REQ-03",
+      "name": "Overlays must be sealed",
+      "rule": "each overlay entry MUST have sealed:true AND a sha256 seal present"
+    },
+    {
+      "id": "REQ-04",
+      "name": "Overlay applies_to must match token_class",
+      "rule": "for each overlay, token.token_class MUST be in overlay.applies_to"
+    },
+    {
+      "id": "REQ-05",
+      "name": "Max overlay count",
+      "rule": "overlay_ids.length MUST be <= policy.stacking.max_overlays"
+    },
+    {
+      "id": "REQ-06",
+      "name": "One per category",
+      "rule": "no two overlays may share the same category"
+    },
+    {
+      "id": "REQ-07",
+      "name": "Render order is policy-defined",
+      "rule": "renderer MUST sort overlays by policy.stacking.render_order, unknown categories MUST be rejected"
+    },
+    {
+      "id": "REQ-08",
+      "name": "No base modification",
+      "rule": "renderer MUST treat overlays as additive only; any operation that changes base geometry/palette MUST be rejected"
+    }
+  ],
+  "errors": [
+    { "code": "E_TOKEN_NOT_FOUND", "when": "token_id missing from token registry" },
+    { "code": "E_TOKEN_NOT_SEALED", "when": "token registry entry sealed is not true" },
+    { "code": "E_OVERLAY_NOT_REGISTERED", "when": "overlay_id missing from overlay registry" },
+    { "code": "E_OVERLAY_NOT_SEALED", "when": "overlay registry entry sealed is not true or seal missing" },
+    { "code": "E_OVERLAY_NOT_APPLICABLE", "when": "token_class not listed in overlay.applies_to" },
+    { "code": "E_TOO_MANY_OVERLAYS", "when": "overlay count exceeds policy max_overlays" },
+    { "code": "E_CATEGORY_CONFLICT", "when": "two overlays share same category" },
+    { "code": "E_UNKNOWN_CATEGORY", "when": "overlay category not present in policy render_order" },
+    { "code": "E_BASE_MUTATION", "when": "renderer attempts to modify base token geometry/palette" }
+  ],
+  "output": {
+    "valid": "boolean",
+    "normalized": {
+      "token_id": "string",
+      "overlay_ids_sorted": ["string"]
+    },
+    "error_codes": ["string"]
+  }
+}
