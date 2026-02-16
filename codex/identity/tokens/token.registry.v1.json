@@ -1,17 +1,24 @@
 {
-  "registry_id": "starmap.identity.tokens",
-  "version": "1.0",
-  "entries": [
+  "token_id": "star.token.v2",
+  "file": "star.token.v2.json",
+  "token_class": "persona",
+  "sealed": true,
+  "seal": {
+    "method": "sha256",
+    "value": "4f435185990695da4b4c9260fa7b115276dc3f338638a135e690ccc95badec7f",
+    "generated_at": "2026-02-16",
+    "notes": "Initial canonical seal for star.token.v2"
+  },
+  "artifacts": [
     {
-      "token_id": "star.token.v2",
-      "file": "star.token.v2.json",
-      "token_class": "persona",
-      "sealed": true,
+      "artifact_id": "star.token.v2.svg",
+      "file": "star.token.v2.svg",
+      "type": "image/svg+xml",
       "seal": {
-  "method": "sha256",
-  "value": "4f435185990695da4b4c9260fa7b115276dc3f338638a135e690ccc95badec7f",
-  "generated_at": "2026-02-16",
-  "notes": "Initial canonical seal for star.token.v2"
-}
+        "method": "sha256",
+        "value": "4c99148420c6fa77cb8b8a4563df64050f8c2419b50a7d1d8ecc02097a31a6fa",
+        "generated_at": "2026-02-16"
+      }
+    }
   ]
 }
