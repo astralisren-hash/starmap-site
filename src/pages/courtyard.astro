@@ -1,40 +1,182 @@
 ---
 import SkyLayout from "../layouts/SkyLayout.astro";
-
-// TEMP: courtyard state wiring is paused while we switch to image base.
-// If you want state logic back, we’ll reintroduce it cleanly later.
 ---
 
 <SkyLayout title="Courtyard" bg="sky" class="courtyard">
-  <div class="courtyard-scene">
-    <div class="courtyard-image" aria-hidden="true"></div>
-    <div class="courtyard-veil" aria-hidden="true"></div>
-  </div>
-
   <style>
-    .courtyard-scene{
-      position: relative;
-      width: min(1100px, 94vw);
-      height: min(70vh, 720px);
-      margin: 0 auto;
-      border-radius: 18px;
-      overflow: hidden;
-    }
+   .courtyard-scene{
+  position: relative;
+  width: min(1100px, 94vw);
+  height: min(70vh, 720px);
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+}
 
-    .courtyard-image{
-      position: absolute;
-      inset: 0;
-      background: url("/images/courtyard/courtyard-base.jpg") center bottom / cover no-repeat;
-      filter: saturate(0.95) contrast(1.05);
-    }
+/* CSS-built courtyard scene (no photo) */
+.courtyard-scene{
+  position: relative;
+  width: min(1100px, 94vw);
+  height: min(70vh, 720px);
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 28px 90px rgba(0,0,0,.35);
+  background:
+    /* sky */
+    radial-gradient(1400px 900px at 55% 10%, rgba(255,180,210,.28), rgba(0,0,0,0)),
+    radial-gradient(1200px 800px at 15% 20%, rgba(170,210,255,.18), rgba(0,0,0,0)),
+    linear-gradient(180deg, rgba(120,95,150,.95) 0%, rgba(120,95,150,.92) 36%, rgba(65,55,85,.96) 100%);
+}
 
-    .courtyard-veil{
+/* the soft “rainbow band” */
+.courtyard-scene::before{
+  content:"";
+  position:absolute;
+  left:-20%;
+  top: 18%;
+  width: 140%;
+  height: 22%;
+  pointer-events:none;
+  background: linear-gradient(90deg,
+    rgba(150,235,210,.18),
+    rgba(255,255,255,.08),
+    rgba(255,220,170,.18)
+  );
+  filter: blur(18px);
+  opacity: .65;
+  transform: rotate(-3deg);
+}
+
+/* horizon / walls */
+.courtyard-scene::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  pointer-events:none;
+  background:
+    /* back wall */
+    linear-gradient(180deg,
+      rgba(0,0,0,0) 46%,
+      rgba(40,35,55,.65) 46.5%,
+      rgba(40,35,55,.72) 60%,
+      rgba(0,0,0,0) 60.2%
+    ),
+    /* floor fade */
+    linear-gradient(180deg,
+      rgba(0,0,0,0) 55%,
+      rgba(0,0,0,.10) 72%,
+      rgba(0,0,0,.28) 100%
+    );
+  opacity: .95;
+}
+
+/* pool ellipse */
+.pool{
+  position:absolute;
+  left: 62%;
+  top: 66%;
+  width: min(320px, 46%);
+  height: min(120px, 18%);
+  transform: translate(-50%,-50%);
+  border-radius: 999px;
+  background:
+    radial-gradient(55% 70% at 50% 40%,
+      rgba(0,0,0,.50),
+      rgba(0,0,0,.10) 55%,
+      rgba(0,0,0,0) 72%
+    );
+  box-shadow:
+    inset 0 0 0 2px rgba(255,255,255,.05),
+    0 30px 90px rgba(0,0,0,.35);
+  filter: blur(.2px);
+  opacity: .85;
+  pointer-events:none;
+}
+
+.courtyard-veil{
+  position:absolute;
+  inset: 0;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 50% 36%, rgba(255,255,255,0.10), rgba(0,0,0,0)),
+    radial-gradient(900px 520px at 50% 72%, rgba(255,205,140,0.07), rgba(0,0,0,0)),
+    linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(0,0,0,0.62));
+  opacity: .95;
+}
+
+  .pulse{
+  position:absolute;
+  z-index: 4;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  pointer-events:none;
+  opacity: .65;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(255,255,255,.85),
+      rgba(255,205,140,.25) 28%,
+      rgba(255,205,140,0) 62%
+    );
+  filter: blur(.2px);
+  animation: pulse 3.6s ease-in-out infinite;
+}
+
+.pulse::after{
+  content:"";
+  position:absolute;
+  inset: -18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,205,140,.22);
+  animation: ring 3.6s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%   { transform: scale(.92); opacity: .40; }
+  55%  { transform: scale(1.08); opacity: .78; }
+  100% { transform: scale(.92); opacity: .40; }
+}
+
+@keyframes ring{
+  0%   { transform: scale(.85); opacity: .0; }
+  40%  { opacity: .45; }
+  100% { transform: scale(1.30); opacity: .0; }
+}
+
+/* Position these to match your click targets */
+.p-door{ left: 17%; top: 55%; }
+.p-note{ left: 70%; top: 60%; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .pulse, .pulse::after{ animation: none; }
+}
+
+    /* Click targets */
+    .hot{
       position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(900px 520px at 50% 40%, rgba(0,0,0,0.00), rgba(0,0,0,0.38)),
-        linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(0,0,0,0.55));
-      pointer-events: none;
+      z-index: 5;
+      display: block;
+      border-radius: 14px;
+      background: transparent;
+    }
+    .hot.door{
+      left: 4%;
+      top: 18%;
+      width: 26%;
+      height: 62%;
+    }
+    .hot.note{
+      right: 4%;
+      bottom: 10%;
+      width: 32%;
+      height: 52%;
+    }
+    .hot:focus{
+      outline: 2px solid rgba(255,205,140,.55);
+      outline-offset: 4px;
     }
 
     nav{
@@ -46,6 +188,17 @@ import SkyLayout from "../layouts/SkyLayout.astro";
       margin: 0 .75rem;
     }
   </style>
+
+   <div class="courtyard-scene" aria-label="Courtyard">
+  <div class="pool" aria-hidden="true"></div>
+ <div class="courtyard-veil" aria-hidden="true"></div>
+<div class="pulse p-door" aria-hidden="true"></div>
+<div class="pulse p-note" aria-hidden="true"></div>
+
+    <!-- Courtyard → Arrivals -->
+    <a class="hot door" href="/track/mrs" aria-label="A Door"></a>
+    <a class="hot note" href="/track/adam" aria-label="A Note"></a>
+  </div>
 
   <nav>
     <a class="enter" href="/orientation">orientation</a>
@@ -59,4 +212,3 @@ import SkyLayout from "../layouts/SkyLayout.astro";
     <a class="enter" href="/edge">exit</a>
   </nav>
 </SkyLayout>
-
