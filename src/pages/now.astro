@@ -100,36 +100,72 @@ const showLine = mode === "live" && renderedLine.trim().length > 0;
 </style>
 
 <SkyLayout title="Now" bg="sky" class="now">
-  {isDark ? (
-    <section class="card gold-edge">
-      <h1 class="sr-only">Now</h1>
-      <p class="status">System in dark mode.</p>
-      <p class="ambient">Surface view is intentionally reduced.</p>
-      <nav style="margin-top:1.25rem;">
-        <a class="enter" href="/courtyard/">courtyard</a>
-        <span style="opacity:.45;margin:0 .75rem;">•</span>
-        <a class="enter" href="/discovery/">discovery</a>
-        <span style="opacity:.45;margin:0 .75rem;">•</span>
-        <a class="enter" href="/edge/">exit</a>
-      </nav>
-    </section>
-  ) : (
-    <section class="card gold-edge">
-      <h1 class="sr-only">Now</h1>
+          <section class="now-status">
+  <div class="status-inner">
+    <div class="k">Status</div>
+    <p class="line">
+      System stabilizing. Courtyard live. Track gates active. Rooms in progress.
+    </p>
+    <div class="meta">
+     Updated · Feb 17, 2026
+    </div>
+  </div>
+</section>
 
-      {showLine ? (
-        <p class="status">{renderedLine}</p>
-      ) : (
-        <p class="faint"> </p>
-      )}
+<style>
+  .now-status{
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,.08);
+    opacity: .85;
+  }
 
-      <nav style="margin-top:1.25rem;">
-        <a class="enter" href="/courtyard/">courtyard</a>
-        <span style="opacity:.45;margin:0 .75rem;">•</span>
-        <a class="enter" href="/discovery/">discovery</a>
-        <span style="opacity:.45;margin:0 .75rem;">•</span>
-        <a class="enter" href="/edge/">exit</a>
-      </nav>
+  .status-inner{
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .k{
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    opacity: .6;
+    margin-bottom: .5rem;
+  }
+
+  .line{
+    margin: 0 0 .75rem;
+    font-size: 14px;
+    color: rgba(255,255,255,.85);
+  }
+
+  .meta{
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .5;
+  }
+
+  .map-back{
+    display:inline-block;
+    margin-top: 18px;
+    opacity:.7;
+    text-decoration:none;
+  }
+  .map-back:hover{
+    opacity:1;
+  }
+</style>
+
+<a href="/" class="map-back" aria-label="Map">✦ map</a>
+
+
+<nav style="margin-top:1.25rem;">
+  <a class="enter" href="/courtyard/">courtyard</a>
+  <span style="opacity:.45;margin:0 .75rem;">•</span>
+  <a class="enter" href="/discovery/">discovery</a>
+  <span style="opacity:.45;margin:0 .75rem;">•</span>
+  <a class="enter" href="/edge/">exit</a>
+</nav>
     </section>
-  )}
 </SkyLayout>

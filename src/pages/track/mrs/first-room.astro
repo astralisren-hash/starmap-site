@@ -1,0 +1,431 @@
+---
+import SkyLayout from "../../../layouts/SkyLayout.astro";
+---
+
+<SkyLayout title="Mrs · First room" bg="sky">
+  <style>
+    :root{
+      --ink: rgba(255,255,255,.90);
+      --mist: rgba(255,255,255,.70);
+      --faint: rgba(255,255,255,.45);
+      --edge: rgba(255,255,255,.12);
+
+      --candle: rgba(255,205,140,.38);
+      --candle2: rgba(255,205,140,.16);
+
+      --moss: rgba(120, 170, 120, .20);
+      --moss2: rgba(120, 170, 120, .10);
+    }
+
+    .room{
+      position: relative;
+      width: min(1100px, 94vw);
+      margin: 0 auto;
+      padding: 24px;
+      border-radius: 18px;
+      overflow: hidden;
+
+      background:
+        radial-gradient(1100px 700px at 50% 25%, rgba(255,255,255,.06), rgba(0,0,0,.88)),
+        radial-gradient(700px 360px at 50% 68%, var(--candle2), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,.30), rgba(0,0,0,.78));
+
+      box-shadow:
+        inset 0 0 160px rgba(0,0,0,.55),
+        inset 0 0 60px rgba(0,0,0,.25),
+        0 28px 90px rgba(0,0,0,.35);
+    }
+
+    /* garden/moss threshold band */
+    .room::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height: min(24vh, 220px);
+      pointer-events:none;
+      background:
+        radial-gradient(700px 220px at 50% 0%, var(--moss), rgba(0,0,0,0)),
+        radial-gradient(900px 260px at 50% 30%, rgba(0,0,0,.15), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.50));
+      opacity:.9;
+    }
+
+    .top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom: 18px;
+    }
+
+    .title{
+      margin:0;
+      font-size: 28px;
+      letter-spacing: .01em;
+      color: var(--ink);
+    }
+
+    .subtitle{
+      margin:6px 0 0;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--mist);
+      max-width: 62ch;
+    }
+
+    .nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+      opacity:.75;
+      font-size: 12px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+    }
+    .nav a{ color: var(--mist); text-decoration:none; }
+    .nav a:hover{ color: var(--ink); }
+    .dot{ opacity:.45; }
+
+    .scene{
+      position: relative;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--edge);
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .threshold{
+      position: relative;
+      height: 220px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      overflow:hidden;
+
+      background:
+        radial-gradient(800px 380px at 50% 80%, rgba(255,255,255,.06), rgba(0,0,0,0)),
+        radial-gradient(520px 240px at 50% 65%, rgba(255,205,140,.10), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.72));
+      box-shadow:
+        inset 0 0 70px rgba(0,0,0,.45),
+        0 18px 60px rgba(0,0,0,.28);
+    }
+
+    /* minimal “door seam” + glow */
+    .threshold::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:10%;
+      transform: translateX(-50%);
+      width: min(520px, 92%);
+      height: 190px;
+      border-top-left-radius: 999px;
+      border-top-right-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-bottom: 0;
+      background:
+        radial-gradient(700px 320px at 50% 85%, rgba(255,205,140,.10), rgba(0,0,0,0));
+      box-shadow:
+        0 0 40px rgba(255,205,140,.12),
+        0 26px 80px rgba(0,0,0,.35);
+      opacity:.85;
+    }
+
+    .threshold .step{
+      position:absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      width: min(760px, 92%);
+      height: 70px;
+      border-radius: 14px;
+      background:
+        radial-gradient(600px 90px at 50% 0%, rgba(255,205,140,.12), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.55));
+      border: 1px solid rgba(255,255,255,.10);
+      opacity:.75;
+    }
+
+    .table-wrap{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 16px;
+    }
+    @media (max-width: 860px){
+      .table-wrap{ grid-template-columns: 1fr; }
+      .nav{ justify-content:flex-start; }
+    }
+
+    .table{
+      position: relative;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      overflow:hidden;
+      background:
+        radial-gradient(520px 240px at 50% 30%, rgba(255,205,140,.12), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.62));
+      box-shadow:
+        inset 0 0 26px rgba(255,205,140,.06),
+        inset 0 0 120px rgba(0,0,0,.35);
+      padding: 14px;
+      min-height: 220px;
+    }
+
+    /* wood suggestion (no stripes): soft grain via layered shadows */
+    .wood{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(900px 420px at 50% 10%, rgba(255,255,255,.04), rgba(0,0,0,0)),
+        radial-gradient(520px 220px at 20% 60%, rgba(255,205,140,.10), rgba(0,0,0,0)),
+        radial-gradient(520px 220px at 80% 60%, rgba(255,205,140,.08), rgba(0,0,0,0));
+      opacity:.85;
+    }
+
+    .table h2{
+      margin: 0 0 10px;
+      font-size: 14px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+
+    .table-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+
+    .label{ color: var(--mist); font-size: 13px; }
+    .value{ color: var(--ink); font-size: 13px; }
+
+    .notes{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      padding: 14px;
+      min-height: 220px;
+      backdrop-filter: blur(10px);
+    }
+    .notes h2{
+      margin: 0 0 10px;
+      font-size: 14px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+    .notes p{
+      margin: 0 0 10px;
+      color: var(--mist);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      color: var(--ink);
+      opacity: .92;
+    }
+    .cta:hover{ opacity: 1; background: rgba(255,255,255,.08); }
+  </style>
+
+  <div class="room">
+    <div class="top">
+      <div>
+        <h1 class="title">First room</h1>
+        <p class="subtitle">
+          Quiet sky. Warm table. A threshold that feels garden-close.
+        </p>
+      </div>
+
+      <div class="nav">
+        <a href="/track/mrs/arrival">arrival</a>
+        <span class="dot">•</span>
+        <a href="/track/mrs/doorway">doorway</a>
+        <span class="dot">•</span>
+        <a href="/walk">walk</a>
+        <span class="dot">•</span>
+        <a href="/edge">exit</a>
+      </div>
+    </div>
+
+    <div class="scene">
+      <div class="threshold" aria-label="Threshold">
+        <div class="step" aria-hidden="true"></div>
+      </div>
+
+      <div class="table-wrap">
+        <section class="table" aria-label="Table">
+          <div class="wood" aria-hidden="true"></div>
+          <h2>Table</h2>
+
+     <div class="table-grid">
+  <div class="row"><span class="label">Energy</span><span class="value" id="vEnergy">—</span></div>
+  <div class="row"><span class="label">Activation</span><span class="value" id="vActivation">—</span></div>
+  <div class="row"><span class="label">Social load</span><span class="value" id="vSocial">—</span></div>
+
+  <div class="row"><span class="label">Snapshot</span><span class="value" id="vSnapshot">—</span></div>
+  <div class="row"><span class="label">Pattern</span><span class="value" id="vPattern">—</span></div>
+  <div class="row"><span class="label">Last mark</span><span class="value" id="vWhen">—</span></div>
+</div>
+
+          <div style="margin-top:12px;">
+            <a class="cta" href="/track/mrs/room-v2">enter room v2</a>
+          </div>
+        </section>
+
+        <section class="notes" aria-label="Notes">
+          <h2>Notes</h2>
+          <p id="noteLine">If nothing is entered, nothing is wrong.</p>
+          <p style="opacity:.65;font-size:12px;letter-spacing:.04em;">
+            This page reads the last saved state from Room v2 (local to this device).
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+   function snapshot(e, a, s) {
+  if (e < 4 && a > 6) return "compressed";
+  if (e > 6 && a < 4) return "stable";
+  if (s > 7) return "loaded";
+  return "balanced";
+}
+
+function patternFromHistory() {
+  const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
+  if (history.length < 3) return "forming";
+
+  const last = history.slice(-5);
+  const avg = (k) => last.reduce((sum, h) => sum + Number(h[k] ?? 0), 0) / last.length;
+
+  const e = avg("e"), a = avg("a"), s = avg("s");
+
+  if (e < 4 && a > 6) return "compressed";
+  if (e > 6 && a < 5) return "resourced";
+  if (s > 7) return "external";
+
+  const spread = (k) => Math.max(...last.map(h => Number(h[k] ?? 0))) -
+                        Math.min(...last.map(h => Number(h[k] ?? 0)));
+
+  if (spread("a") >= 5 || spread("s") >= 5) return "fluctuating";
+  if (spread("e") <= 2 && spread("a") <= 2 && spread("s") <= 2) return "steady";
+
+  return "mixed";
+}
+
+function whenText(ts) {
+  if (!ts) return "—";
+  const d = new Date(ts);
+  return d.toLocaleString([], {
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
+function loadLastMrsState() {
+      const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
+      const last = history.at?.(-1) ?? history[history.length - 1];
+      if (!last) return null;
+      return { e: Number(last.e), a: Number(last.a), s: Number(last.s), date: Number(last.date || 0) };
+    }
+
+    function desc(e, a, s) {
+      if (e < 4 && a > 6) return "Low energy + high activation. Keep the doorway wide.";
+      if (s > 7) return "High social load. Reduce external input.";
+      if (e > 6 && a < 4) return "Stable and resourced. Proceed gently.";
+      return "Balanced. Small moves.";
+    }
+
+   function snapshot(e, a, s) {
+  if (e < 4 && a > 6) return "compressed";
+  if (e > 6 && a < 4) return "stable";
+  if (s > 7) return "loaded";
+  return "balanced";
+}
+
+function patternFromHistory() {
+  const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
+  if (history.length < 3) return "forming";
+
+  const last = history.slice(-5);
+  const avg = (k) => last.reduce((sum, h) => sum + Number(h[k] ?? 0), 0) / last.length;
+
+  const e = avg("e"), a = avg("a"), s = avg("s");
+  if (e < 4 && a > 6) return "compressed";
+  if (e > 6 && a < 5) return "resourced";
+  if (s > 7) return "external";
+
+  const spread = (k) => Math.max(...last.map(h => Number(h[k] ?? 0))) - Math.min(...last.map(h => Number(h[k] ?? 0)));
+  const eVar = spread("e"), aVar = spread("a"), sVar = spread("s");
+  if (aVar >= 5 || sVar >= 5) return "fluctuating";
+  if (eVar <= 2 && aVar <= 2 && sVar <= 2) return "steady";
+  return "mixed";
+}
+
+function whenText(ts) {
+  if (!ts) return "—";
+  const d = new Date(ts);
+  return d.toLocaleString([], { month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+}
+
+    const st = loadLastMrsState();
+    const vE = document.getElementById("vEnergy");
+    const vA = document.getElementById("vActivation");
+    const vS = document.getElementById("vSocial");
+    const vSnap = document.getElementById("vSnapshot");
+    const vPat  = document.getElementById("vPattern");
+    const vWhen = document.getElementById("vWhen");
+    const vSnap = document.getElementById("vSnapshot");
+const vPat  = document.getElementById("vPattern");
+const vWhen = document.getElementById("vWhen");
+    const noteLine = document.getElementById("noteLine");
+
+if (!st) {
+  vE.textContent = "—";
+  vA.textContent = "—";
+  vS.textContent = "—";
+  vSnap.textContent = "—";
+  vPat.textContent = "forming";
+  vWhen.textContent = "—";
+  noteLine.textContent = "No Room v2 state saved yet.";
+} else {
+  vE.textContent = String(st.e);
+  vA.textContent = String(st.a);
+  vS.textContent = String(st.s);
+
+  vSnap.textContent = snapshot(st.e, st.a, st.s);
+  vPat.textContent  = patternFromHistory();
+  vWhen.textContent = whenText(st.date);
+
+  noteLine.textContent = desc(st.e, st.a, st.s);
+}
+  </script>
+</SkyLayout>

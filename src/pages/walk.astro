@@ -2,27 +2,169 @@
 import SkyLayout from "../layouts/SkyLayout.astro";
 ---
 
-<SkyLayout title="The Walk" bg="sky" class="walk">
-  <section class="card gold-edge">
-    <h1 class="sr-only">The Walk</h1>
+<SkyLayout title="Walk" bg="sky">
+  <style>
+    .walk{
+      width: min(1100px, 94vw);
+      margin: 0 auto;
+      padding: 24px;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
 
-    <p class="ambient">Notice what stays when nothing is asked.</p>
-    <p class="ambient">Walk until something loosens.</p>
-    <p class="ambient">You do not need to name this.</p>
+      background:
+        radial-gradient(1200px 700px at 50% 18%, rgba(255,255,255,.06), rgba(0,0,0,.90)),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.78));
+      box-shadow:
+        inset 0 0 160px rgba(0,0,0,.55),
+        inset 0 0 60px rgba(0,0,0,.25),
+        0 28px 90px rgba(0,0,0,.35);
+    }
+     /* subtle motion sweep */
+.walk::after{
+  content:"";
+  position:absolute;
+  inset: -20%;
+  pointer-events:none;
+  background:
+    radial-gradient(520px 220px at 20% 40%, rgba(255,205,140,.10), rgba(0,0,0,0)),
+    radial-gradient(520px 220px at 80% 60%, rgba(255,255,255,.06), rgba(0,0,0,0));
+  opacity:.55;
+  filter: blur(18px);
+  animation: drift-sweep 90s ease-in-out infinite;
+}
 
-    <div style="margin-top:1.25rem;">
-      <a class="enter" href="/track/mrs/arrival/">a door</a>
-<span style="opacity:0.45; margin:0 0.75rem;">•</span>
-  <a class="enter" href="/track/adam/arrival/">a note</a>
+@keyframes drift-sweep{
+  0%   { transform: translate(-2%, -1%) scale(1); }
+  50%  { transform: translate(2%, 1%) scale(1.02); }
+  100% { transform: translate(-2%, -1%) scale(1); }
+}
+
+    /* path */
+    .walk::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top: 10%;
+      transform: translateX(-50%);
+      width: min(520px, 86vw);
+      height: 78%;
+      border-radius: 999px;
+      background:
+        radial-gradient(520px 260px at 50% 30%, rgba(255,205,140,.08), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.35));
+      border: 1px solid rgba(255,255,255,.10);
+      opacity:.8;
+      pointer-events:none;
+      filter: blur(.1px);
+    }
+
+    .top{
+      position: relative;
+      z-index: 1;
+      display:flex;
+      justify-content:space-between;
+      gap: 16px;
+      align-items:flex-start;
+      margin-bottom: 18px;
+    }
+
+    h1{ margin:0; font-size:28px; color: rgba(255,255,255,.90); }
+    .sub{ margin:6px 0 0; color: rgba(255,255,255,.70); font-size:13px; line-height:1.5; max-width:68ch; }
+
+    .stones{
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 12px;
+      max-width: 680px;
+      margin: 18px auto 0;
+      padding: 10px;
+    }
+
+    .stone{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 12px;
+
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 18px 60px rgba(0,0,0,.22);
+      backdrop-filter: blur(10px);
+
+      text-decoration:none;
+      color: rgba(255,255,255,.88);
+    }
+    .stone:hover{ background: rgba(0,0,0,.24); }
+
+    .meta{
+      font-size: 12px;
+      opacity: .65;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .nav{
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      text-align: center;
+      opacity: .65;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .nav a{ text-decoration:none; }
+    .dot{ opacity:.45; margin:0 .75rem; }
+  </style>
+
+  <div class="walk">
+    <div class="top">
+      <div>
+        <h1>Walk</h1>
+        <p class="sub">A quiet line through the field. Choose a stone. No further meaning required.</p>
+      </div>
+      <div class="meta">wayfinding</div>
     </div>
-<nav style="margin-top:1.25rem;">
-  <a class="enter" href="/courtyard">courtyard</a>
-  <span style="opacity:0.45; margin:0 0.75rem;">•</span>
-  <a class="enter" href="/now">now</a>
-  <span style="opacity:0.45; margin:0 0.75rem;">•</span>
-  <a class="enter" href="/discovery">discovery</a>
-  <span style="opacity:0.45; margin:0 0.75rem;">•</span>
-  <a class="enter" href="/edge">exit</a>
-</nav>
-  </section>
+
+    <div class="stones">
+      <a class="stone" href="/courtyard">
+        <span>Courtyard</span><span class="meta">return</span>
+      </a>
+
+      <a class="stone" href="/discovery">
+        <span>Discovery</span><span class="meta">questions</span>
+      </a>
+
+      <a class="stone" href="/now">
+        <span>Now</span><span class="meta">status</span>
+      </a>
+
+<a class="stone" href="/track/adam">
+  <span>A Note</span><span class="meta">open</span>
+</a>
+
+<a class="stone" href="/track/mrs">
+  <span>A Door</span><span class="meta">open</span>
+</a>
+
+<a class="stone" href="/track/paul">
+  <span>A Coin</span><span class="meta">open</span>
+</a>
+
+      <a class="stone" href="/edge">
+        <span>Exit</span><span class="meta">edge</span>
+      </a>
+    </div>
+
+    <div class="nav">
+      <a href="/orientation">orientation</a>
+      <span class="dot">•</span>
+      <a href="/library">library</a>
+    </div>
+  </div>
 </SkyLayout>

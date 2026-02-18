@@ -2,276 +2,573 @@
 import SkyLayout from "../../../layouts/SkyLayout.astro";
 ---
 
-<SkyLayout title="Mrs · Room" bg="sky">
+<SkyLayout title="Mrs · Room v2" bg="sky">
+  <style>
+    :root{
+      --ink: rgba(255,255,255,.90);
+      --mist: rgba(255,255,255,.70);
+      --edge: rgba(255,255,255,.12);
 
-<style>
-  :root { --energy: 5; --activation: 5; --social: 5; }
+      --candle: rgba(255,205,140,.30);
+      --candle2: rgba(255,205,140,.14);
 
-  .mrs-room{
-    min-height: 70vh;
-    padding: 24px;
-    border-radius: 16px;
+      --moss: rgba(120, 170, 120, .20);
+      --moss2: rgba(120, 170, 120, .10);
+    }
 
-    /* keep the quiet compression look */
-    background:
-      radial-gradient(1200px 600px at 50% 35%,
-        rgba(255,255,255,0.06),
-        rgba(0,0,0,0.92)
-      );
-    box-shadow:
-      inset 0 0 140px rgba(0,0,0,0.45),
-      inset 0 0 60px rgba(0,0,0,0.25);
+    .room{
+      position:relative;
+      width:min(1120px, 94vw);
+      margin:0 auto;
+      padding:24px;
+      border-radius:18px;
+      overflow:hidden;
 
-    transition: filter 4s ease;
-    filter:
-      contrast(calc(1 - (var(--activation) * 0.04)))
-      brightness(calc(0.85 + (var(--energy) * 0.02)));
-  }
+      background:
+        radial-gradient(1200px 700px at 50% 24%, rgba(255,255,255,.06), rgba(0,0,0,.90)),
+        radial-gradient(760px 420px at 50% 72%, var(--candle2), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,.24), rgba(0,0,0,.76));
 
-  /* hard-center the arch regardless of screen/layout */
-  .mrs-room .arch{
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+      box-shadow:
+        inset 0 0 160px rgba(0,0,0,.55),
+        inset 0 0 60px rgba(0,0,0,.25),
+        0 28px 90px rgba(0,0,0,.35);
+    }
 
-    width: min(560px, 92vw);
-    height: 300px;
-    margin: 18px 0 20px;
+    /* garden threshold band */
+    .room::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:min(26vh, 240px);
+      pointer-events:none;
+      background:
+        radial-gradient(720px 240px at 50% 0%, var(--moss), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.55));
+      opacity:.95;
+    }
 
-    border: 1px solid rgba(255,255,255,0.18);
-    border-bottom: 0;
-    border-top-left-radius: 999px;
-    border-top-right-radius: 999px;
+    .top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom: 18px;
+    }
 
-    background:
-      radial-gradient(800px 400px at 50% 80%,
-        rgba(255,205,140,0.08),
-        rgba(0,0,0,0)
-      );
+    .title{ margin:0; font-size:28px; color:var(--ink); }
+    .sub{ margin:6px 0 0; font-size:13px; line-height:1.5; color:var(--mist); max-width:68ch; }
 
-    transform-origin: center bottom;
-    animation: breathe 90s infinite ease-in-out;
-    opacity: calc(0.55 + (var(--energy) * 0.04));
-    box-shadow:
-      0 24px 80px rgba(0,0,0,0.35),
-      0 0 calc(20px + (var(--energy) * 6px)) rgba(255,205,140,0.18);
-  }
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap;
+      justify-content:flex-end; align-items:center;
+      opacity:.72; font-size:12px; letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .nav a{ color:var(--mist); text-decoration:none; }
+    .nav a:hover{ color:var(--ink); }
+    .dot{ opacity:.45; }
 
-  .mrs-room .door{
-    width: clamp(54px, 12vw, 90px);
-    height: 180px;
-    margin: 0 auto 28px;
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      position:relative;
+      z-index:1;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns:1fr; }
+      .nav{ justify-content:flex-start; }
+    }
 
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
+    .panel{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.16);
+      box-shadow: 0 18px 55px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
 
-    background: linear-gradient(
-      to bottom,
-      rgba(255,205,140,0.08),
-      rgba(0,0,0,0)
+    /* Interior scene (paintable pieces) */
+    .scene{
+      position:relative;
+      min-height: 520px;
+      padding: 16px;
+      background:
+        radial-gradient(900px 520px at 50% 30%, rgba(255,255,255,.05), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.62));
+    }
+
+    /* --- Wall Light Layer --- */
+.scene::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    /* cool sky wash (upper left) */
+    radial-gradient(900px 500px at 22% 18%,
+      rgba(140,170,200,.08),
+      rgba(0,0,0,0) 60%
+    ),
+
+    /* candle bounce (center right) */
+    radial-gradient(600px 420px at 70% 40%,
+      rgba(255,205,140,.12),
+      rgba(0,0,0,0) 65%
+    ),
+
+    /* vertical wall depth */
+    linear-gradient(90deg,
+      rgba(0,0,0,.25),
+      rgba(0,0,0,0) 35%,
+      rgba(0,0,0,0) 65%,
+      rgba(0,0,0,.35)
     );
 
-    box-shadow:
-      0 0 30px rgba(255,205,140,0.06),
-      inset 0 0 20px rgba(255,255,255,0.03),
-      inset 0 -20px 40px rgba(255,205,140,0.04);
+  opacity:.85;
+}
 
-    transition: transform 10s ease, opacity 10s ease;
-    transform-origin: center bottom;
+    /* “stone floor” suggestion (soft, not striped) */
+    .floor{
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height: 44%;
+      background:
+        radial-gradient(700px 260px at 50% 0%, rgba(255,255,255,.05), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.58));
+      border-top: 1px solid rgba(255,255,255,.10);
+      opacity:.9;
+    }
 
-    /* narrowing on activation + social load */
-    transform: scaleX(calc(1 - (var(--activation) * 0.008) - (var(--social) * 0.01)));
-    opacity: calc(1 - (var(--activation) * 0.02));
-  }
+    /* “old wood table” zone */
+    .table{
+      position:absolute;
+      left: 50%;
+      bottom: 18%;
+      transform: translateX(-50%);
+      width: min(520px, 92%);
+      height: 120px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(520px 220px at 50% 0%, rgba(255,205,140,.14), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,.14), rgba(0,0,0,.58));
+      box-shadow:
+        inset 0 0 26px rgba(255,205,140,.06),
+        0 24px 80px rgba(0,0,0,.35);
+    }
 
-  .dial-panel{
-    max-width: 520px;
-    margin: 0 auto;
-    display: grid;
-    gap: 10px;
-    color: rgba(255,255,255,0.85);
-  }
+    .table::before{
+      content:"";
+      position:absolute;
+      inset: 10px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(540px 180px at 50% 30%, rgba(255,255,255,.04), rgba(0,0,0,0));
+      opacity:.85;
+    }
 
-  .snapshot{
-    max-width: 520px;
-    margin: 14px auto 0;
-    color: rgba(255,255,255,0.85);
-    font-size: 16px;
-  }
+    /* candle pool */
+    .candle{
+      position:absolute;
+      left: 50%;
+      bottom: calc(18% + 86px);
+      transform: translateX(-50%);
+      width: 18px;
+      height: 36px;
+      border-radius: 10px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      box-shadow:
+        0 0 38px rgba(255,205,140,.26),
+        0 0 120px rgba(255,205,140,.16),
+        0 18px 70px rgba(0,0,0,.40);
+      opacity:.95;
+    }
 
-  .pattern-line{
-    max-width: 520px;
-    margin: 10px auto 0;
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    opacity: 0.45;
-    text-align: center;
-    transition: opacity 0.6s ease;
-    color: rgba(255,255,255,0.75);
-  }
+    .candle::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top: 22px;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 180px;
+  border-radius: 999px;
+  background:
+    radial-gradient(60% 60% at 50% 50%,
+      rgba(255,205,140,.14),
+      rgba(255,205,140,0)
+    );
+  filter: blur(14px);
+  opacity: .9;
+  pointer-events:none;
+}
 
-  .status-strip{
-    margin-top: 18px;
-    display: flex;
-    justify-content: center;
-    gap: 28px;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0;
-    transition: opacity 1.2s ease;
-    font-family: system-ui, sans-serif;
-    pointer-events: none;
-    color: rgba(255,255,255,0.75);
-  }
+    .candle::after{
+      content:"";
+      position:absolute;
+      left:50%; top:-10px;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 12px;
+      border-radius: 10px 10px 12px 12px;
+      background: rgba(255,205,140,.34);
+      filter: blur(.2px);
+      opacity:.9;
+      animation: flicker 4.5s infinite ease-in-out;
+    }
+    @keyframes flicker{
+      0%{ transform: translateX(-50%) scale(1); opacity:.85; }
+      50%{ transform: translateX(-50%) scale(1.06); opacity:.95; }
+      100%{ transform: translateX(-50%) scale(1); opacity:.88; }
+    }
 
-  .status-strip.visible{ opacity: 0.55; }
+     /* table objects */
+.table{ position:absolute; } /* keep your existing table styles; add children support */
+.table .paper,
+.table .bowl,
+.table .cup{
+  position:absolute;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  box-shadow:
+    0 10px 40px rgba(0,0,0,.35),
+    0 0 40px rgba(255,205,140,.08);
+  opacity:.92;
+}
 
-  @keyframes breathe{
-    0% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.01); }
-    100% { transform: translateX(-50%) scale(1); }
-  }
-</style>
+.table .shadow-pool{
+  position:absolute;
+  left: 40%;
+  top: 54%;
+  width: 46%;
+  height: 38%;
+  transform: translateX(-10%);
+  border-radius: 999px;
+  background:
+    radial-gradient(60% 60% at 50% 50%,
+      rgba(0,0,0,.55),
+      rgba(0,0,0,0)
+    );
+  filter: blur(10px);
+  opacity: .65;
+  pointer-events:none;
+}
 
-  <div class="mrs-room">
-    <div class="arch"></div>
-    <div class="door"></div>
+/* paper */
+.table .paper{
+  left: 12%;
+  top: 22%;
+  width: 44%;
+  height: 54%;
+  border-radius: 10px;
+  background:
+    radial-gradient(280px 120px at 40% 35%, rgba(255,255,255,.06), rgba(0,0,0,0)),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+}
 
-    <div class="dial-panel">
-      <label for="energy">Energy</label>
-      <input type="range" id="energy" min="0" max="10" value="5" />
+/* bowl */
+.table .bowl{
+  left: 58%;
+  top: 26%;
+  width: 26%;
+  height: 46%;
+  border-radius: 999px;
+  background:
+    radial-gradient(120px 60px at 50% 30%, rgba(255,205,140,.10), rgba(0,0,0,0)),
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,0));
+  box-shadow:
+    inset 0 0 18px rgba(255,205,140,.08),
+    0 14px 46px rgba(0,0,0,.40);
+}
 
-      <label for="activation">Activation</label>
-      <input type="range" id="activation" min="0" max="10" value="5" />
+/* cup */
+.table .cup{
+  left: 44%;
+  top: 34%;
+  width: 12%;
+  height: 30%;
+  border-radius: 10px 10px 14px 14px;
+  background:
+    radial-gradient(60px 40px at 50% 25%, rgba(255,205,140,.10), rgba(0,0,0,0)),
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,0));
+}
 
-      <label for="social">Social Load</label>
-      <input type="range" id="social" min="0" max="10" value="5" />
+/* lantern (soft frame + glow) */
+.lantern{
+  position:absolute;
+  left: 50%;
+  bottom: calc(18% + 92px);
+  transform: translateX(-50%);
+  width: 34px;
+  height: 52px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background:
+    radial-gradient(40px 36px at 50% 55%, rgba(255,205,140,.12), rgba(0,0,0,0)),
+    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+  box-shadow:
+    0 0 60px rgba(255,205,140,.14),
+    0 22px 70px rgba(0,0,0,.40);
+  opacity:.85;
+}
+.lantern::after{
+  content:"";
+  position:absolute;
+  inset: 10px 9px 12px;
+  border-radius: 10px;
+  background: rgba(255,205,140,.10);
+  box-shadow: 0 0 40px rgba(255,205,140,.12);
+  opacity:.9;
+}
+
+    /* threshold doorway seam */
+    .threshold{
+      position:relative;
+      left:50%;
+      top: 10%;
+      transform: translateX(-50%);
+      width: min(560px, 92%);
+      height: 300px;
+      border-top-left-radius: 999px;
+      border-top-right-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-bottom: 0;
+      background:
+  radial-gradient(800px 380px at 50% 80%,
+    rgba(255,205,140,.10),
+    rgba(0,0,0,0)
+  ),
+  url("/images/garden.png") center/cover no-repeat;
+      box-shadow:
+        0 0 40px rgba(255,205,140,.10),
+        0 26px 90px rgba(0,0,0,.30);
+      opacity:.85;
+      filter: saturate(.95) contrast(1.02) brightness(.92);
+ }
+
+     .threshold::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  border-top-left-radius: 999px;
+  border-top-right-radius: 999px;
+
+  background:
+    radial-gradient(600px 260px at 35% 35%,
+      rgba(255,255,255,.10),
+      rgba(255,255,255,0) 60%
+    ),
+    linear-gradient(135deg,
+      rgba(255,255,255,.06),
+      rgba(0,0,0,0) 55%
+    );
+
+  pointer-events:none;
+  opacity: .70;
+}
+
+    /* Right column: “orientation + notes” */
+    .side{
+      padding: 14px;
+      display:grid;
+      gap: 12px;
+    }
+
+    .card{
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      padding: 12px;
+    }
+
+    .k{
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      opacity: .7;
+      color: var(--mist);
+      margin: 0 0 8px;
+    }
+
+    .row{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      color: var(--mist);
+      font-size: 13px;
+    }
+    .row strong{ color: var(--ink); font-weight: 500; }
+
+    .note{
+      color: var(--mist);
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .cta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      color: var(--ink);
+      opacity: .92;
+    }
+    .btn:hover{ opacity: 1; background: rgba(255,255,255,.08); }
+  </style>
+
+  <div class="room">
+    <div class="top">
+      <div>
+        <h1 class="title">Room v2</h1>
+        <p class="sub">Quiet interior. Warm table light. Garden-threshold at the edge.</p>
+      </div>
+
+      <div class="nav">
+        <a href="/track/mrs/doorway">doorway</a>
+        <span class="dot">•</span>
+        <a href="/track/mrs/arrival">arrival</a>
+        <span class="dot">•</span>
+        <a href="/track/mrs/first-room">first room</a>
+        <span class="dot">•</span>
+        <a href="/walk">walk</a>
+        <span class="dot">•</span>
+        <a href="/edge">exit</a>
+      </div>
     </div>
 
-    <div id="snapshot" class="snapshot"></div>
-    <div id="pattern" class="pattern-line"></div>
+    <div class="grid">
+     <section class="panel scene" aria-label="Interior scene">
+  <div class="threshold" aria-hidden="true"></div>
 
-    <div class="status-strip">
-      <span id="status-energy"></span>
-      <span id="status-activation"></span>
-      <span id="status-social"></span>
+  <div class="candle" aria-hidden="true"></div>
+  <div class="lantern" aria-hidden="true"></div>
+
+  <div class="table" aria-hidden="true">
+    <div class="shadow-pool" aria-hidden="true"></div>
+    <div class="paper" aria-hidden="true"></div>
+    <div class="bowl" aria-hidden="true"></div>
+    <div class="cup" aria-hidden="true"></div>
+  </div>
+
+  <div class="floor" aria-hidden="true"></div>
+</section>
+
+      <aside class="panel side" aria-label="Orientation">
+        <div class="card">
+          <div class="k">Status</div>
+          <div class="row"><span>Energy</span><strong id="vEnergy">—</strong></div>
+          <div class="row"><span>Activation</span><strong id="vActivation">—</strong></div>
+          <div class="row"><span>Social load</span><strong id="vSocial">—</strong></div>
+          <div class="row"><span>Snapshot</span><strong id="vSnapshot">—</strong></div>
+          <div class="row"><span>Pattern</span><strong id="vPattern">—</strong></div>
+          <div class="row"><span>Last mark</span><strong id="vWhen">—</strong></div>
+
+          <div class="cta">
+            <a class="btn" href="/track/mrs/doorway">back to doorway</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="k">Note</div>
+          <p class="note" id="noteLine">If nothing is entered, nothing is wrong.</p>
+        </div>
+      </aside>
     </div>
   </div>
 
   <script type="module">
-    const energy = document.getElementById("energy");
-    const activation = document.getElementById("activation");
-    const social = document.getElementById("social");
-
-    const snapshot = document.getElementById("snapshot");
-    const patternLine = document.getElementById("pattern");
-    const statusStrip = document.querySelector(".status-strip");
-
-    let idleTimer;
-
-    function loadLastState() {
+    function loadLastMrsState() {
       const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
       const last = history.at?.(-1) ?? history[history.length - 1];
       if (!last) return null;
-      return { e: Number(last.e), a: Number(last.a), s: Number(last.s) };
+      return { e: Number(last.e), a: Number(last.a), s: Number(last.s), date: Number(last.date || 0) };
     }
 
-    function saveState(e, a, s) {
+    function snapshot(e, a, s) {
+      if (e < 4 && a > 6) return "compressed";
+      if (e > 6 && a < 4) return "stable";
+      if (s > 7) return "loaded";
+      return "balanced";
+    }
+
+    function patternFromHistory() {
       const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
-      history.push({ date: Date.now(), e, a, s });
-      while (history.length > 200) history.shift();
-      localStorage.setItem("mrsHistory", JSON.stringify(history));
-    }
-
-    function generateSnapshot(e, a, s) {
-      if (e < 4 && a > 6) return "Low energy + high activation. System may feel narrow.";
-      if (e > 6 && a < 4) return "Stable and resourced.";
-      if (s > 7) return "High social load.";
-      return "Balanced but variable.";
-    }
-
-    function generatePattern() {
-      const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
-      if (history.length < 3) return "Pattern: forming.";
+      if (history.length < 3) return "forming";
 
       const last = history.slice(-5);
-      const avg = (key) => last.reduce((sum, h) => sum + Number(h[key] ?? 0), 0) / last.length;
+      const avg = (k) => last.reduce((sum, h) => sum + Number(h[k] ?? 0), 0) / last.length;
 
-      const e = avg("e");
-      const a = avg("a");
-      const s = avg("s");
+      const e = avg("e"), a = avg("a"), s = avg("s");
+      if (e < 4 && a > 6) return "compressed";
+      if (e > 6 && a < 5) return "resourced";
+      if (s > 7) return "external";
 
-      if (e < 4 && a > 6) return "Pattern: compressed and under-resourced.";
-      if (e > 6 && a < 5) return "Pattern: stable and resourced.";
-      if (s > 7) return "Pattern: high external load.";
-
-      const spread = (key) => Math.max(...last.map(h => h[key])) - Math.min(...last.map(h => h[key]));
-      const eVar = spread("e");
-      const aVar = spread("a");
-      const sVar = spread("s");
-
-      if (aVar >= 5 || sVar >= 5) return "Pattern: fluctuating.";
-      if (eVar <= 2 && aVar <= 2 && sVar <= 2) return "Pattern: steady.";
-
-      return "Pattern: mixed.";
+      const spread = (k) => Math.max(...last.map(h => Number(h[k] ?? 0))) - Math.min(...last.map(h => Number(h[k] ?? 0)));
+      if (spread("a") >= 5 || spread("s") >= 5) return "fluctuating";
+      if (spread("e") <= 2 && spread("a") <= 2 && spread("s") <= 2) return "steady";
+      return "mixed";
     }
 
-    function showSignals(ms = 4000) {
-      statusStrip.classList.add("visible");
-      patternLine.classList.add("visible");
-
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => {
-        statusStrip.classList.remove("visible");
-        patternLine.classList.remove("visible");
-      }, ms);
+    function whenText(ts) {
+      if (!ts) return "—";
+      const d = new Date(ts);
+      return d.toLocaleString([], { month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
     }
 
-    function updateRoom() {
-      const e = parseInt(energy.value, 10);
-      const a = parseInt(activation.value, 10);
-      const s = parseInt(social.value, 10);
-
-      document.documentElement.style.setProperty("--energy", e);
-      document.documentElement.style.setProperty("--activation", a);
-      document.documentElement.style.setProperty("--social", s);
-
-      document.getElementById("status-energy").innerText = `Energy ${e}`;
-      document.getElementById("status-activation").innerText = `Activation ${a}`;
-      document.getElementById("status-social").innerText = `Social ${s}`;
-
-      snapshot.innerText = generateSnapshot(e, a, s);
-      saveState(e, a, s);
-
-      patternLine.innerText = generatePattern();
-      showSignals(4000);
+    function desc(e, a, s) {
+      if (e < 4 && a > 6) return "Low energy + high activation. Keep the doorway wide.";
+      if (s > 7) return "High social load. Reduce external input.";
+      if (e > 6 && a < 4) return "Stable and resourced. Proceed gently.";
+      return "Balanced. Small moves.";
     }
 
-    energy.addEventListener("input", updateRoom);
-    activation.addEventListener("input", updateRoom);
-    social.addEventListener("input", updateRoom);
+    const st = loadLastMrsState();
 
-    // Restore last state (A)
-    const last = loadLastState();
-    if (last) {
-      energy.value = String(last.e);
-      activation.value = String(last.a);
-      social.value = String(last.s);
+    const vE = document.getElementById("vEnergy");
+    const vA = document.getElementById("vActivation");
+    const vS = document.getElementById("vSocial");
+    const vSnap = document.getElementById("vSnapshot");
+    const vPat  = document.getElementById("vPattern");
+    const vWhen = document.getElementById("vWhen");
+    const noteLine = document.getElementById("noteLine");
+
+    if (!st) {
+      vE.textContent = "—";
+      vA.textContent = "—";
+      vS.textContent = "—";
+      vSnap.textContent = "—";
+      vPat.textContent  = "forming";
+      vWhen.textContent = "—";
+      noteLine.textContent = "No Doorway state saved yet.";
+    } else {
+      vE.textContent = String(st.e);
+      vA.textContent = String(st.a);
+      vS.textContent = String(st.s);
+      vSnap.textContent = snapshot(st.e, st.a, st.s);
+      vPat.textContent  = patternFromHistory();
+      vWhen.textContent = whenText(st.date);
+      noteLine.textContent = desc(st.e, st.a, st.s);
     }
-
-    updateRoom();
-
-    // Arrival acknowledgement (subtle warm lift, then return)
-    setTimeout(() => {
-      const current = parseInt(energy.value, 10);
-      document.documentElement.style.setProperty("--energy", Math.min(10, current + 1));
-      setTimeout(() => {
-        document.documentElement.style.setProperty("--energy", current);
-      }, 1200);
-    }, 200);
-
-    // Brief initial visibility
-    showSignals(3000);
   </script>
 </SkyLayout>

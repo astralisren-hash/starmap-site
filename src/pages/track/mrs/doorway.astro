@@ -1,0 +1,404 @@
+---
+import SkyLayout from "../../../layouts/SkyLayout.astro";
+---
+
+<SkyLayout title="Mrs · Doorway" bg="sky">
+
+<style>
+  :root { --energy: 5; --activation: 5; --social: 5; }
+
+  .mrs-room{
+    min-height: 70vh;
+    padding: 24px;
+    border-radius: 16px;
+
+    background:
+      radial-gradient(1200px 600px at 50% 35%,
+        rgba(255,255,255,0.06),
+        rgba(0,0,0,0.92)
+      );
+    box-shadow:
+      inset 0 0 140px rgba(0,0,0,0.45),
+      inset 0 0 60px rgba(0,0,0,0.25);
+
+    transition: filter 4s ease;
+    filter:
+      contrast(calc(1 - (var(--activation) * 0.04)))
+      brightness(calc(0.85 + (var(--energy) * 0.02)));
+  }
+
+  .mrs-room .arch{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(560px, 92vw);
+    height: 300px;
+    margin: 18px 0 20px;
+
+    border: 1px solid rgba(255,255,255,0.18);
+    border-bottom: 0;
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+
+    background:
+      radial-gradient(800px 400px at 50% 80%,
+        rgba(255,205,140,0.08),
+        rgba(0,0,0,0)
+      );
+
+    transform-origin: center bottom;
+    animation: breathe 90s infinite ease-in-out;
+    opacity: calc(0.55 + (var(--energy) * 0.04));
+    box-shadow:
+      0 24px 80px rgba(0,0,0,0.35),
+      0 0 calc(20px + (var(--energy) * 6px)) rgba(255,205,140,0.18);
+  }
+
+  .mrs-room .door{
+    width: clamp(54px, 12vw, 90px);
+    height: 180px;
+    margin: 0 auto 28px;
+
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+
+    background: linear-gradient(
+      to bottom,
+      rgba(255,205,140,0.08),
+      rgba(0,0,0,0)
+    );
+
+    box-shadow:
+      0 0 30px rgba(255,205,140,0.06),
+      inset 0 0 20px rgba(255,255,255,0.03),
+      inset 0 -20px 40px rgba(255,205,140,0.04);
+
+    transition: transform 10s ease, opacity 10s ease;
+    transform-origin: center bottom;
+
+    transform: scaleX(calc(1 - (var(--activation) * 0.008) - (var(--social) * 0.01)));
+    opacity: calc(1 - (var(--activation) * 0.02));
+    cursor: pointer;
+  }
+
+   /* threshold decoration (quiet) */
+.mrs-room{
+  position: relative;
+  overflow: hidden;
+}
+
+/* moss at the bottom edge */
+.mrs-room::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height: min(22vh, 210px);
+  pointer-events:none;
+  background:
+    radial-gradient(720px 240px at 50% 0%, rgba(120,170,120,.22), rgba(0,0,0,0)),
+    linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.50));
+  opacity:.95;
+}
+
+/* a stone step under the door */
+.mrs-room .step{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(760px, 92%);
+  height: 72px;
+  margin: -6px 0 6px; /* tucks under the door */
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background:
+    radial-gradient(700px 90px at 50% 0%, rgba(255,205,140,.10), rgba(0,0,0,0)),
+    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.58));
+  opacity:.78;
+}
+
+/* hanging lantern in the arch */
+.mrs-room .lantern{
+  position: absolute;
+  left: 50%;
+  top: 84px;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 54px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background:
+    radial-gradient(40px 36px at 50% 55%, rgba(255,205,140,.12), rgba(0,0,0,0)),
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.60));
+  box-shadow:
+    0 0 70px rgba(255,205,140,.14),
+    0 24px 80px rgba(0,0,0,.40);
+  opacity:.82;
+  pointer-events: none;
+}
+.mrs-room .lantern::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-26px;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 26px;
+  background: rgba(255,255,255,.10);
+  opacity:.8;
+}
+.mrs-room .lantern::after{
+  content:"";
+  position:absolute;
+  inset: 10px 9px 12px;
+  border-radius: 10px;
+  background: rgba(255,205,140,.10);
+  box-shadow: 0 0 44px rgba(255,205,140,.12);
+  opacity:.9;
+}
+
+  /* subtle wood posts framing the arch */
+.mrs-room .arch{
+  position: relative; /* required for posts */
+}
+
+.mrs-room .arch .post{
+  position: absolute;
+  bottom: -6px;              /* sits into the doorway base */
+  width: 18px;
+  height: 250px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+
+  /* warm “old wood” without stripes */
+  background:
+    radial-gradient(22px 120px at 50% 30%, rgba(255,205,140,.10), rgba(0,0,0,0)),
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.45));
+
+  box-shadow:
+    inset 0 0 18px rgba(255,205,140,.06),
+    0 22px 70px rgba(0,0,0,.30);
+
+  opacity: .78;
+  pointer-events: none;
+}
+
+.mrs-room .arch .post-left{ left: 22px; }
+.mrs-room .arch .post-right{ right: 22px; }
+
+  .dial-panel{
+    max-width: 520px;
+    margin: 0 auto;
+    display: grid;
+    gap: 10px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .snapshot{
+    max-width: 520px;
+    margin: 14px auto 0;
+    color: rgba(255,255,255,0.85);
+    font-size: 16px;
+  }
+
+  .pattern-line{
+    max-width: 520px;
+    margin: 10px auto 0;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    opacity: 0.45;
+    text-align: center;
+    transition: opacity 0.6s ease;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .status-strip{
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    font-family: system-ui, sans-serif;
+    pointer-events: none;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .status-strip.visible{ opacity: 0.55; }
+
+  nav{
+    margin-top: 18px;
+    text-align: center;
+    opacity: .65;
+  }
+  nav .dot{ opacity:.45; margin:0 .75rem; }
+  nav a{ text-decoration:none; }
+
+  @keyframes breathe{
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.01); }
+    100% { transform: translateX(-50%) scale(1); }
+  }
+</style>
+
+   <div class="mrs-room">
+   <div class="arch">
+  <div class="post post-left" aria-hidden="true"></div>
+  <div class="post post-right" aria-hidden="true"></div>
+</div>
+
+<div class="lantern" aria-hidden="true"></div>
+<div class="door" id="door" aria-label="Enter"></div>
+<div class="step" aria-hidden="true">
+</div>
+
+  <div class="dial-panel">
+    <label for="energy">Energy</label>
+    <input type="range" id="energy" min="0" max="10" value="5" />
+
+    <label for="activation">Activation</label>
+    <input type="range" id="activation" min="0" max="10" value="5" />
+
+    <label for="social">Social Load</label>
+    <input type="range" id="social" min="0" max="10" value="5" />
+  </div>
+
+  <div id="snapshot" class="snapshot"></div>
+  <div id="pattern" class="pattern-line"></div>
+
+  <div class="status-strip">
+    <span id="status-energy"></span>
+    <span id="status-activation"></span>
+    <span id="status-social"></span>
+  </div>
+
+  <nav>
+    <a href="/track/mrs/arrival">arrival</a>
+    <span class="dot">•</span>
+    <a href="/track/mrs/first-room">first room</a>
+    <span class="dot">•</span>
+    <a href="/walk">walk</a>
+    <span class="dot">•</span>
+    <a href="/edge">exit</a>
+  </nav>
+</div>
+
+<script type="module">
+  const energy = document.getElementById("energy");
+  const activation = document.getElementById("activation");
+  const social = document.getElementById("social");
+
+  const snapshot = document.getElementById("snapshot");
+  const patternLine = document.getElementById("pattern");
+  const statusStrip = document.querySelector(".status-strip");
+
+  const door = document.getElementById("door");
+  door?.addEventListener("click", () => {
+    window.location.href = "/track/mrs/room-v2";
+  });
+
+  let idleTimer;
+
+  function loadLastState() {
+    const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
+    const last = history.at?.(-1) ?? history[history.length - 1];
+    if (!last) return null;
+    return { e: Number(last.e), a: Number(last.a), s: Number(last.s) };
+  }
+
+  function saveState(e, a, s) {
+    const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
+    history.push({ date: Date.now(), e, a, s });
+    while (history.length > 200) history.shift();
+    localStorage.setItem("mrsHistory", JSON.stringify(history));
+  }
+
+  function generateSnapshot(e, a, s) {
+    if (e < 4 && a > 6) return "Low energy + high activation. System may feel narrow.";
+    if (e > 6 && a < 4) return "Stable and resourced.";
+    if (s > 7) return "High social load.";
+    return "Balanced but variable.";
+  }
+
+  function generatePattern() {
+    const history = JSON.parse(localStorage.getItem("mrsHistory")) || [];
+    if (history.length < 3) return "Pattern: forming.";
+
+    const last = history.slice(-5);
+    const avg = (key) => last.reduce((sum, h) => sum + Number(h[key] ?? 0), 0) / last.length;
+
+    const e = avg("e");
+    const a = avg("a");
+    const s = avg("s");
+
+    if (e < 4 && a > 6) return "Pattern: compressed and under-resourced.";
+    if (e > 6 && a < 5) return "Pattern: stable and resourced.";
+    if (s > 7) return "Pattern: high external load.";
+
+    const spread = (key) => Math.max(...last.map(h => h[key])) - Math.min(...last.map(h => h[key]));
+    const eVar = spread("e");
+    const aVar = spread("a");
+    const sVar = spread("s");
+
+    if (aVar >= 5 || sVar >= 5) return "Pattern: fluctuating.";
+    if (eVar <= 2 && aVar <= 2 && sVar <= 2) return "Pattern: steady.";
+
+    return "Pattern: mixed.";
+  }
+
+  function showSignals(ms = 4000) {
+    statusStrip.classList.add("visible");
+
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      statusStrip.classList.remove("visible");
+    }, ms);
+  }
+
+  function updateRoom() {
+    const e = parseInt(energy.value, 10);
+    const a = parseInt(activation.value, 10);
+    const s = parseInt(social.value, 10);
+
+    document.documentElement.style.setProperty("--energy", e);
+    document.documentElement.style.setProperty("--activation", a);
+    document.documentElement.style.setProperty("--social", s);
+
+    document.getElementById("status-energy").innerText = `Energy ${e}`;
+    document.getElementById("status-activation").innerText = `Activation ${a}`;
+    document.getElementById("status-social").innerText = `Social ${s}`;
+
+    snapshot.innerText = generateSnapshot(e, a, s);
+    saveState(e, a, s);
+
+    patternLine.innerText = generatePattern();
+    showSignals(4000);
+  }
+
+  energy.addEventListener("input", updateRoom);
+  activation.addEventListener("input", updateRoom);
+  social.addEventListener("input", updateRoom);
+
+  const last = loadLastState();
+  if (last) {
+    energy.value = String(last.e);
+    activation.value = String(last.a);
+    social.value = String(last.s);
+  }
+
+  updateRoom();
+
+  setTimeout(() => {
+    const current = parseInt(energy.value, 10);
+    document.documentElement.style.setProperty("--energy", Math.min(10, current + 1));
+    setTimeout(() => {
+      document.documentElement.style.setProperty("--energy", current);
+    }, 1200);
+  }, 200);
+
+  showSignals(3000);
+</script>
+</SkyLayout>

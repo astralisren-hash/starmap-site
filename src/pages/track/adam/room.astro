@@ -1,0 +1,182 @@
+---
+import SkyLayout from "../../../layouts/SkyLayout.astro";
+
+const cards = [
+  {
+    title: "Belief → Behavior → Outcome",
+    body: "Track the visible belief. Observe resulting behavior. Measure outcome. Pattern first. Judgment later."
+  },
+  {
+    title: "Desire → Strategy → Consequence",
+    body: "Stated desire rarely equals real motive. Strategy reveals priority. Consequence reveals truth."
+  },
+  {
+    title: "Stated Motive → Actual Incentive",
+    body: "Language is surface. Incentive is gravity. The leverage point is where incentive shifts."
+  },
+  {
+    title: "Where does choice actually happen?",
+    body: "Look for the hinge: timing, constraint, attention, fatigue, social context. The smallest shift that changes the branch."
+  },
+  {
+    title: "Pressure Points",
+    body: "Not control. Leverage. What changes behavior reliably? What changes it ethically? Keep the difference visible."
+  },
+  {
+    title: "Symmetry Rule",
+    body: "Equal chairs. Clean alignment. Nothing angled casually. Order is the boundary that makes inquiry safe."
+  }
+];
+---
+
+<SkyLayout title="Adam · Room" bg="sky">
+  <div class="room">
+    <div class="wrap">
+      <header class="head">
+        <h1>Structured Inquiry</h1>
+        <p class="sub">
+          Controlled observation chamber. Quiet order. Pattern + timing. No demand.
+        </p>
+      </header>
+
+      <section class="wall" aria-label="Wall system">
+        {cards.map((card) => (
+          <details class="card">
+            <summary>{card.title}</summary>
+            <div class="body">{card.body}</div>
+          </details>
+        ))}
+      </section>
+
+      <nav class="room-nav" aria-label="Room navigation">
+        <a href="/edge">edge</a>
+        <span class="dot">•</span>
+        <a href="/walk">walk</a>
+        <span class="dot">•</span>
+        <a href="/track/adam/arrival">arrival</a>
+      </nav>
+    </div>
+  </div>
+
+  <style>
+    :root{
+      --ink: rgba(255,255,255,.92);
+      --mist: rgba(255,255,255,.78);
+      --edge: rgba(255,255,255,.12);
+      --olive: rgba(120,130,95,.20);
+      --olive2: rgba(120,130,95,.10);
+    }
+
+    .room{
+      min-height: 80vh;
+      width: min(1120px, 94vw);
+      margin: 0 auto;
+      padding: 34px;
+      border-radius: 20px;
+      overflow: hidden;
+
+      background:
+        radial-gradient(1200px 700px at 50% 18%,
+          var(--olive),
+          rgba(0,0,0,.92)
+        ),
+        radial-gradient(900px 520px at 20% 22%,
+          rgba(255,255,255,.06),
+          rgba(0,0,0,0) 62%
+        ),
+        linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.88));
+
+      box-shadow:
+        inset 0 0 180px rgba(0,0,0,.55),
+        inset 0 0 60px rgba(0,0,0,.22),
+        0 40px 120px rgba(0,0,0,.45);
+    }
+
+    .wrap{ max-width: 920px; margin: 0 auto; }
+
+    .head h1{
+      margin: 0;
+      font-size: 28px;
+      color: var(--ink);
+      letter-spacing: .01em;
+    }
+
+    .sub{
+      margin: 8px 0 24px;
+      max-width: 72ch;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--mist);
+      opacity: .80;
+    }
+
+    /* Layout spacing ratios:
+       - outer pad: 34px
+       - grid gap: 16px
+       - card pad: 18–20px
+       - header→grid: 24px
+       - grid→nav: 28–32px
+    */
+    .wall{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin: 0 0 32px;
+    }
+
+    @media (max-width: 900px){
+      .wall{ grid-template-columns: 1fr; }
+    }
+
+    /* Cards (native open/close, no JS) */
+    .card{
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.28);
+      color: rgba(255,255,255,.86);
+      box-shadow: 0 16px 46px rgba(0,0,0,.22);
+      overflow: hidden;
+    }
+
+    .card summary{
+      list-style: none;
+      cursor: pointer;
+      padding: 20px;
+      user-select: none;
+      letter-spacing: .01em;
+    }
+    .card summary::-webkit-details-marker{ display: none; }
+
+    .card:hover{
+      border-color: rgba(255,255,255,.28);
+      transform: translateY(-2px);
+      transition: transform 140ms ease, border-color 140ms ease;
+    }
+
+    .card[open]{
+      border-color: rgba(120,130,95,.35);
+      background: rgba(0,0,0,.34);
+    }
+
+    .card .body{
+      padding: 0 20px 18px;
+      font-size: 14px;
+      line-height: 1.6;
+      opacity: .86;
+    }
+
+    .room-nav{
+      text-align: center;
+      opacity: .72;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .room-nav a{
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+    }
+    .room-nav a:hover{ color: rgba(255,255,255,.95); }
+    .room-nav .dot{ margin: 0 .75rem; opacity: .5; }
+  </style>
+</SkyLayout>

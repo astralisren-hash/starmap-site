@@ -1,0 +1,28 @@
+---
+import SkyLayout from "../../../layouts/SkyLayout.astro";
+---
+
+<SkyLayout title="Paul · Room" bg="sky">
+  <div class="wrap">
+    <h1>Paul · Room</h1>
+    <p class="sub">Under construction.</p>
+
+  <nav class="room-nav">
+  <a href="/edge">edge</a>
+  <span class="dot">•</span>
+  <a href="/walk">walk</a>
+  <span class="dot">•</span>
+  <a href="/track/paul/arrival">arrival</a>
+</nav>
+  </div>
+
+  <style>
+    .wrap{max-width:860px;margin:0 auto;padding:28px;}
+    h1{margin:0;font-size:28px;color:rgba(255,255,255,.92);}
+    .sub{margin:8px 0 0;opacity:.75;color:rgba(255,255,255,.82);}
+    .room-nav{margin-top:22px;text-align:center;opacity:.7;font-size:12px;letter-spacing:.08em;text-transform:uppercase;}
+    .room-nav a{text-decoration:none;color:rgba(255,255,255,.82);}
+    .room-nav a:hover{color:rgba(255,255,255,.95);}
+    .dot{margin:0 .75rem;opacity:.5;}
+  </style>
+</SkyLayout>

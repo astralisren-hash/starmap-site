@@ -1,0 +1,19 @@
+{
+  "render_id": "render.star.token.v2.active_private.1024.v1",
+  "token_id": "star.token.v2",
+  "overlays": [
+    "overlay.state.active.v1",
+    "overlay.state.private.v1"
+  ],
+  "format": "image/svg+xml",
+  "size": {
+    "mode": "fixed",
+    "width": 1024,
+    "height": 1024
+  },
+  "background": "transparent",
+  "output": {
+    "path": "codex/identity/tokens/star.token.v2.active_private.v1.svg",
+    "sealed": true
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "contract_id": "starmap.identity.render_request",
+  "version": "1.0",
+  "references": {
+    "token_registry": "tokens/token.registry.v1.json",
+    "overlay_registry": "overlays/overlay.registry.v1.json",
+    "overlay_policy": "overlay.policy.v1.json",
+    "overlay_validator": "overlays/overlay.validator.v1.json"
+  },
+  "request": {
+    "render_id": "string",
+    "token_id": "string",
+    "overlays": ["string"],
+    "format": "image/svg+xml",
+    "size": {
+      "mode": "fixed",
+      "width": 1024,
+      "height": 1024
+    },
+    "background": "transparent",
+    "output": {
+      "path": "string",
+      "sealed": true
+    }
+  },
+  "rules": [
+    {
+      "id": "R-01",
+      "rule": "request.token_id MUST be present in token registry and sealed:true"
+    },
+    {
+      "id": "R-02",
+      "rule": "each request.overlays[] MUST be present in overlay registry and sealed:true"
+    },
+    {
+      "id": "R-03",
+      "rule": "request MUST pass overlay validator; renderer MUST use validator-normalized overlay order"
+    },
+    {
+      "id": "R-04",
+      "rule": "renderer MUST NOT mutate base token geometry/palette; overlays are additive only"
+    },
+    {
+      "id": "R-05",
+      "rule": "if request.output.sealed is true, renderer MUST compute sha256 of output and record it"
+    }
+  ],
+  "response": {
+    "valid": "boolean",
+    "normalized": {
+      "token_id": "string",
+      "overlays_sorted": ["string"],
+      "format": "string",
+      "size": { "width": "number", "height": "number" },
+      "background": "string"
+    },
+    "artifact": {
+      "path": "string",
+      "type": "string",
+      "sha256": "string"
+    },
+    "errors": ["string"]
+  }
+}

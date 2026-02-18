@@ -1,0 +1,36 @@
+import { defineMiddleware } from "astro/middleware";
+
+export const onRequest = defineMiddleware(async (ctx, next) => {
+  const url = new URL(ctx.request.url);
+  const path = url.pathname;
+
+  // Mrs track
+  if (path.startsWith("/track/mrs")) {
+    const unlocked = ctx.cookies.get("starmap_track_mrs")?.value === "1";
+    const isArrival = path === "/track/mrs/arrival";
+    const isSubmit = path === "/track/_gate_submit";
+
+    if (!unlocked && !isArrival && !isSubmit) {
+      return Response.redirect(
+        `/track/mrs/arrival?next=${encodeURIComponent(path)}`,
+        302
+      );
+    }
+  }
+
+  // Adam track
+  if (path.startsWith("/track/adam")) {
+    const unlocked = ctx.cookies.get("starmap_track_adam")?.value === "1";
+    const isArrival = path === "/track/adam/arrival";
+    const isSubmit = path === "/track/_gate_submit";
+
+    if (!unlocked && !isArrival && !isSubmit) {
+      return Response.redirect(
+        `/track/adam/arrival?next=${encodeURIComponent(path)}`,
+        302
+      );
+    }
+  }
+
+  return next();
+});
