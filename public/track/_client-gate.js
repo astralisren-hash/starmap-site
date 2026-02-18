@@ -1,12 +1,20 @@
-export function gate({
-  storageKey,
-  expectedKey,
-  nextDefault,
-  formId = "gate-form",
-  inputId = "gate-key",
-  errorId = "gate-error",
-} = {}) {
-  // If already unlocked, go straight through
+export function gate(opts) {
+  const {
+    storageKey,
+    expectedKey,
+    nextDefault,
+    formId,
+    inputId,
+    errorId,
+  } = opts;
+
+  const form = document.getElementById(formId);
+  const input = document.getElementById(inputId);
+  const err = document.getElementById(errorId);
+
+  if (!form || !input) return;
+
+  // If already unlocked, go forward immediately
   try {
     if (localStorage.getItem(storageKey) === "1") {
       window.location.replace(nextDefault);
@@ -14,26 +22,23 @@ export function gate({
     }
   } catch {}
 
-  const form = document.getElementById(formId);
-  const input = document.getElementById(inputId);
-  const err = document.getElementById(errorId);
-
-  const setErr = (m) => { if (err) err.textContent = m || ""; };
-  setErr("");
-
-  if (!form || !input) return;
-
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    setErr("");
+    if (err) err.textContent = "";
 
-    const v = String(input.value || "").trim();
-    if (v !== String(expectedKey)) {
-      setErr("Incorrect key.");
+    const value = (input.value || "").trim();
+
+    if (value !== expectedKey) {
+      if (err) err.textContent = "Wrong key.";
+      input.value = "";
+      input.focus();
       return;
     }
 
-    try { localStorage.setItem(storageKey, "1"); } catch {}
-    window.location.assign(nextDefault);
+    try {
+      localStorage.setItem(storageKey, "1");
+    } catch {}
+
+    window.location.replace(nextDefault);
   });
 }
