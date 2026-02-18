@@ -2,41 +2,105 @@
 import SkyLayout from "../../../layouts/SkyLayout.astro";
 ---
 
-<SkyLayout title="Adam · Track" bg="sky">
+<SkyLayout title="Adam · Gate" bg="sky">
   <style>
-    .wrap{max-width:680px;margin:0 auto;padding:28px 18px;}
-    .card{border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px;background:rgba(0,0,0,.25)}
-    .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+    .wrap{max-width:680px;margin:0 auto;padding:28px 18px}
+    .card{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.14));
+      box-shadow: 0 18px 48px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+    }
+    .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
     h1{margin:8px 0 4px;font-size:28px}
-    .sub{margin:0 0 14px;color:rgba(255,255,255,.7);font-size:13px;line-height:1.45}
-    label{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.75;margin:10px 0 6px}
-    input{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.25);color:rgba(255,255,255,.9)}
-    button{margin-top:14px;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:rgba(255,255,255,.9);cursor:pointer}
-    .err{margin-top:10px;color:rgba(255,205,140,.9);font-size:13px;opacity:0;transition:opacity .25s ease}
+    .sub{margin:0 0 14px;color:rgba(255,255,255,.7);font-size:14px}
+    label{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+    input{
+      width:100%;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.25);
+      color:rgba(255,255,255,.9);
+    }
+    button{
+      margin-top:14px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.9);
+      cursor:pointer;
+    }
+    .err{margin-top:10px;color:rgba(255,205,140,.9);font-size:13px;min-height:1.2em}
+    nav{margin-top:18px;text-align:center;opacity:.65;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+    nav .dot{ margin:0 .75rem; opacity:.5; }
+    nav a{ color:rgba(255,255,255,.82); text-decoration:none; }
+    nav a:hover{ color:rgba(255,255,255,.95); }
   </style>
 
   <div class="wrap">
     <div class="card">
       <div class="k">TRACK · ADAM</div>
-      <h1>Gate</h1>
-      <p class="sub">Enter key to open this track on this device.</p>
+      <h1>Threshold</h1>
+      <p class="sub">Enter the key once to open this track.</p>
 
-      <form id="gate-form">
+      <form id="gate-form" autocomplete="off">
         <label for="gate-key">Passkey</label>
-        <input id="gate-key" type="password" autocomplete="current-password" required />
-        <button type="submit">Enter</button>
+        <input id="gate-key" type="password" autocomplete="off" />
+        <button id="gate-btn" type="button">Enter</button>
         <div id="gate-error" class="err"></div>
       </form>
+
+      <nav>
+        <a href="/courtyard">courtyard</a>
+        <span class="dot">•</span>
+        <a href="/walk">walk</a>
+        <span class="dot">•</span>
+        <a href="/edge">edge</a>
+      </nav>
     </div>
   </div>
 
-  <script type="module">
-  import { gate } from "/track/_client-gate.js";
+  <script is:inline>
+    (() => {
+      const KEY = "compass"; // <-- SET ADAM PASSWORD HERE
+      const NEXT = "/track/adam/arrival";
+      const STORAGE = "starmap_unlocked_adam";
 
-  gate({
-    storageKey: "starmap_unlocked_adam",
-    expectedKey: "compass",
-    nextDefault: "/track/adam/arrival"
-  });
-</script>
+      const form = document.getElementById("gate-form");
+      const input = document.getElementById("gate-key");
+      const btn = document.getElementById("gate-btn");
+      const err = document.getElementById("gate-error");
+
+      form?.addEventListener("submit", (e) => e.preventDefault());
+
+      try {
+        if (localStorage.getItem(STORAGE) === "1") {
+          window.location.href = NEXT;
+          return;
+        }
+      } catch {}
+
+      function go() {
+        if (err) err.textContent = "";
+        const val = String(input?.value || "").trim();
+        if (val !== KEY) {
+          if (err) err.textContent = "Wrong key.";
+          input?.focus();
+          input?.select?.();
+          return;
+        }
+        try { localStorage.setItem(STORAGE, "1"); } catch {}
+        window.location.href = NEXT;
+      }
+
+      btn?.addEventListener("click", go);
+      input?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") { e.preventDefault(); go(); }
+      });
+    })();
+  </script>
 </SkyLayout>
