@@ -39,7 +39,8 @@ starmap-upload.zip
 
 # codex generated history
 codex/site/registry-history/
-codex/site/route-history/
+codex/site/route-history/*
+!codex/site/route-history/ROUTE-MAP-*.txt
 codex/site/surface-diff/
 codex/site/surface-baselines/
 codex/site/baselines/
