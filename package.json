@@ -6,7 +6,7 @@
     "dev": "npm run validate:prebuild && astro dev",
     "validate:courtyard": "node scripts/validate-courtyard-state.mjs",
     "validate:now": "node scripts/validate-now-state.mjs",
-    "validate:prebuild": "npm run validate:courtyard && npm run validate:now && npm run surface:registry && npm run validate:aliases && npm run validate:surfaces",
+    "validate:prebuild": "npm run validate:courtyard && npm run validate:now && npm run validate:aliases && npm run validate:surfaces",
     "validate:postbuild": "npm run validate:dist",
     "validate:all": "npm run validate:prebuild",
     "build:core": "npm run validate:prebuild && astro build && npm run validate:postbuild",

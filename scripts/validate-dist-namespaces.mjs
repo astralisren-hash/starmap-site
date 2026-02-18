@@ -24,6 +24,7 @@ const ALLOW_DIRS = new Set([
   "edge",
   "field",
   "images",
+  "library",
   "n",
   "now",
   "orientation",

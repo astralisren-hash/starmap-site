@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-02-18T08:40:45.934Z",
-  "source_route_map": "codex/site/route-history/ROUTE-MAP-2026-02-16_1405.txt",
+  "generated_at": "2026-02-18T09:47:23.743Z",
+  "source_route_map": "codex/site/route-history/ROUTE-MAP-2026-02-18_0447.txt",
   "routes": [
     {
       "path": "/",
@@ -122,6 +122,18 @@
       ]
     },
     {
+      "path": "/library",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE-UNCLASSIFIED"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE-UNCLASSIFIED",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
       "path": "/n",
       "classification": {
         "tier": "PERSONAL",
@@ -182,6 +194,17 @@
       ]
     },
     {
+      "path": "/track/adam",
+      "classification": {
+        "tier": "PERSONAL",
+        "surface": "TRACK"
+      },
+      "tags": [
+        "PERSONAL",
+        "TRACK"
+      ]
+    },
+    {
       "path": "/track/adam/arrival",
       "classification": {
         "tier": "PERSONAL",
@@ -194,7 +217,42 @@
       ]
     },
     {
+      "path": "/track/adam/room",
+      "classification": {
+        "tier": "PERSONAL",
+        "surface": "TRACK"
+      },
+      "tags": [
+        "PERSONAL",
+        "TRACK",
+        "ADAM"
+      ]
+    },
+    {
+      "path": "/track/mrs",
+      "classification": {
+        "tier": "PERSONAL",
+        "surface": "TRACK"
+      },
+      "tags": [
+        "PERSONAL",
+        "TRACK"
+      ]
+    },
+    {
       "path": "/track/mrs/arrival",
+      "classification": {
+        "tier": "PERSONAL",
+        "surface": "TRACK"
+      },
+      "tags": [
+        "PERSONAL",
+        "TRACK",
+        "MRS"
+      ]
+    },
+    {
+      "path": "/track/mrs/doorway",
       "classification": {
         "tier": "PERSONAL",
         "surface": "TRACK"
@@ -227,6 +285,42 @@
         "PERSONAL",
         "TRACK",
         "MRS"
+      ]
+    },
+    {
+      "path": "/track/paul",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE-UNCLASSIFIED"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE-UNCLASSIFIED",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
+      "path": "/track/paul/arrival",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE-UNCLASSIFIED"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE-UNCLASSIFIED",
+        "OBSERVATIONAL"
+      ]
+    },
+    {
+      "path": "/track/paul/room",
+      "classification": {
+        "tier": "PUBLIC",
+        "surface": "PRESENCE-UNCLASSIFIED"
+      },
+      "tags": [
+        "PUBLIC",
+        "PRESENCE-UNCLASSIFIED",
+        "OBSERVATIONAL"
       ]
     },
     {
