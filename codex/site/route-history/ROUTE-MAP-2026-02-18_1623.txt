@@ -1,0 +1,70 @@
+generating static routes 
+16:23:03 ▶ src/pages/admin.astro
+16:23:03   └─ /admin/index.html (+44ms) 
+16:23:03 ▶ src/pages/arrival.astro
+16:23:03   └─ /arrival/index.html (+15ms) 
+16:23:03 ▶ src/pages/courtyard.astro
+16:23:03   └─ /courtyard/index.html (+13ms) 
+16:23:03 ▶ src/pages/current-sky.astro
+16:23:03   └─ /current-sky/index.html (+15ms) 
+16:23:03 ▶ src/pages/dashboard.astro
+16:23:03   └─ /dashboard/index.html (+22ms) 
+16:23:03 ▶ src/pages/discovery.astro
+16:23:03   └─ /discovery/index.html (+12ms) 
+16:23:03 ▶ src/pages/dream-guardian.astro
+16:23:03   └─ /dream-guardian/index.html (+13ms) 
+16:23:03 ▶ src/pages/edge.astro
+16:23:03   └─ /edge/index.html (+15ms) 
+16:23:03 ▶ src/pages/field.astro
+16:23:03   └─ /field/index.html (+14ms) 
+16:23:03 ▶ src/pages/library.astro
+16:23:03   └─ /library/index.html (+18ms) 
+16:23:03 ▶ src/pages/n.astro
+16:23:03   └─ /n/index.html (+8ms) 
+16:23:03 ▶ src/pages/now.astro
+16:23:03   └─ /now/index.html (+10ms) 
+16:23:03 ▶ src/pages/orientation.astro
+16:23:03   └─ /orientation/index.html (+9ms) 
+16:23:03 ▶ src/pages/seed.astro
+16:23:03   └─ /seed/index.html (+7ms) 
+16:23:03 ▶ src/pages/threshold.astro
+16:23:03   └─ /threshold/index.html (+7ms) 
+16:23:03 ▶ src/pages/track/adam/arrival.astro
+16:23:03   └─ /track/adam/arrival/index.html (+11ms) 
+16:23:03 ▶ src/pages/track/adam/room.astro
+16:23:03   └─ /track/adam/room/index.html (+13ms) 
+16:23:03 ▶ src/pages/track/adam/index.astro
+16:23:03   └─ /track/adam/index.html (+12ms) 
+16:23:03 ▶ src/pages/track/mrs/arrival.astro
+16:23:03   └─ /track/mrs/arrival/index.html (+10ms) 
+16:23:03 ▶ src/pages/track/mrs/doorway.astro
+16:23:03   └─ /track/mrs/doorway/index.html (+11ms) 
+16:23:03 ▶ src/pages/track/mrs/first-room.astro
+16:23:03   └─ /track/mrs/first-room/index.html (+9ms) 
+16:23:03 ▶ src/pages/track/mrs/room-v2.astro
+16:23:03   └─ /track/mrs/room-v2/index.html (+8ms) 
+16:23:03 ▶ src/pages/track/mrs/index.astro
+16:23:03   └─ /track/mrs/index.html (+11ms) 
+16:23:04 ▶ src/pages/track/paul/arrival.astro
+16:23:04   └─ /track/paul/arrival/index.html (+13ms) 
+16:23:04 ▶ src/pages/track/paul/room.astro
+16:23:04   └─ /track/paul/room/index.html (+13ms) 
+16:23:04 ▶ src/pages/track/paul/index.astro
+16:23:04   └─ /track/paul/index.html (+10ms) 
+16:23:04 ▶ src/pages/walk.astro
+16:23:04   └─ /walk/index.html (+9ms) 
+16:23:04 ▶ src/pages/index.astro
+16:23:04   └─ /index.html (+9ms) 
+16:23:04 ✓ Completed in 1.16s.
+
+16:23:04 [build] 28 page(s) built in 14.63s
+16:23:04 [build] Complete!
+
+> starmap-site@0.0.6 validate:postbuild
+> npm run validate:dist
+
+
+> starmap-site@0.0.6 validate:dist
+> node scripts/validate-dist-namespaces.mjs
+
+[Dist Namespace Validator] OK: dist/ top-level namespaces match allowlist (20 dirs, 3 files).

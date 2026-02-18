@@ -4,25 +4,1095 @@ import SkyLayout from "../../../layouts/SkyLayout.astro";
 
 <SkyLayout title="Paul · Room" bg="sky">
   <div class="wrap">
-    <h1>Paul · Room</h1>
-    <p class="sub">Under construction.</p>
+    <header class="head">
+      <div class="k">TRACK · PAUL</div>
+      <h1>The Coin Table</h1>
+      <p class="sub">Offline Mahjong · 4 players · calls enabled · one page.</p>
+    </header>
 
-  <nav class="room-nav">
-  <a href="/edge">edge</a>
-  <span class="dot">•</span>
-  <a href="/walk">walk</a>
-  <span class="dot">•</span>
-  <a href="/track/paul/arrival">arrival</a>
-</nav>
+    <section class="table">
+      <div class="top">
+        <div class="p" id="p2">
+          <div class="phead"><span class="name">CPU-2</span><span class="meta" id="p2meta">—</span></div>
+          <div class="melds" id="p2melds"></div>
+          <div class="discards" id="p2discards"></div>
+        </div>
+      </div>
+
+      <div class="mid">
+        <div class="p side" id="p1">
+          <div class="phead"><span class="name">CPU-1</span><span class="meta" id="p1meta">—</span></div>
+          <div class="melds" id="p1melds"></div>
+          <div class="discards" id="p1discards"></div>
+        </div>
+
+        <div class="center">
+          <div class="hud">
+            <div class="panel">
+              <div class="label">Wall</div>
+              <div class="value" id="wallCount">—</div>
+            </div>
+            <div class="panel">
+              <div class="label">Turn</div>
+              <div class="value" id="turnLabel">—</div>
+            </div>
+            <div class="panel wide">
+              <div class="label">Status</div>
+              <div class="value" id="status">—</div>
+            </div>
+          </div>
+
+          <div class="claim" id="claimBar" hidden>
+            <div class="claim-title">Claim this discard?</div>
+            <div class="claim-actions" id="claimActions"></div>
+            <div class="claim-chi" id="chiOptions" hidden></div>
+          </div>
+
+          <div class="actions">
+            <button id="btnNew" type="button">New Hand</button>
+            <button id="btnDraw" type="button">Draw</button>
+            <button id="btnTsumo" type="button">Tsumo</button>
+          </div>
+
+          <p class="hint">
+            Click a tile in your hand to discard.
+            Calls appear when eligible (Ron/Pon/Kan/Chi/Pass).
+          </p>
+        </div>
+
+        <div class="p side" id="p3">
+          <div class="phead"><span class="name">CPU-3</span><span class="meta" id="p3meta">—</span></div>
+          <div class="melds" id="p3melds"></div>
+          <div class="discards" id="p3discards"></div>
+        </div>
+      </div>
+
+      <div class="bot">
+        <div class="p" id="p0">
+          <div class="phead"><span class="name">You</span><span class="meta" id="p0meta">—</span></div>
+          <div class="melds" id="p0melds"></div>
+          <div class="hand" id="hand"></div>
+          <div class="discards" id="p0discards"></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="room-nav">
+      <a href="/edge">edge</a>
+      <span class="dot">•</span>
+      <a href="/walk">walk</a>
+      <span class="dot">•</span>
+      <a href="/track/paul/arrival">arrival</a>
+    </nav>
   </div>
 
   <style>
-    .wrap{max-width:860px;margin:0 auto;padding:28px;}
-    h1{margin:0;font-size:28px;color:rgba(255,255,255,.92);}
-    .sub{margin:8px 0 0;opacity:.75;color:rgba(255,255,255,.82);}
-    .room-nav{margin-top:22px;text-align:center;opacity:.7;font-size:12px;letter-spacing:.08em;text-transform:uppercase;}
+    .wrap{max-width:1180px;margin:0 auto;padding:28px 18px;}
+    .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.72}
+    h1{margin:8px 0 6px;font-size:30px;color:rgba(255,255,255,.93);}
+    .sub{margin:0;opacity:.72;color:rgba(255,255,255,.85);}
+
+    .table{
+      margin-top:18px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      box-shadow: 0 22px 70px rgba(0,0,0,.45);
+      padding:16px;
+      backdrop-filter: blur(10px);
+    }
+    .top,.bot{display:flex;justify-content:center;}
+    .mid{display:grid;grid-template-columns: 1fr 1.4fr 1fr;gap:12px;align-items:stretch;margin:12px 0;}
+    .center{border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:12px;background: rgba(255,255,255,.03);}
+    .p{width:min(920px,100%);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:12px;background: rgba(255,255,255,.03);}
+    .p.side{width:100%;}
+    .phead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;}
+    .name{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+    .meta{font-size:12px;opacity:.65}
+
+    .hud{display:grid;grid-template-columns: 1fr 1fr 2fr;gap:10px;}
+    .panel{border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:10px;background: rgba(0,0,0,.16);}
+    .panel.wide{grid-column: span 1;}
+    .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+    .value{margin-top:6px;font-size:14px;color:rgba(255,255,255,.90);}
+
+    .melds{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;min-height:20px;}
+    .meld{display:flex;gap:6px;align-items:center;border:1px solid rgba(255,255,255,.10);border-radius:12px;padding:8px;background: rgba(0,0,0,.14);}
+    .meld .mname{font-size:11px;letter-spacing:.1em;opacity:.7;text-transform:uppercase;margin-right:4px}
+
+    .discards{display:flex;flex-wrap:wrap;gap:8px;min-height:44px;border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:10px;background: rgba(0,0,0,.14);}
+    .hand{display:flex;flex-wrap:wrap;gap:10px;border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:12px;background: rgba(0,0,0,.14);margin-bottom:10px;min-height:58px;}
+
+    .tile{
+      user-select:none;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      border-radius:12px;
+      padding:10px 10px;
+      min-width:56px;
+      text-align:center;
+      cursor:pointer;
+      box-shadow: 0 10px 28px rgba(0,0,0,.35);
+      font-size:13px;
+      letter-spacing:.02em;
+    }
+    .tile small{display:block;opacity:.7;font-size:11px;margin-top:4px;letter-spacing:.06em}
+    .tile.dead{cursor:default;opacity:.82}
+
+    .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px;}
+    button{
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.90);
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-block;
+    }
+    button:hover{ background: rgba(255,255,255,.09); }
+    button.ghost{opacity:.8}
+    .hint{margin:10px 0 0;opacity:.62;font-size:12px;}
+
+    .claim{
+      margin-top:12px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:12px;
+      background: rgba(0,0,0,.18);
+    }
+    .claim-title{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:10px}
+    .claim-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .claim-chi{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+    .chip{padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background: rgba(255,255,255,.06);cursor:pointer;font-size:12px;opacity:.9}
+    .chip:hover{background: rgba(255,255,255,.09);}
+
+    .room-nav{margin-top:18px;text-align:center;opacity:.7;font-size:12px;letter-spacing:.08em;text-transform:uppercase;}
     .room-nav a{text-decoration:none;color:rgba(255,255,255,.82);}
     .room-nav a:hover{color:rgba(255,255,255,.95);}
     .dot{margin:0 .75rem;opacity:.5;}
   </style>
+
+  <script is:inline>
+    (function () {
+      // ===== Tile model =====
+      // Suits: Dots (D), Bamboo (B), Characters (C) ranks 1-9
+      // Honors: Winds (WE,WS,WW,WN), Dragons (DR,DG,DW) x4 each
+      const SUITS = [
+        { key: "D", name: "Dots" },
+        { key: "B", name: "Bamboo" },
+        { key: "C", name: "Characters" },
+      ];
+      const WINDS = [
+        { key: "WE", name: "East" },
+        { key: "WS", name: "South" },
+        { key: "WW", name: "West" },
+        { key: "WN", name: "North" },
+      ];
+      const DRAGONS = [
+        { key: "DR", name: "Red" },
+        { key: "DG", name: "Green" },
+        { key: "DW", name: "White" },
+      ];
+
+      function isSuit(t) { return t.kind === "suit"; }
+      function isHonor(t) { return t.kind === "honor"; }
+
+      function tileId(t) {
+        return isSuit(t) ? `${t.suit}${t.rank}` : `${t.honor}`;
+      }
+
+      function pretty(t) {
+        if (isSuit(t)) {
+          const suitName = SUITS.find(s => s.key === t.suit)?.name || t.suit;
+          return { main: String(t.rank), sub: suitName };
+        }
+        const w = WINDS.find(x => x.key === t.honor);
+        if (w) return { main: "Wind", sub: w.name };
+        const d = DRAGONS.find(x => x.key === t.honor);
+        if (d) return { main: "Dragon", sub: d.name };
+        return { main: "Honor", sub: t.honor };
+      }
+
+      function buildWall136() {
+        const wall = [];
+        for (const s of SUITS) {
+          for (let r = 1; r <= 9; r++) {
+            for (let k = 0; k < 4; k++) wall.push({ kind: "suit", suit: s.key, rank: r });
+          }
+        }
+        for (const h of [...WINDS, ...DRAGONS]) {
+          for (let k = 0; k < 4; k++) wall.push({ kind: "honor", honor: h.key });
+        }
+        // shuffle
+        for (let i = wall.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [wall[i], wall[j]] = [wall[j], wall[i]];
+        }
+        return wall;
+      }
+
+      // ===== DOM =====
+      const wallCountEl = document.getElementById("wallCount");
+      const turnLabelEl = document.getElementById("turnLabel");
+      const statusEl = document.getElementById("status");
+
+      const handEl = document.getElementById("hand");
+      const btnNew = document.getElementById("btnNew");
+      const btnDraw = document.getElementById("btnDraw");
+      const btnTsumo = document.getElementById("btnTsumo");
+
+      const claimBar = document.getElementById("claimBar");
+      const claimActions = document.getElementById("claimActions");
+      const chiOptions = document.getElementById("chiOptions");
+
+      const pEls = [
+        { meta: document.getElementById("p0meta"), melds: document.getElementById("p0melds"), discards: document.getElementById("p0discards") },
+        { meta: document.getElementById("p1meta"), melds: document.getElementById("p1melds"), discards: document.getElementById("p1discards") },
+        { meta: document.getElementById("p2meta"), melds: document.getElementById("p2melds"), discards: document.getElementById("p2discards") },
+        { meta: document.getElementById("p3meta"), melds: document.getElementById("p3melds"), discards: document.getElementById("p3discards") },
+      ];
+
+      function setStatus(msg) { if (statusEl) statusEl.textContent = msg; }
+      function setWall() { if (wallCountEl) wallCountEl.textContent = String(wall.length); }
+      function setTurn() {
+        const names = ["You", "CPU-1", "CPU-2", "CPU-3"];
+        if (turnLabelEl) turnLabelEl.textContent = names[turn];
+      }
+
+      function renderDiscards(idx) {
+        const el = pEls[idx].discards;
+        if (!el) return;
+        el.innerHTML = "";
+        for (const t of state.players[idx].discards.slice(-24)) {
+          const d = document.createElement("div");
+          d.className = "tile dead";
+          const p = pretty(t);
+          d.innerHTML = `${p.main}<small>${p.sub}</small>`;
+          el.appendChild(d);
+        }
+      }
+
+      function renderMelds(idx) {
+        const el = pEls[idx].melds;
+        if (!el) return;
+        el.innerHTML = "";
+        for (const m of state.players[idx].melds) {
+          const box = document.createElement("div");
+          box.className = "meld";
+          const tag = document.createElement("span");
+          tag.className = "mname";
+          tag.textContent = m.type;
+          box.appendChild(tag);
+
+          for (const t of m.tiles) {
+            const tt = document.createElement("span");
+            tt.className = "chip";
+            const p = pretty(t);
+            tt.textContent = `${p.main} ${p.sub}`;
+            tt.style.cursor = "default";
+            box.appendChild(tt);
+          }
+          el.appendChild(box);
+        }
+      }
+
+      function renderMeta(idx) {
+        const el = pEls[idx].meta;
+        if (!el) return;
+        const pl = state.players[idx];
+        el.textContent = `hand ${pl.hand.length} · melds ${pl.melds.length}`;
+      }
+
+      function sortHand(h) {
+        const suitOrder = { D: 1, B: 2, C: 3 };
+        const honorOrder = { WE: 10, WS: 11, WW: 12, WN: 13, DR: 20, DG: 21, DW: 22 };
+        h.sort((a, b) => {
+          const ka = isSuit(a) ? suitOrder[a.suit] * 100 + a.rank : honorOrder[a.honor] * 100;
+          const kb = isSuit(b) ? suitOrder[b.suit] * 100 + b.rank : honorOrder[b.honor] * 100;
+          return ka - kb;
+        });
+      }
+
+      function renderHand() {
+        if (!handEl) return;
+        handEl.innerHTML = "";
+        const you = state.players[0];
+        sortHand(you.hand);
+
+        for (let i = 0; i < you.hand.length; i++) {
+          const t = you.hand[i];
+          const btn = document.createElement("div");
+          btn.className = "tile";
+          const p = pretty(t);
+          btn.innerHTML = `${p.main}<small>${p.sub}</small>`;
+          btn.title = "Tap to discard";
+          btn.addEventListener("click", () => {
+            if (!canYouDiscard()) return;
+            youDiscard(i);
+          });
+          handEl.appendChild(btn);
+        }
+      }
+
+      function renderAll() {
+        setWall(); setTurn();
+        for (let i = 0; i < 4; i++) {
+          renderMeta(i);
+          renderMelds(i);
+          renderDiscards(i);
+        }
+        renderHand();
+      }
+
+      // ===== Game state =====
+      // phases:
+      // - "YOU_DRAW" (your turn, must draw)
+      // - "YOU_DISCARD" (your turn, must discard)
+      // - "CPU" (cpu acting)
+      // - "CLAIM" (a discard is claimable by you)
+      // - "OVER"
+      let wall = [];
+      let turn = 0; // 0..3
+      const state = {
+        players: [
+          { hand: [], melds: [], discards: [] }, // you
+          { hand: [], melds: [], discards: [] },
+          { hand: [], melds: [], discards: [] },
+          { hand: [], melds: [], discards: [] },
+        ],
+        phase: "YOU_DRAW",
+        lastDiscard: null, // { tile, fromIdx }
+      };
+
+      function drawTo(playerIdx, count=1) {
+        for (let i = 0; i < count; i++) {
+          if (wall.length === 0) return false;
+          state.players[playerIdx].hand.push(wall.pop());
+        }
+        return true;
+      }
+
+      function deal() {
+        wall = buildWall136();
+        for (const p of state.players) {
+          p.hand = []; p.melds = []; p.discards = [];
+        }
+        state.lastDiscard = null;
+        turn = 0;
+        state.phase = "YOU_DRAW";
+
+        // all 13 tiles
+        for (let r = 0; r < 13; r++) {
+          for (let i = 0; i < 4; i++) drawTo(i, 1);
+        }
+
+        setStatus("New hand. Your turn: draw.");
+        hideClaim();
+        renderAll();
+      }
+
+      // ===== Win checker (4 melds + pair) =====
+      function countsFromTiles(tiles) {
+        const m = new Map();
+        for (const t of tiles) {
+          const k = tileId(t);
+          m.set(k, (m.get(k) || 0) + 1);
+        }
+        return m;
+      }
+
+      function expandCountsToArrays(counts) {
+        // suits arrays 1..9, honors as separate map
+        const suitArr = { D: Array(10).fill(0), B: Array(10).fill(0), C: Array(10).fill(0) };
+        const honor = new Map();
+        for (const [k, v] of counts.entries()) {
+          if (k.startsWith("D") || k.startsWith("B") || k.startsWith("C")) {
+            const suit = k[0];
+            const rank = Number(k.slice(1));
+            suitArr[suit][rank] = v;
+          } else {
+            honor.set(k, v);
+          }
+        }
+        return { suitArr, honor };
+      }
+
+      function totalTilesRemaining(suitArr, honor) {
+        let tot = 0;
+        for (const s of ["D","B","C"]) for (let r=1;r<=9;r++) tot += suitArr[s][r];
+        for (const v of honor.values()) tot += v;
+        return tot;
+      }
+
+      function canFormHonorMelds(honorMap) {
+        for (const v of honorMap.values()) {
+          if (v % 3 !== 0) return false; // honors only triplets (kans treated as triplet+extra in hand logic)
+        }
+        return true;
+      }
+
+      function solveSuitMelds(arr, needMelds) {
+        // recursive: melds are pung or chow
+        function findFirst(a) {
+          for (let r=1;r<=9;r++) if (a[r] > 0) return r;
+          return null;
+        }
+        function dfs(a, meldsLeft) {
+          if (meldsLeft === 0) {
+            for (let r=1;r<=9;r++) if (a[r] !== 0) return false;
+            return true;
+          }
+          const r = findFirst(a);
+          if (!r) return false;
+
+          // pung
+          if (a[r] >= 3) {
+            a[r] -= 3;
+            if (dfs(a, meldsLeft-1)) return true;
+            a[r] += 3;
+          }
+          // chow
+          if (r <= 7 && a[r] > 0 && a[r+1] > 0 && a[r+2] > 0) {
+            a[r]--; a[r+1]--; a[r+2]--;
+            if (dfs(a, meldsLeft-1)) return true;
+            a[r]++; a[r+1]++; a[r+2]++;
+          }
+          return false;
+        }
+        return dfs(arr.slice(), needMelds);
+      }
+
+      function canFormAllMelds(counts) {
+        const { suitArr, honor } = expandCountsToArrays(counts);
+
+        // honors must be in triplets only
+        if (!canFormHonorMelds(honor)) return false;
+
+        // melds count from honors
+        let honorMelds = 0;
+        for (const v of honor.values()) honorMelds += (v / 3);
+
+        // remaining melds to make from suits
+        const meldsNeeded = 4 - honorMelds;
+        if (meldsNeeded < 0) return false;
+
+        // distribute melds across 3 suits (0..meldsNeeded each)
+        for (let d=0; d<=meldsNeeded; d++) {
+          for (let b=0; b<=meldsNeeded-d; b++) {
+            const c = meldsNeeded - d - b;
+            if (
+              solveSuitMelds(suitArr.D, d) &&
+              solveSuitMelds(suitArr.B, b) &&
+              solveSuitMelds(suitArr.C, c)
+            ) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+
+
+      // ===== Win + decomposition (4 melds + pair) =====
+// Returns a concrete breakdown so we can score yaku.
+function countsFromTiles(tiles) {
+  const m = new Map();
+  for (const t of tiles) {
+    const k = tileId(t);
+    m.set(k, (m.get(k) || 0) + 1);
+  }
+  return m;
+}
+
+function cloneCounts(c) {
+  return new Map(c);
+}
+
+function isHonorKey(k) {
+  return !(k[0] === "D" || k[0] === "B" || k[0] === "C");
+}
+
+function parseSuitKey(k) {
+  return { suit: k[0], rank: Number(k.slice(1)) };
+}
+
+function keyToTile(k) {
+  if (!isHonorKey(k)) {
+    const { suit, rank } = parseSuitKey(k);
+    return { kind: "suit", suit, rank };
+  }
+  return { kind: "honor", honor: k };
+}
+
+function tileIsTerminalOrHonor(t) {
+  if (isHonor(t)) return true;
+  return t.rank === 1 || t.rank === 9;
+}
+
+function allSimples(tiles) {
+  // no terminals, no honors
+  return tiles.every((t) => !tileIsTerminalOrHonor(t));
+}
+
+function findFirstKey(counts) {
+  // deterministic order helps stability
+  const keys = Array.from(counts.keys()).sort((a, b) => a.localeCompare(b));
+  for (const k of keys) {
+    if ((counts.get(k) || 0) > 0) return k;
+  }
+  return null;
+}
+
+function removeKey(counts, k, n) {
+  const v = counts.get(k) || 0;
+  if (v < n) return false;
+  const nv = v - n;
+  if (nv === 0) counts.delete(k);
+  else counts.set(k, nv);
+  return true;
+}
+
+function tryBuildMelds(counts, meldsOut) {
+  if (meldsOut.length === 4) {
+    // all tiles must be consumed
+    return counts.size === 0;
+  }
+
+  const k = findFirstKey(counts);
+  if (!k) return false;
+
+  // PON/KAN treated as triplet meld for hand-shape purposes
+  if ((counts.get(k) || 0) >= 3) {
+    const c2 = cloneCounts(counts);
+    removeKey(c2, k, 3);
+    meldsOut.push({ type: "PON", tiles: [keyToTile(k), keyToTile(k), keyToTile(k)] });
+    if (tryBuildMelds(c2, meldsOut)) return true;
+    meldsOut.pop();
+  }
+
+  // CHI only for suit tiles
+  if (!isHonorKey(k)) {
+    const { suit, rank } = parseSuitKey(k);
+    if (rank <= 7) {
+      const k2 = `${suit}${rank + 1}`;
+      const k3 = `${suit}${rank + 2}`;
+      if ((counts.get(k2) || 0) > 0 && (counts.get(k3) || 0) > 0) {
+        const c2 = cloneCounts(counts);
+        removeKey(c2, k, 1);
+        removeKey(c2, k2, 1);
+        removeKey(c2, k3, 1);
+        meldsOut.push({
+          type: "CHI",
+          tiles: [keyToTile(k), keyToTile(k2), keyToTile(k3)],
+        });
+        if (tryBuildMelds(c2, meldsOut)) return true;
+        meldsOut.pop();
+      }
+    }
+  }
+
+  return false;
+}
+
+function decomposeStandardHand(tiles14) {
+  if (tiles14.length !== 14) return null;
+
+  const counts = countsFromTiles(tiles14);
+
+  // choose a pair, then build 4 melds from remaining
+  const keys = Array.from(counts.keys()).sort((a, b) => a.localeCompare(b));
+  for (const pk of keys) {
+    const pv = counts.get(pk) || 0;
+    if (pv >= 2) {
+      const c2 = cloneCounts(counts);
+      removeKey(c2, pk, 2);
+
+      const melds = [];
+      if (tryBuildMelds(c2, melds)) {
+        return {
+          pair: [keyToTile(pk), keyToTile(pk)],
+          melds,
+        };
+      }
+    }
+  }
+
+  return null;
+}
+
+function isStandardWin(tiles14) {
+  return !!decomposeStandardHand(tiles14);
+}
+
+// ===== Scoring (basic yaku) =====
+// Round/seat winds are constants for now (simple + stable).
+const ROUND_WIND = "WE"; // East round
+const SEAT_WIND_YOU = "WE"; // You are East seat (change later if you want rotation)
+
+function countYakuhai(melds, seatWind, roundWind) {
+  let han = 0;
+  const yaku = [];
+
+  const honorTrip = (honorKey, label) => {
+    const hit = melds.some((m) => {
+      if (m.type !== "PON") return false;
+      const t = m.tiles[0];
+      return isHonor(t) && t.honor === honorKey;
+    });
+    if (hit) {
+      han += 1;
+      yaku.push(`Yakuhai · ${label}`);
+    }
+  };
+
+  // Dragons
+  honorTrip("DR", "Red Dragon");
+  honorTrip("DG", "Green Dragon");
+  honorTrip("DW", "White Dragon");
+
+  // Seat wind / Round wind (can be same; in that case it counts twice if you have the triplet)
+  honorTrip(seatWind, `Seat Wind (${seatWind})`);
+  honorTrip(roundWind, `Round Wind (${roundWind})`);
+
+  return { han, yaku };
+}
+
+function isToitoi(decomp) {
+  // all four melds are triplets (no chi)
+  return decomp.melds.every((m) => m.type === "PON");
+}
+
+function evaluateYakuForYou(tiles14) {
+  const decomp = decomposeStandardHand(tiles14);
+  if (!decomp) return null;
+
+  const yaku = [];
+  let han = 0;
+
+  // Tanyao
+  if (allSimples(tiles14)) {
+    han += 1;
+    yaku.push("Tanyao (All Simples)");
+  }
+
+  // Yakuhai
+  const yh = countYakuhai(decomp.melds, SEAT_WIND_YOU, ROUND_WIND);
+  han += yh.han;
+  yaku.push(...yh.yaku);
+
+  // Toitoi
+  if (isToitoi(decomp)) {
+    han += 2;
+    yaku.push("Toitoi (All Triplets)");
+  }
+
+  return { han, yaku, decomp };
+}
+
+// Helper to show scoring in the status line (simple UI)
+function formatScoreText(score) {
+  if (!score) return "";
+  const list = score.yaku.length ? score.yaku.join(", ") : "No yaku detected";
+  return ` · Han ${score.han} · ${list}`;
+}
+
+      function youTilesForWinCheck(extraTile=null) {
+        const you = state.players[0];
+        const tiles = you.hand.slice();
+        if (extraTile) tiles.push(extraTile);
+        // open melds already removed from hand, so we only check concealed hand + winning tile
+        return tiles;
+      }
+
+      // ===== Calls logic =====
+      function countTileInHand(playerIdx, t) {
+        const id = tileId(t);
+        let c = 0;
+        for (const x of state.players[playerIdx].hand) if (tileId(x) === id) c++;
+        return c;
+      }
+
+      function removeTilesFromHand(playerIdx, tilesToRemove) {
+        const hand = state.players[playerIdx].hand;
+        for (const rem of tilesToRemove) {
+          const id = tileId(rem);
+          const i = hand.findIndex(x => tileId(x) === id);
+          if (i >= 0) hand.splice(i,1);
+        }
+      }
+
+      function nextPlayer(idx) { return (idx + 1) % 4; }
+
+      function canYouDiscard() {
+        return state.phase === "YOU_DISCARD" && turn === 0 && !state.lastDiscard;
+      }
+
+      function hideClaim() {
+        if (!claimBar) return;
+        claimBar.hidden = true;
+        if (claimActions) claimActions.innerHTML = "";
+        if (chiOptions) { chiOptions.hidden = true; chiOptions.innerHTML = ""; }
+      }
+
+      function showClaimUI(opts) {
+        // opts = { tile, fromIdx, canRon, canPon, canKan, chiSets:[{tiles:[a,b], label}] }
+        if (!claimBar || !claimActions || !chiOptions) return;
+        claimBar.hidden = false;
+        claimActions.innerHTML = "";
+        chiOptions.hidden = true;
+        chiOptions.innerHTML = "";
+
+        function addButton(label, onClick) {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "ghost";
+          b.textContent = label;
+          b.addEventListener("click", onClick);
+          claimActions.appendChild(b);
+        }
+
+        if (opts.canRon) addButton("Ron", () => claimRon(opts.tile, opts.fromIdx));
+        if (opts.canPon) addButton("Pon", () => claimPon(opts.tile, opts.fromIdx));
+        if (opts.canKan) addButton("Kan", () => claimKan(opts.tile, opts.fromIdx));
+
+        if (opts.chiSets.length) {
+          addButton("Chi", () => {
+            chiOptions.hidden = false;
+            chiOptions.innerHTML = "";
+            for (const cs of opts.chiSets) {
+              const chip = document.createElement("div");
+              chip.className = "chip";
+              chip.textContent = cs.label;
+              chip.addEventListener("click", () => claimChi(opts.tile, opts.fromIdx, cs.tiles));
+              chiOptions.appendChild(chip);
+            }
+          });
+        }
+
+        addButton("Pass", () => {
+          hideClaim();
+          state.phase = "CPU";
+          window.setTimeout(cpuClaimAndProceed, 120);
+        });
+      }
+
+      // ===== Turn flow =====
+      function youDraw() {
+        if (state.phase !== "YOU_DRAW" || turn !== 0) return;
+        if (!drawTo(0,1)) return endByWall();
+        state.phase = "YOU_DISCARD";
+        setStatus("You drew. Discard a tile.");
+        renderAll();
+      }
+
+      function youDiscard(index) {
+        const you = state.players[0];
+        const t = you.hand.splice(index,1)[0];
+        you.discards.push(t);
+        state.lastDiscard = { tile: t, fromIdx: 0 };
+        setStatus("You discarded. Waiting for claims…");
+        renderAll();
+        state.phase = "CPU";
+        window.setTimeout(cpuClaimAndProceed, 180);
+      }
+
+      function endByWall() {
+        state.phase = "OVER";
+        hideClaim();
+        setStatus("Wall empty. Hand ends.");
+        renderAll();
+      }
+
+      function advanceTurnTo(idx) {
+        turn = idx;
+        setTurn();
+      }
+
+      // ===== Claim evaluation =====
+      function youClaimOptions(discard, fromIdx) {
+        const t = discard;
+        const you = state.players[0];
+
+        // Ron: your concealed hand + discard makes a standard win (14)
+        const canRon = isStandardWin(youTilesForWinCheck(t));
+
+        // Pon: have 2 matching
+        const canPon = countTileInHand(0, t) >= 2;
+
+        // Kan (open): have 3 matching
+        const canKan = countTileInHand(0, t) >= 3;
+
+        // Chi: only if you are next after fromIdx AND tile is suit AND you have needed neighbors
+        const chiSets = [];
+        if (nextPlayer(fromIdx) === 0 && isSuit(t)) {
+          const r = t.rank, s = t.suit;
+          const need = (rank) => ({ kind:"suit", suit:s, rank });
+          const has = (rank) => you.hand.some(x => isSuit(x) && x.suit === s && x.rank === rank);
+
+          // sequences: (r-2,r-1,r), (r-1,r,r+1), (r,r+1,r+2)
+          if (r >= 3 && has(r-2) && has(r-1)) chiSets.push({ tiles:[need(r-2), need(r-1)], label:`${r-2}-${r-1}-${r} ${SUITS.find(x=>x.key===s)?.name||s}` });
+          if (r >= 2 && r <= 8 && has(r-1) && has(r+1)) chiSets.push({ tiles:[need(r-1), need(r+1)], label:`${r-1}-${r}-${r+1} ${SUITS.find(x=>x.key===s)?.name||s}` });
+          if (r <= 7 && has(r+1) && has(r+2)) chiSets.push({ tiles:[need(r+1), need(r+2)], label:`${r}-${r+1}-${r+2} ${SUITS.find(x=>x.key===s)?.name||s}` });
+        }
+
+        return { canRon, canPon, canKan, chiSets };
+      }
+
+      function clearLastDiscard() { state.lastDiscard = null; }
+
+      function claimRon(tile, fromIdx) {
+        state.phase = "OVER";
+        hideClaim();
+        const score = evaluateYakuForYou(youTilesForWinCheck(tile));
+        setStatus(`Ron. You win.${formatScoreText(score)}`);
+        renderAll();
+      }
+
+      function claimPon(tile, fromIdx) {
+        const take = [tile, tile]; // remove 2 from hand
+        removeTilesFromHand(0, take);
+        state.players[0].melds.push({ type:"PON", tiles:[tile, ...take] });
+        clearLastDiscard();
+        hideClaim();
+        advanceTurnTo(0);
+        state.phase = "YOU_DISCARD";
+        setStatus("Pon claimed. Discard a tile.");
+        renderAll();
+      }
+
+      function claimKan(tile, fromIdx) {
+        const take = [tile, tile, tile];
+        removeTilesFromHand(0, take);
+        state.players[0].melds.push({ type:"KAN", tiles:[tile, ...take] });
+        clearLastDiscard();
+        hideClaim();
+        advanceTurnTo(0);
+        // simplified: draw one extra immediately, then discard
+        if (!drawTo(0,1)) return endByWall();
+        state.phase = "YOU_DISCARD";
+        setStatus("Kan claimed. Supplement draw. Discard a tile.");
+        renderAll();
+      }
+
+      function claimChi(tile, fromIdx, neededTwo) {
+        // neededTwo are the two tiles from hand that complete the sequence with tile
+        removeTilesFromHand(0, neededTwo);
+        state.players[0].melds.push({ type:"CHI", tiles:[...neededTwo, tile].sort((a,b)=> (a.rank||0)-(b.rank||0)) });
+        clearLastDiscard();
+        hideClaim();
+        advanceTurnTo(0);
+        state.phase = "YOU_DISCARD";
+        setStatus("Chi claimed. Discard a tile.");
+        renderAll();
+      }
+
+      // ===== CPU behavior (minimal but coherent) =====
+      function cpuCanRon(idx, tile) {
+        // For simplicity, CPU ron/tsumo uses same standard checker on concealed hand only.
+        const tiles = state.players[idx].hand.slice();
+        tiles.push(tile);
+        return isStandardWin(tiles);
+      }
+      function cpuCount(idx, tile) { return countTileInHand(idx, tile); }
+
+      function cpuTryClaim(idx, tile, fromIdx) {
+        // Priority: Ron > Kan > Pon > Chi (only next player)
+        // Keep it conservative to avoid constant steals.
+        if (cpuCanRon(idx, tile) && Math.random() < 0.45) return { type:"RON" };
+
+        const c = cpuCount(idx, tile);
+        if (c >= 3 && Math.random() < 0.18) return { type:"KAN" };
+        if (c >= 2 && Math.random() < 0.25) return { type:"PON" };
+
+        if (nextPlayer(fromIdx) === idx && isSuit(tile) && Math.random() < 0.18) {
+          // attempt chi if any sequence exists
+          const hand = state.players[idx].hand;
+          const r = tile.rank, s = tile.suit;
+          const has = (rank) => hand.some(x => isSuit(x) && x.suit === s && x.rank === rank);
+          const need = (rank) => ({ kind:"suit", suit:s, rank });
+          const options = [];
+          if (r >= 3 && has(r-2) && has(r-1)) options.push([need(r-2), need(r-1)]);
+          if (r >= 2 && r <= 8 && has(r-1) && has(r+1)) options.push([need(r-1), need(r+1)]);
+          if (r <= 7 && has(r+1) && has(r+2)) options.push([need(r+1), need(r+2)]);
+          if (options.length) return { type:"CHI", tiles: options[Math.floor(Math.random()*options.length)] };
+        }
+
+        return null;
+      }
+
+      function cpuApplyClaim(idx, claim, tile, fromIdx) {
+        if (claim.type === "RON") {
+          state.phase = "OVER";
+          setStatus(`CPU-${idx} Ron. Hand ends.`);
+          clearLastDiscard();
+          renderAll();
+          return true;
+        }
+        if (claim.type === "PON") {
+          removeTilesFromHand(idx, [tile, tile]);
+          state.players[idx].melds.push({ type:"PON", tiles:[tile, tile, tile] });
+        } else if (claim.type === "KAN") {
+          removeTilesFromHand(idx, [tile, tile, tile]);
+          state.players[idx].melds.push({ type:"KAN", tiles:[tile, tile, tile, tile] });
+          // simplified supplement draw
+          if (!drawTo(idx,1)) { endByWall(); return true; }
+        } else if (claim.type === "CHI") {
+          removeTilesFromHand(idx, claim.tiles);
+          const seq = [...claim.tiles, tile].sort((a,b)=>a.rank-b.rank);
+          state.players[idx].melds.push({ type:"CHI", tiles: seq });
+        }
+        // claimant becomes current turn and must discard
+        clearLastDiscard();
+        advanceTurnTo(idx);
+        setStatus(`CPU-${idx} claimed ${claim.type}.`);
+        renderAll();
+        return false;
+      }
+
+      function cpuDiscard(idx) {
+        // naive: discard a tile that is "least paired"
+        const hand = state.players[idx].hand;
+        sortHand(hand);
+        const counts = new Map();
+        for (const t of hand) {
+          const id = tileId(t);
+          counts.set(id, (counts.get(id)||0)+1);
+        }
+        let pick = -1;
+        for (let i=0;i<hand.length;i++) {
+          if ((counts.get(tileId(hand[i]))||0) === 1) { pick = i; break; }
+        }
+        if (pick < 0) pick = Math.floor(Math.random()*hand.length);
+        const t = hand.splice(pick,1)[0];
+        state.players[idx].discards.push(t);
+        state.lastDiscard = { tile: t, fromIdx: idx };
+        setStatus(`CPU-${idx} discarded.`);
+        renderAll();
+      }
+
+      function cpuTurn() {
+        if (state.phase !== "CPU") return;
+        if (state.phase === "OVER") return;
+
+        const idx = turn;
+
+        // if it's your turn, stop and wait
+        if (idx === 0) {
+          state.phase = "YOU_DRAW";
+          setStatus("Your turn: draw.");
+          renderAll();
+          return;
+        }
+
+        // draw
+        if (!drawTo(idx,1)) return endByWall();
+
+        // optional tsumo (cpu)
+        if (Math.random() < 0.12 && isStandardWin(state.players[idx].hand)) {
+          state.phase = "OVER";
+          setStatus(`CPU-${idx} Tsumo. Hand ends.`);
+          renderAll();
+          return;
+        }
+
+        // discard
+        cpuDiscard(idx);
+// After CPU discard, offer YOU claim UI (and then CPU claims if you pass)
+        const ld = state.lastDiscard;
+        const opts = youClaimOptions(ld.tile, ld.fromIdx);
+        if (opts.canRon || opts.canPon || opts.canKan || opts.chiSets.length) {
+          state.phase = "CLAIM";
+          showClaimUI({ tile: ld.tile, fromIdx: ld.fromIdx, ...opts });
+          setStatus("Discard available to claim.");
+          return;
+        }
+
+        // nobody claimed, advance turn
+        clearLastDiscard();
+        advanceTurnTo(nextPlayer(idx));
+        window.setTimeout(cpuTurn, 160);
+      }
+
+      function cpuClaimAndProceed() {
+        if (!state.lastDiscard || state.phase === "OVER") {
+          // no discard, just proceed
+          advanceTurnTo(nextPlayer(turn));
+          window.setTimeout(cpuTurn, 160);
+          return;
+        }
+
+        const { tile, fromIdx } = state.lastDiscard;
+
+        // CPU claims: order Ron priority across others, then pon/kan, then chi for next player
+        // Also: if it's your eligible claim moment, you already passed to get here.
+        const claimers = [1,2,3];
+        // Ron scan
+        for (const idx of claimers) {
+          const c = cpuTryClaim(idx, tile, fromIdx);
+          if (c && c.type === "RON") {
+            cpuApplyClaim(idx, c, tile, fromIdx);
+            return;
+          }
+        }
+        // Pon/Kan (any) then Chi (next only)
+        for (const idx of claimers) {
+          const c = cpuTryClaim(idx, tile, fromIdx);
+          if (c && (c.type === "KAN" || c.type === "PON")) {
+            const ended = cpuApplyClaim(idx, c, tile, fromIdx);
+            if (ended) return;
+            // claimant must discard now
+            window.setTimeout(cpuTurn, 180);
+            return;
+          }
+        }
+        // Chi only for next player
+        const n = nextPlayer(fromIdx);
+        if (n !== 0) {
+          const c = cpuTryClaim(n, tile, fromIdx);
+          if (c && c.type === "CHI") {
+            const ended = cpuApplyClaim(n, c, tile, fromIdx);
+            if (ended) return;
+            window.setTimeout(cpuTurn, 180);
+            return;
+          }
+        }
+
+        // nobody claimed
+        clearLastDiscard();
+        advanceTurnTo(nextPlayer(fromIdx));
+        window.setTimeout(cpuTurn, 160);
+      }
+
+      // ===== Player actions =====
+      function youTsumo() {
+        if (turn !== 0) return;
+        if (state.phase !== "YOU_DISCARD") { setStatus("Draw first, then Tsumo if valid."); return; }
+        const you = state.players[0];
+        if (you.hand.length !== 14) { setStatus("You need 14 tiles in hand to Tsumo."); return; }
+        if (isStandardWin(you.hand)) {
+          state.phase = "OVER";
+          hideClaim();
+          const score = evaluateYakuForYou(you.hand);
+          setStatus(`Tsumo. You win.${formatScoreText(score)}`);
+          renderAll();
+        } else {
+          setStatus("Not a valid hand (4 melds + pair).");
+        }
+      }
+
+      // ===== Buttons =====
+      btnNew?.addEventListener("click", deal);
+      btnDraw?.addEventListener("click", () => { hideClaim(); youDraw(); });
+      btnTsumo?.addEventListener("click", () => { hideClaim(); youTsumo(); });
+
+      // ===== Start =====
+      deal();
+
+      // Kick CPU when it's CPU turn
+      // (after deal, it is your draw; CPU begins after your discard / or when turns advance)
+      // No auto-run needed here.
+    })();
+  </script>
 </SkyLayout>
