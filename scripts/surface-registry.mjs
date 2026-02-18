@@ -65,6 +65,16 @@ function classifyRoute(path) {
     return { tier: "SEMI", surface: "INTERACTION" };
   }
 
+  // Library (open)
+  if (path === "/library" || path.startsWith("/library/")) {
+    return { tier: "SEMI", surface: "INTERACTION" };
+  }
+
+  // Paul track (personal)
+  if (path === "/track/paul" || path.startsWith("/track/paul/")) {
+    return { tier: "PERSONAL", surface: "TRACK" };
+  }
+
   // Public presence
   if (["/", "/arrival", "/orientation", "/seed", "/current-sky", "/field", "/edge", "/walk", "/threshold"].includes(path)) {
     return { tier: "PUBLIC", surface: "PRESENCE" };
@@ -90,7 +100,8 @@ function tagsFor(path, cls) {
 
   if (path.startsWith("/track/mrs/")) tags.push("MRS");
   if (path.startsWith("/track/adam/")) tags.push("ADAM");
-if (cls.surface === "ALIAS") tags.push("ALIAS");
+  if (path.startsWith("/track/paul/")) tags.push("PAUL");
+  if (cls.surface === "ALIAS") tags.push("ALIAS");
 
     // legacy owner tags
     if (path.startsWith("/mrs/")) tags.push("MRS");

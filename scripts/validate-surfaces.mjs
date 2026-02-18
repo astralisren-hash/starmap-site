@@ -25,12 +25,12 @@ if (!reg?.routes || !Array.isArray(reg.routes)) {
 // --- POLICY (edit here) ---
 const ALLOW = {
   STEWARD: new Set(["/admin", "/dashboard"]),
-  SEMI: new Set(["/courtyard", "/discovery", "/dream-guardian", "/now"]),
+  SEMI: new Set(["/courtyard", "/discovery", "/dream-guardian", "/now", "/library"]),
   PUBLIC: new Set(["/", "/arrival", "/threshold", "/orientation", "/seed", "/current-sky", "/field", "/edge", "/walk"]),
 };
 
 // Canonical personal identities allowed under /track/<id>/*
-const TRACK_IDENTITIES = new Set(["mrs", "adam"]);
+const TRACK_IDENTITIES = new Set(["mrs", "adam", "paul"]);
 
 // PERSONAL allowed patterns (HARD BREAK: legacy forbidden)
 function isAllowedPersonal(path) {
