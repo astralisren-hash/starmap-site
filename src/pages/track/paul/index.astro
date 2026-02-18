@@ -73,19 +73,14 @@ import SkyLayout from "../../../layouts/SkyLayout.astro";
       </nav>
     </div>
   </div>
+   <script type="module">
+  import { gate } from "/track/_client-gate.js";
 
-  <script type="module">
-    import { gate } from "/track/_client-gate.js";
-    const PAUL_KEY = "coin";
+  gate({
+    storageKey: "starmap_unlocked_paul",
+    expectedKey: "coin",
+    nextDefault: "/track/paul/arrival"
+  });
+</script>
 
-    gate({
-      who: "paul",
-      storageKey: "starmap_unlocked_paul",
-      expectedKey: PAUL_KEY,
-      nextDefault: "/track/paul/arrival",
-      formId: "gate-form",
-      inputId: "gate-key",
-      errorId: "gate-error"
-    });
-  </script>
 </SkyLayout>

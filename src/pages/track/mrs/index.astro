@@ -31,18 +31,12 @@ import SkyLayout from "../../../layouts/SkyLayout.astro";
   </div>
 
   <script type="module">
-    import { gate } from "/track/_client-gate.js";
+  import { gate } from "/track/_client-gate.js";
 
-    const MRS_KEY = "starmap";
-
-    gate({
-      who: "mrs",
-      storageKey: "starmap_unlocked_mrs",
-      expectedKey: MRS_KEY,
-      nextDefault: "/track/mrs/arrival",
-      formId: "gate-form",
-      inputId: "gate-key",
-      errorId: "gate-error"
-    });
-  </script>
+  gate({
+    storageKey: "starmap_unlocked_mrs",
+    expectedKey: "starmap",
+    nextDefault: "/track/mrs/arrival"
+  });
+</script>
 </SkyLayout>

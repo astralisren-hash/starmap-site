@@ -31,18 +31,12 @@ import SkyLayout from "../../../layouts/SkyLayout.astro";
   </div>
 
   <script type="module">
-    import { gate } from "/track/_client-gate.js";
+  import { gate } from "/track/_client-gate.js";
 
-    const ADAM_KEY = "compass";
-
-    gate({
-      who: "adam",
-      storageKey: "starmap_unlocked_adam",
-      expectedKey: ADAM_KEY,
-      nextDefault: "/track/adam/arrival",
-      formId: "gate-form",
-      inputId: "gate-key",
-      errorId: "gate-error"
-    });
-  </script>
+  gate({
+    storageKey: "starmap_unlocked_adam",
+    expectedKey: "compass",
+    nextDefault: "/track/adam/arrival"
+  });
+</script>
 </SkyLayout>
