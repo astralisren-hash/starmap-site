@@ -1,0 +1,54 @@
+generating static routes 
+04:05:26 ▶ src/pages/admin.astro
+04:05:26   └─ /admin/index.html (+47ms) 
+04:05:26 ▶ src/pages/arrival.astro
+04:05:26   └─ /arrival/index.html (+13ms) 
+04:05:26 ▶ src/pages/courtyard.astro
+04:05:26   └─ /courtyard/index.html (+11ms) 
+04:05:26 ▶ src/pages/current-sky.astro
+04:05:26   └─ /current-sky/index.html (+8ms) 
+04:05:26 ▶ src/pages/dashboard.astro
+04:05:26   └─ /dashboard/index.html (+10ms) 
+04:05:26 ▶ src/pages/discovery.astro
+04:05:26   └─ /discovery/index.html (+10ms) 
+04:05:26 ▶ src/pages/dream-guardian.astro
+04:05:26   └─ /dream-guardian/index.html (+8ms) 
+04:05:26 ▶ src/pages/edge.astro
+04:05:26   └─ /edge/index.html (+8ms) 
+04:05:26 ▶ src/pages/field.astro
+04:05:26   └─ /field/index.html (+8ms) 
+04:05:26 ▶ src/pages/n.astro
+04:05:26   └─ /n/index.html (+7ms) 
+04:05:26 ▶ src/pages/now.astro
+04:05:26   └─ /now/index.html (+6ms) 
+04:05:26 ▶ src/pages/orientation.astro
+04:05:26   └─ /orientation/index.html (+6ms) 
+04:05:26 ▶ src/pages/seed.astro
+04:05:26   └─ /seed/index.html (+7ms) 
+04:05:26 ▶ src/pages/threshold.astro
+04:05:26   └─ /threshold/index.html (+6ms) 
+04:05:26 ▶ src/pages/track/adam/arrival.html
+04:05:26   └─ /track/adam/arrival/index.html (+10ms) 
+04:05:26 ▶ src/pages/track/mrs/arrival.html
+04:05:26   └─ /track/mrs/arrival/index.html (+6ms) 
+04:05:26 ▶ src/pages/track/mrs/first-room.html
+04:05:26   └─ /track/mrs/first-room/index.html (+5ms) 
+04:05:26 ▶ src/pages/track/mrs/room-v2.astro
+04:05:26   └─ /track/mrs/room-v2/index.html (+7ms) 
+04:05:26 ▶ src/pages/walk.astro
+04:05:26   └─ /walk/index.html (+7ms) 
+04:05:26 ▶ src/pages/index.astro
+04:05:26   └─ /index.html (+6ms) 
+04:05:26 ✓ Completed in 422ms.
+
+04:05:26 [build] 20 page(s) built in 10.44s
+04:05:26 [build] Complete!
+
+> starmap-site@0.0.6 validate:postbuild
+> npm run validate:dist
+
+
+> starmap-site@0.0.6 validate:dist
+> node scripts/validate-dist-namespaces.mjs
+
+[Dist Namespace Validator] OK: dist/ top-level namespaces match allowlist (18 dirs, 3 files).

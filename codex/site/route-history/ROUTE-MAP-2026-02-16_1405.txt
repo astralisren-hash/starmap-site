@@ -1,0 +1,54 @@
+generating static routes 
+14:05:55 ▶ src/pages/admin.astro
+14:05:55   └─ /admin/index.html (+46ms) 
+14:05:55 ▶ src/pages/arrival.astro
+14:05:55   └─ /arrival/index.html (+15ms) 
+14:05:55 ▶ src/pages/courtyard.astro
+14:05:55   └─ /courtyard/index.html (+12ms) 
+14:05:55 ▶ src/pages/current-sky.astro
+14:05:55   └─ /current-sky/index.html (+12ms) 
+14:05:56 ▶ src/pages/dashboard.astro
+14:05:56   └─ /dashboard/index.html (+22ms) 
+14:05:56 ▶ src/pages/discovery.astro
+14:05:56   └─ /discovery/index.html (+15ms) 
+14:05:56 ▶ src/pages/dream-guardian.astro
+14:05:56   └─ /dream-guardian/index.html (+14ms) 
+14:05:56 ▶ src/pages/edge.astro
+14:05:56   └─ /edge/index.html (+18ms) 
+14:05:56 ▶ src/pages/field.astro
+14:05:56   └─ /field/index.html (+11ms) 
+14:05:56 ▶ src/pages/n.astro
+14:05:56   └─ /n/index.html (+9ms) 
+14:05:56 ▶ src/pages/now.astro
+14:05:56   └─ /now/index.html (+8ms) 
+14:05:56 ▶ src/pages/orientation.astro
+14:05:56   └─ /orientation/index.html (+5ms) 
+14:05:56 ▶ src/pages/seed.astro
+14:05:56   └─ /seed/index.html (+6ms) 
+14:05:56 ▶ src/pages/threshold.astro
+14:05:56   └─ /threshold/index.html (+7ms) 
+14:05:56 ▶ src/pages/track/adam/arrival.html
+14:05:56   └─ /track/adam/arrival/index.html (+16ms) 
+14:05:56 ▶ src/pages/track/mrs/arrival.html
+14:05:56   └─ /track/mrs/arrival/index.html (+7ms) 
+14:05:56 ▶ src/pages/track/mrs/first-room.html
+14:05:56   └─ /track/mrs/first-room/index.html (+6ms) 
+14:05:56 ▶ src/pages/track/mrs/room-v2.astro
+14:05:56   └─ /track/mrs/room-v2/index.html (+9ms) 
+14:05:56 ▶ src/pages/walk.astro
+14:05:56   └─ /walk/index.html (+12ms) 
+14:05:56 ▶ src/pages/index.astro
+14:05:56   └─ /index.html (+7ms) 
+14:05:56 ✓ Completed in 835ms.
+
+14:05:56 [build] 20 page(s) built in 12.99s
+14:05:56 [build] Complete!
+
+> starmap-site@0.0.6 validate:postbuild
+> npm run validate:dist
+
+
+> starmap-site@0.0.6 validate:dist
+> node scripts/validate-dist-namespaces.mjs
+
+[Dist Namespace Validator] OK: dist/ top-level namespaces match allowlist (18 dirs, 3 files).

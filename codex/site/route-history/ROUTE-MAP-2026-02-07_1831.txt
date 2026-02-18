@@ -1,0 +1,43 @@
+generating static routes 
+18:31:00 ▶ src/pages/admin.astro
+18:31:00   └─ /admin/index.html (+46ms) 
+18:31:01 ▶ src/pages/arrival.astro
+18:31:01   └─ /arrival/index.html (+11ms) 
+18:31:01 ▶ src/pages/courtyard.astro
+18:31:01   └─ /courtyard/index.html (+9ms) 
+18:31:01 ▶ src/pages/current-sky.astro
+18:31:01   └─ /current-sky/index.html (+9ms) 
+18:31:01 ▶ src/pages/dashboard.astro
+18:31:01   └─ /dashboard/index.html (+11ms) 
+18:31:01 ▶ src/pages/discovery.astro
+18:31:01   └─ /discovery/index.html (+9ms) 
+18:31:01 ▶ src/pages/dream-guardian.astro
+18:31:01   └─ /dream-guardian/index.html (+55ms) 
+18:31:01 ▶ src/pages/edge.astro
+18:31:01   └─ /edge/index.html (+6ms) 
+18:31:01 ▶ src/pages/field.astro
+18:31:01   └─ /field/index.html (+6ms) 
+18:31:01 ▶ src/pages/n.astro
+18:31:01   └─ /n/index.html (+5ms) 
+18:31:01 ▶ src/pages/now.astro
+18:31:01   └─ /now/index.html (+4ms) 
+18:31:01 ▶ src/pages/orientation.astro
+18:31:01   └─ /orientation/index.html (+4ms) 
+18:31:01 ▶ src/pages/seed.astro
+18:31:01   └─ /seed/index.html (+4ms) 
+18:31:01 ▶ src/pages/track/adam/arrival.html
+18:31:01   └─ /track/adam/arrival/index.html (+12ms) 
+18:31:01 ▶ src/pages/track/mrs/arrival.html
+18:31:01   └─ /track/mrs/arrival/index.html (+11ms) 
+18:31:01 ▶ src/pages/track/mrs/first-room.html
+18:31:01   └─ /track/mrs/first-room/index.html (+4ms) 
+18:31:01 ▶ src/pages/track/mrs/room-v2.astro
+18:31:01   └─ /track/mrs/room-v2/index.html (+4ms) 
+18:31:01 ▶ src/pages/walk.astro
+18:31:01   └─ /walk/index.html (+5ms) 
+18:31:01 ▶ src/pages/index.astro
+18:31:01   └─ /index.html (+5ms) 
+18:31:01 ✓ Completed in 451ms.
+
+18:31:01 [build] 19 page(s) built in 10.08s
+18:31:01 [build] Complete!

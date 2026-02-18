@@ -1,0 +1,53 @@
+generating static routes 
+09:34:40 ▶ src/pages/adam/arrival.html
+09:34:40   └─ /adam/arrival/index.html (+31ms) 
+09:34:40 ▶ src/pages/admin.astro
+09:34:40   └─ /admin/index.html (+31ms) 
+09:34:40 ▶ src/pages/arrival.astro
+09:34:40   └─ /arrival/index.html (+11ms) 
+09:34:40 ▶ src/pages/courtyard.astro
+09:34:40   └─ /courtyard/index.html (+12ms) 
+09:34:40 ▶ src/pages/current-sky.astro
+09:34:40   └─ /current-sky/index.html (+10ms) 
+09:34:40 ▶ src/pages/dashboard.astro
+09:34:40   └─ /dashboard/index.html (+15ms) 
+09:34:40 ▶ src/pages/discovery.astro
+09:34:40   └─ /discovery/index.html (+10ms) 
+09:34:40 ▶ src/pages/dream-guardian.astro
+09:34:40   └─ /dream-guardian/index.html (+57ms) 
+09:34:40 ▶ src/pages/edge.astro
+09:34:40   └─ /edge/index.html (+8ms) 
+09:34:40 ▶ src/pages/field.astro
+09:34:40   └─ /field/index.html (+9ms) 
+09:34:40 ▶ src/pages/mrs/arrival.html
+09:34:40   └─ /mrs/arrival/index.html (+6ms) 
+09:34:40 ▶ src/pages/mrs/first-room.html
+09:34:40   └─ /mrs/first-room/index.html (+6ms) 
+09:34:40 ▶ src/pages/mrs/room-v2.astro
+09:34:40   └─ /mrs/room-v2/index.html (+7ms) 
+09:34:40 ▶ src/pages/n.astro
+09:34:40   └─ /n/index.html (+6ms) 
+09:34:40 ▶ src/pages/N.astro
+09:34:40   └─ /N/index.html (+6ms) 
+09:34:40 ▶ src/pages/now.astro
+09:34:40   └─ /now/index.html (+8ms) 
+09:34:40 ▶ src/pages/orientation.astro
+09:34:40   └─ /orientation/index.html (+8ms) 
+09:34:41 ▶ src/pages/seed.astro
+09:34:41   └─ /seed/index.html (+7ms) 
+09:34:41 ▶ src/pages/track/adam/arrival.html
+09:34:41   └─ /track/adam/arrival/index.html (+10ms) 
+09:34:41 ▶ src/pages/track/mrs/arrival.html
+09:34:41   └─ /track/mrs/arrival/index.html (+9ms) 
+09:34:41 ▶ src/pages/track/mrs/first-room.html
+09:34:41   └─ /track/mrs/first-room/index.html (+6ms) 
+09:34:41 ▶ src/pages/track/mrs/room-v2.astro
+09:34:41   └─ /track/mrs/room-v2/index.html (+7ms) 
+09:34:41 ▶ src/pages/walk.astro
+09:34:41   └─ /walk/index.html (+7ms) 
+09:34:41 ▶ src/pages/index.astro
+09:34:41   └─ /index.html (+6ms) 
+09:34:41 ✓ Completed in 551ms.
+
+09:34:41 [build] 24 page(s) built in 10.59s
+09:34:41 [build] Complete!
