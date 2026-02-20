@@ -1,0 +1,16 @@
+---
+import fs from 'fs';
+import path from 'path';
+
+const content = fs.readFileSync(
+  path.join(process.cwd(), 'starmap/codex/origin.txt'),
+  'utf-8'
+);
+---
+
+<html>
+  <body>
+    <h1>Origin</h1>
+    <pre>{content}</pre>
+  </body>
+</html>
