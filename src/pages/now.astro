@@ -10,162 +10,130 @@ const season: Season = (raw.season as Season) ?? "II";
 const line: string = (raw.line ?? "").toString();
 
 // Seasonal softening by absence (no labels, minimal changes)
-const renderedLine = (season === "IV") ? line.replace(/\.+$/, "") : line;
+const renderedLine = season === "IV" ? line.replace(/\.+$/, "") : line;
 
 // Dark mode = empty body (still 200 OK)
 const isDark = mode === "dark";
 const showLine = mode === "live" && renderedLine.trim().length > 0;
 ---
-<section class="now-psa">
-  <div class="star"></div>
-
-  <h1>Public System Announcement</h1>
-
-  <p>
-    Deep work is underway.
-  </p>
-
-  <p>
-    Multiple layers are being rebuilt.
-    Structural alignment in progress.
-    Routing, rendering, surface logic — stabilized.
-  </p>
-
-  <p>
-    If something looks different, it is.
-  </p>
-
-  <p class="quiet">
-    This is not disruption.
-    This is refinement.
-  </p>
-
-  <p class="small">
-    Thank you for moving through the field while it recalibrates.
-  </p>
-</section>
-
-<style>
-.now-psa{
-  min-height: 70vh;
-  max-width: 640px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 80px 20px;
-  color: rgba(255,255,255,0.88);
-  position: relative;
-}
-
-.now-psa h1{
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-size: 18px;
-  margin-bottom: 36px;
-  opacity: 0.75;
-}
-
-.now-psa p{
-  margin: 14px 0;
-  line-height: 1.6;
-}
-
-.now-psa .quiet{
-  opacity: 0.65;
-  margin-top: 28px;
-}
-
-.now-psa .small{
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  opacity: 0.4;
-  margin-top: 40px;
-}
-
-.star{
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
-  margin: 0 auto 40px;
-  box-shadow: 0 0 18px rgba(255,255,255,0.7);
-  animation: pulse 3.8s ease-in-out infinite;
-}
-
-@keyframes pulse{
-  0%   { opacity: 0.3; transform: scale(0.9); }
-  50%  { opacity: 1;   transform: scale(1.25); }
-  100% { opacity: 0.3; transform: scale(0.9); }
-}
-</style>
 
 <SkyLayout title="Now" bg="sky" class="now">
-          <section class="now-status">
-  <div class="status-inner">
-    <div class="k">Status</div>
-    <p class="line">
-      System stabilizing. Courtyard live. Track gates active. Rooms in progress.
-    </p>
-    <div class="meta">
-     Updated · Feb 17, 2026
-    </div>
-  </div>
-</section>
+  {!isDark && (
+    <>
+      <section class="now-psa">
+        <div class="star"></div>
 
-<style>
-  .now-status{
-    margin-top: 3.5rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid rgba(255,255,255,.08);
-    opacity: .85;
-  }
+        <h1>Public System Announcement</h1>
 
-  .status-inner{
-    max-width: 720px;
-    margin: 0 auto;
-  }
+        <p>Deep work is underway.</p>
 
-  .k{
-    font-size: 11px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    opacity: .6;
-    margin-bottom: .5rem;
-  }
+        <p>
+          Multiple layers are being rebuilt. Structural alignment in progress.
+          Routing, rendering, surface logic — stabilized.
+        </p>
 
-  .line{
-    margin: 0 0 .75rem;
-    font-size: 14px;
-    color: rgba(255,255,255,.85);
-  }
+        <p>If something looks different, it is.</p>
 
-  .meta{
-    font-size: 11px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    opacity: .5;
-  }
+        <p class="quiet">This is not disruption. This is refinement.</p>
 
-  .map-back{
-    display:inline-block;
-    margin-top: 18px;
-    opacity:.7;
-    text-decoration:none;
-  }
-  .map-back:hover{
-    opacity:1;
-  }
-</style>
+        <p class="small">
+          Thank you for moving through the field while it recalibrates.
+        </p>
+      </section>
 
-<a href="/" class="map-back" aria-label="Map">✦ map</a>
+      {showLine && (
+        <section class="now-status">
+          <div class="status-inner">
+            <div class="k">Status</div>
+            <p class="line">{renderedLine}</p>
+            <div class="meta">Updated · Feb 17, 2026</div>
+          </div>
+        </section>
+      )}
 
+      <a href="/" class="map-back" aria-label="Map">✦ map</a>
 
-<nav style="margin-top:1.25rem;">
-  <a class="enter" href="/courtyard/">courtyard</a>
-  <span style="opacity:.45;margin:0 .75rem;">•</span>
-  <a class="enter" href="/discovery/">discovery</a>
-  <span style="opacity:.45;margin:0 .75rem;">•</span>
-  <a class="enter" href="/edge/">exit</a>
-</nav>
-    </section>
+      <nav style="margin-top:1.25rem;">
+        <a class="enter" href="/courtyard/">courtyard</a>
+        <span style="opacity:.45;margin:0 .75rem;">•</span>
+        <a class="enter" href="/discovery/">discovery</a>
+        <span style="opacity:.45;margin:0 .75rem;">•</span>
+        <a class="enter" href="/edge/">exit</a>
+      </nav>
+    </>
+  )}
+
+  <style>
+    .now-psa{
+      min-height: 55vh;
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 80px 20px 40px;
+      color: rgba(255,255,255,0.88);
+      position: relative;
+    }
+
+    .now-psa h1{
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 18px;
+      margin-bottom: 36px;
+      opacity: 0.75;
+    }
+
+    .now-psa p{ margin: 14px 0; line-height: 1.6; }
+    .now-psa .quiet{ opacity: 0.65; margin-top: 28px; }
+    .now-psa .small{
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      opacity: 0.4;
+      margin-top: 40px;
+    }
+
+    .star{
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      margin: 0 auto 40px;
+      box-shadow: 0 0 18px rgba(255,255,255,0.7);
+      animation: pulse 3.8s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%{ opacity:0.3; transform:scale(0.9); }
+      50%{ opacity:1; transform:scale(1.25); }
+      100%{ opacity:0.3; transform:scale(0.9); }
+    }
+
+    .now-status{
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      opacity: .85;
+    }
+    .status-inner{ max-width: 720px; margin: 0 auto; }
+    .k{
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      opacity: .6;
+      margin-bottom: .5rem;
+    }
+    .line{ margin: 0 0 .75rem; font-size: 14px; color: rgba(255,255,255,.85); }
+    .meta{
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .5;
+    }
+    .map-back{
+      display:inline-block;
+      margin-top: 18px;
+      opacity:.7;
+      text-decoration:none;
+    }
+    .map-back:hover{ opacity:1; }
+  </style>
 </SkyLayout>
