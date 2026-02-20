@@ -1,30 +1,38 @@
 ---
+export const prerender = false;
+
 import fs from "fs";
 import path from "path";
+import { marked } from "marked";
 
-const CODEX_DIR = path.join(process.cwd(), "starmap/codex");
+const REG_PATH = path.join(process.cwd(), "starmap/registry/index.json");
+const registry = JSON.parse(fs.readFileSync(REG_PATH, "utf-8"));
 
 const { slug } = Astro.params;
 
-// Basic safety: allow only simple slugs you generate
-if (!slug || !/^[a-zA-Z0-9._-]+$/.test(slug)) {
-  throw new Error("Invalid slug");
-}
+const entry = registry.find((e) => e.type === "codex" && e.slug === slug);
+if (!entry) return new Response("Not Found", { status: 404 });
 
-const filePath = path.join(CODEX_DIR, `${slug}.md`);
-
-// If missing, return a 404
-if (!fs.existsSync(filePath)) {
-  return new Response("Not Found", { status: 404 });
-}
+const filePath = path.join(process.cwd(), "starmap", entry.path);
+if (!fs.existsSync(filePath)) return new Response("Missing file", { status: 404 });
 
 const markdown = fs.readFileSync(filePath, "utf-8");
+const html = marked.parse(markdown);
+
+const stats = fs.statSync(filePath);
 ---
 
 <html>
   <body>
     <a href="/codex">← Back to Codex</a>
-    <h1>{slug}</h1>
-    <pre>{markdown}</pre>
+    <h1>{entry.title}</h1>
+    <article set:html={html} />
+
+   <footer>
+  <hr />
+  <small>
+    Last updated: {stats.mtime.toLocaleString()}
+  </small>
+</footer>
   </body>
 </html>

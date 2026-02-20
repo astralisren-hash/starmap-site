@@ -2,28 +2,22 @@
 import fs from "fs";
 import path from "path";
 
-const CODEX_DIR = path.join(process.cwd(), "starmap/codex");
+const REG_PATH = path.join(process.cwd(), "starmap/registry/index.json");
 
-// Grab markdown files, sort them for stable order
-const entries = fs
-  .readdirSync(CODEX_DIR)
-  .filter((f) => f.endsWith(".md"))
-  .sort((a, b) => a.localeCompare(b));
+const registry = JSON.parse(fs.readFileSync(REG_PATH, "utf-8"));
 
-function slugFromFilename(filename: string) {
-  // "00_origin.md" -> "00_origin"
-  return filename.replace(/\.md$/, "");
-}
+// Only codex entries, in the order they appear in the JSON
+const entries = registry.filter((e) => e.type === "codex");
 ---
-
 <html>
   <body>
     <h1>Codex</h1>
     <ul>
-      {entries.map((filename) => {
-        const slug = slugFromFilename(filename);
-        return <li><a href={`/codex/${slug}`}>{slug}</a></li>;
-      })}
+      {entries.map((e) => (
+        <li>
+          <a href={`/codex/${e.slug}`}>{e.title}</a>
+        </li>
+      ))}
     </ul>
   </body>
 </html>
