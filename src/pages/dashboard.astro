@@ -1,5 +1,5 @@
 ---
-import SkyLayout from "../layouts/SkyLayout.astro";
+import Base from "../layouts/Base.astro";
 import courtyard from "../content/courtyard.state.json";
 import now from "../content/now.state.json";
 import Gate from "../components/Gate.astro";
@@ -16,7 +16,7 @@ const nowSeason = (now.season ?? "II").toString();
 const nowLine = (now.line ?? "").toString();
 ---
 
-<SkyLayout title="Dashboard" bg="sky" class="dashboard">
+<Base title="Dashboard" bg="sky" class="dashboard">
   <Gate />
 <section class="card gold-edge">
   <h1 class="sr-only">Dashboard</h1>
@@ -84,4 +84,4 @@ const nowLine = (now.line ?? "").toString();
 {JSON.stringify({ courtyard, now }, null, 2)}
     </pre>
   </section>
-</SkyLayout>
+</Base>
