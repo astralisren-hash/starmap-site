@@ -5,20 +5,36 @@ import fs from "fs";
 import path from "path";
 import { marked } from "marked";
 
+// 📍 Load registry
 const REG_PATH = path.join(process.cwd(), "starmap/registry/index.json");
 const registry = JSON.parse(fs.readFileSync(REG_PATH, "utf-8"));
 
+// 📍 Get slug from URL
 const { slug } = Astro.params;
 
-const entry = registry.find((e) => e.type === "codex" && e.slug === slug);
-if (!entry) return new Response("Not Found", { status: 404 });
+// 📍 Find matching registry entry
+const entry = registry.find(
+  (e) => e.type === "codex" && e.slug === slug
+);
 
+// 🚫 If not registered → 404
+if (!entry) {
+  return new Response("Not Found", { status: 404 });
+}
+
+// 📍 Build path from registry (not guessing)
 const filePath = path.join(process.cwd(), "starmap", entry.path);
-if (!fs.existsSync(filePath)) return new Response("Missing file", { status: 404 });
 
+// 🚫 If file missing → error
+if (!fs.existsSync(filePath)) {
+  return new Response("Missing file", { status: 404 });
+}
+
+// 📍 Read + render markdown
 const markdown = fs.readFileSync(filePath, "utf-8");
 const html = marked.parse(markdown);
 
+// 📍 Get file stats (for footer)
 const stats = fs.statSync(filePath);
 ---
 
