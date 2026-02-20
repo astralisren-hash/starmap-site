@@ -1,0 +1,16 @@
+---
+import fs from 'fs';
+import path from 'path';
+
+const content = fs.readFileSync(
+  path.join(process.cwd(), 'starmap/codex/second.txt'),
+  'utf-8'
+);
+---
+
+<html>
+  <body>
+    <h1>Second</h1>
+    <pre>{content}</pre>
+  </body>
+</html>

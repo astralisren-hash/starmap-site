@@ -1,0 +1,29 @@
+---
+import fs from "fs";
+import path from "path";
+
+const CODEX_DIR = path.join(process.cwd(), "starmap/codex");
+
+// Grab markdown files, sort them for stable order
+const entries = fs
+  .readdirSync(CODEX_DIR)
+  .filter((f) => f.endsWith(".md"))
+  .sort((a, b) => a.localeCompare(b));
+
+function slugFromFilename(filename: string) {
+  // "00_origin.md" -> "00_origin"
+  return filename.replace(/\.md$/, "");
+}
+---
+
+<html>
+  <body>
+    <h1>Codex</h1>
+    <ul>
+      {entries.map((filename) => {
+        const slug = slugFromFilename(filename);
+        return <li><a href={`/codex/${slug}`}>{slug}</a></li>;
+      })}
+    </ul>
+  </body>
+</html>
