@@ -52,3 +52,6 @@ node
 .vscode/
 astro.config.mjs.bak
 checksum.sha256
+
+# Local symlink to canonical StarMap (kept outside this repo)
+starmap
