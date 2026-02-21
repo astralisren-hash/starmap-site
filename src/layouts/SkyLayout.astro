@@ -104,6 +104,12 @@ const layoutClass = `layout ${pageClass}`.trim();
     <div class="corner-mark">StarMap</div>
 
     <main>
+     <nav style="position:absolute; top:16px; right:18px; font-size:12px; opacity:.6;">
+      <a href="/" style="margin-right:10px;">map</a>
+      <a href="/codex" style="margin-right:10px;">codex</a>
+      <a href="/now">now</a>
+     </nav>
+
       <div class={layoutClass}>
         <slot />
       </div>
