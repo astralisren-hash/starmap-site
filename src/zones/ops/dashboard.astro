@@ -1,0 +1,87 @@
+---
+import Base from "../../layouts/Base.astro";
+import courtyard from "../../content/courtyard.state.json";
+import now from "../../content/now.state.json";
+import Gate from "../../components/Gate.astro";
+
+type CourtyardState = "open" | "quiet" | "closed";
+type NowMode = "live" | "quiet" | "dark";
+
+const courtyardState: CourtyardState = (courtyard.state as CourtyardState) ?? "quiet";
+const courtyardSeason = (courtyard.season ?? "II").toString();
+const steward = !!courtyard.steward;
+
+const nowMode: NowMode = (now.mode as NowMode) ?? "quiet";
+const nowSeason = (now.season ?? "II").toString();
+const nowLine = (now.line ?? "").toString();
+---
+
+<Base title="Dashboard" bg="sky" class="dashboard">
+  <Gate />
+<section class="card gold-edge">
+  <h1 class="sr-only">Dashboard</h1>
+
+  <p class="status">Operator view.</p>
+
+  <p class="faint" style="margin-top:.5rem;">
+    {courtyardState === "open" && steward ? "Live. Steward present." : "Live."}
+  </p>
+
+  <div style="margin-top:.75rem; display:flex; gap:.75rem; flex-wrap:wrap;">
+    <span class="badge">
+      Season {courtyardSeason}
+    </span>
+
+    <span class="badge" style="opacity:.7;">
+      Built {new Date(Astro.buildStartTime).toLocaleString()}
+    </span>
+  </div>
+</section>
+<div class="faint" style="margin-top:.5rem;">
+      Courtyard: <strong>{courtyardState}</strong>
+      <span style="opacity:0.45; margin:0 .6rem;">•</span>
+      steward: <strong>{steward ? "yes" : "no"}</strong>
+      <span style="opacity:0.45; margin:0 .6rem;">•</span>
+      season: <strong>{courtyardSeason}</strong>
+    </div>
+
+    <div class="faint" style="margin-top:.5rem;">
+      Now: <strong>{nowMode}</strong>
+      <span style="opacity:0.45; margin:0 .6rem;">•</span>
+      season: <strong>{nowSeason}</strong>
+      {nowMode === "live" && nowLine.trim() ? (
+        <>
+          <span style="opacity:0.45; margin:0 .6rem;">•</span>
+          <span>{nowLine}</span>
+        </>
+      ) : null}
+    </div>
+
+    <nav style="margin-top:1rem;">
+      <a class="enter" href="/courtyard">courtyard</a>
+      <span style="opacity:0.45; margin:0 0.75rem;">•</span>
+      <a class="enter" href="/current-sky">current sky</a>
+      <span style="opacity:0.45; margin:0 0.75rem;">•</span>
+      <a class="enter" href="/seed">seed</a>
+      <span style="opacity:0.45; margin:0 0.75rem;">•</span>
+      <a class="enter" href="/edge">exit</a>
+    </nav>
+
+  <section class="card" style="margin-top:1.25rem;">
+    <p class="ambient" style="margin:0 0 .75rem 0;">Quick links</p>
+
+<div class="faint" style="line-height:1.9;">
+        <div><a class="enter" href="/track/mrs/arrival/">/track/mrs/arrival</a></div>
+        <div><a class="enter" href="/track/mrs/first-room/">/track/mrs/first-room</a></div>
+        <div><a class="enter" href="/track/mrs/room-v2/">/track/mrs/room-v2</a></div>
+        <div><a class="enter" href="/n/">/n</a></div>
+      </div>
+  </section>
+
+  <section class="card" style="margin-top:1.25rem;">
+    <p class="ambient" style="margin:0 0 .75rem 0;">State (read-only)</p>
+    <pre class="faint" style="white-space:pre-wrap; overflow-wrap:anywhere; margin:0;">
+{JSON.stringify({ courtyard, now }, null, 2)}
+    </pre>
+  </section>
+</Base>
