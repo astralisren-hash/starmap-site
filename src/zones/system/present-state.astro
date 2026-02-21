@@ -1,0 +1,110 @@
+---
+export const prerender = false;
+
+import fs from "fs";
+import path from "path";
+import SkyLayout from "@/layouts/SkyLayout.astro";
+
+const REG_PATH = path.join(process.cwd(), "starmap/registry/index.json");
+const registry = JSON.parse(fs.readFileSync(REG_PATH, "utf-8"));
+
+const codex = registry.filter((e) => e.type === "codex");
+
+const items = codex
+  .map((e) => {
+    const filePath = path.join(process.cwd(), "starmap", e.path);
+    const exists = fs.existsSync(filePath);
+    const mtime = exists ? fs.statSync(filePath).mtime : null;
+    return { ...e, exists, mtime };
+  })
+  .filter((e) => e.exists && e.mtime)
+  .sort((a, b) => b.mtime - a.mtime)
+  .slice(0, 12);
+---
+
+<SkyLayout title="Present State" bg="sky">
+  <section class="present">
+    <h1>Present State</h1>
+    <p class="sub">Recent changes observed in the system.</p>
+
+    <ul class="list">
+      {items.map((e) => (
+        <li class="row">
+          <a class="title" href={`/codex/${e.slug}`}>{e.title}</a>
+          <span class="meta">{e.mtime.toLocaleString()}</span>
+          <span class="chip">{e.section || "Codex"}</span>
+        </li>
+      ))}
+    </ul>
+
+    <p class="note">
+      These are observational views, not symbolic ones.
+    </p>
+  </section>
+
+  <style>
+    .present{
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 1.5rem 0 2rem;
+      color: rgba(235,238,255,0.88);
+    }
+    h1{
+      margin: 0 0 .5rem;
+      font-size: 1.75rem;
+      letter-spacing: .02em;
+    }
+    .sub{
+      margin: 0 0 1.25rem;
+      opacity: .72;
+      line-height: 1.5;
+    }
+    .list{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .row{
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: .75rem;
+      align-items: baseline;
+      padding: .85rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .title{
+      text-decoration: none;
+      opacity: .92;
+    }
+    .title:hover{ opacity: 1; text-decoration: underline; }
+    .meta{
+      font-size: .85rem;
+      opacity: .55;
+      white-space: nowrap;
+    }
+    .chip{
+      font-size: .75rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: .6;
+      border: 1px solid rgba(255,255,255,.10);
+      padding: .2rem .5rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .note{
+      margin-top: 1.5rem;
+      opacity: .55;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 720px){
+      .row{
+        grid-template-columns: 1fr;
+        gap: .35rem;
+      }
+      .meta, .chip{ justify-self: start; }
+    }
+  </style>
+</SkyLayout>
