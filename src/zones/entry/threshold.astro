@@ -1,0 +1,169 @@
+---
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Threshold</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      body {
+        margin: 0;
+        background: #000;
+      }
+
+      .threshold {
+        height: 100vh;
+        width: 100vw;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+
+        background:
+          radial-gradient(1200px 700px at 50% 18%, rgba(150,120,220,0.10), transparent 60%),
+          radial-gradient(900px 520px at 20% 30%, rgba(120,90,190,0.06), transparent 60%),
+          radial-gradient(900px 520px at 80% 30%, rgba(120,90,190,0.06), transparent 60%),
+          linear-gradient(to bottom, #070814 0%, #05050f 45%, #000 100%);
+      }
+.threshold {
+  animation: fieldShift 60s linear infinite;
+}
+
+@keyframes fieldShift {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 2% 1%; }
+}
+/* crossing moment before fade */
+.threshold.cross {
+  transform: scale(1.02);
+  filter: brightness(1.06) contrast(1.03);
+  transition: transform 900ms ease, filter 900ms ease, opacity 900ms ease;
+}
+
+      .threshold::after {
+        content: "";
+        position: absolute;
+        left: -10%;
+        right: -10%;
+        top: 62%;
+        height: 180px;
+        background: radial-gradient(800px 160px at 50% 30%, rgba(255,255,255,0.06), transparent 70%);
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+       /* distant field gradient band */
+.threshold::before {
+  content: "";
+  position: absolute;
+  left: -15%;
+  right: -15%;
+  top: 58%;
+  height: 260px;
+  background:
+    radial-gradient(1000px 260px at 50% 0%, rgba(120,90,190,0.08), transparent 70%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+      .surface {
+        position: absolute;
+        inset: 0;
+        display: block;
+        text-decoration: none;
+        color: white;
+      }
+
+      .horizon {
+        position: absolute;
+        left: 50%;
+        top: 62%;
+        transform: translateX(-50%);
+        width: min(900px, 92vw);
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          rgba(255,255,255,0),
+          rgba(255,255,255,0.12),
+          rgba(255,255,255,0)
+        );
+      }
+
+      .gate {
+        position: absolute;
+        left: 50%;
+        top: 62%;
+        transform: translate(-50%, -60%);
+        width: 160px;
+        height: 220px;
+        border-radius: 999px 999px 28px 28px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: radial-gradient(110px 170px at 50% 55%, rgba(255,255,255,0.06), transparent 70%);
+        box-shadow:
+          0 0 90px rgba(255,255,255,0.08),
+          inset 0 0 24px rgba(255,255,255,0.04);
+        animation: breathe 9s ease-in-out infinite;
+      }
+
+      .hint {
+        position: absolute;
+        bottom: 36px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        opacity: 0.4;
+        font-family: system-ui, sans-serif;
+        text-transform: uppercase;
+      }
+
+      .threshold.fade {
+        opacity: 0;
+        transition: opacity 900ms ease;
+      }
+
+      @keyframes breathe {
+        0%   { transform: translate(-50%, -60%) scale(1); }
+        50%  { transform: translate(-50%, -60%) scale(1.02); }
+        100% { transform: translate(-50%, -60%) scale(1); }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="threshold" id="threshold">
+      <a href="/courtyard" class="surface" id="surface">
+        <div class="horizon"></div>
+        <div class="gate"></div>
+        <div class="hint">click to proceed</div>
+      </a>
+    </main>
+
+    <script>
+      const HOLD = 3000;
+      const FADE = 900;
+      const root = document.getElementById("threshold");
+      const link = document.getElementById("surface");
+
+      let moved = false;
+
+      function goNow() {
+        if (moved) return;
+        moved = true;
+        window.location.href = link.href;
+      }
+
+function fadeThenGo() {
+  if (moved) return;
+
+  root.classList.add("cross");       // step-in feeling
+  setTimeout(() => {
+    root.classList.add("fade");      // then disappear
+    setTimeout(goNow, FADE);
+  }, 420);
+}
+      setTimeout(fadeThenGo, HOLD);
+      window.addEventListener("click", goNow, { once: true });
+    </script>
+  </body>
+</html>
