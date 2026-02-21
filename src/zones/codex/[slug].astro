@@ -4,7 +4,7 @@ export const prerender = false;
 import fs from "fs";
 import path from "path";
 import { marked } from "marked";
-import SkyLayout from "../../layouts/SkyLayout.astro";
+import SkyLayout from "@/layouts/SkyLayout.astro";
 
 const REG_PATH = path.join(process.cwd(), "starmap/registry/index.json");
 const registry = JSON.parse(fs.readFileSync(REG_PATH, "utf-8"));
