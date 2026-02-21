@@ -29,7 +29,47 @@ const stats = fs.statSync(filePath);
 
   <h1>{entry.title}</h1>
 
-  <article set:html={html} />
+  <article class="prose" set:html={html} />
+
+  <style>
+  .prose {
+    max-width: 52rem;
+    margin: 0 auto;
+    line-height: 1.7;
+    color: rgba(235,238,255,0.88);
+  }
+  .prose h1, .prose h2, .prose h3 {
+    margin-top: 1.6rem;
+    margin-bottom: 0.7rem;
+    letter-spacing: 0.02em;
+  }
+  .prose p { margin: 0.85rem 0; }
+  .prose ul, .prose ol { padding-left: 1.25rem; margin: 0.85rem 0; }
+  .prose li { margin: 0.35rem 0; }
+  .prose a { opacity: 0.9; }
+  .prose a:hover { opacity: 1; }
+  .prose code {
+    font-size: 0.92em;
+    padding: 0.12em 0.35em;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    background: rgba(0,0,0,.25);
+  }
+  .prose pre {
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(0,0,0,.28);
+    overflow-x: auto;
+  }
+  .prose pre code { border: none; padding: 0; background: transparent; }
+  .prose blockquote {
+    margin: 1rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(255,255,255,.18);
+    opacity: 0.85;
+  }
+</style>
 
   <footer style="margin-top:2.5rem; opacity:.55; font-size:.9rem;">
     <hr style="border:0; border-top:1px solid rgba(255,255,255,.10); margin:1.25rem 0;" />
