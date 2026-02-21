@@ -1,0 +1,41 @@
+---
+import fs from "fs";
+import path from "path";
+import SkyLayout from "../../layouts/SkyLayout.astro";
+
+const REG_PATH = path.join(process.cwd(), "starmap/registry/index.json");
+const registry = JSON.parse(fs.readFileSync(REG_PATH, "utf-8"));
+
+const entries = registry
+  .filter((e) => e.type === "codex")
+  .sort(
+    (a, b) =>
+      (a.section || "").localeCompare(b.section || "") ||
+      (a.order ?? 9999) - (b.order ?? 9999)
+  );
+
+// Group by section
+const grouped = new Map();
+for (const e of entries) {
+  const section = e.section || "Other";
+  if (!grouped.has(section)) grouped.set(section, []);
+  grouped.get(section).push(e);
+}
+const sections = Array.from(grouped.keys());
+---
+<SkyLayout title="Codex" bg="sky">
+  <h1>Codex</h1>
+
+  {sections.map((section) => (
+    <section style="margin-top: 1.5rem;">
+      <h2 style="opacity:.85; font-size: 1.05rem; letter-spacing:.06em;">
+        {section}
+      </h2>
+      <ul>
+        {grouped.get(section).map((e) => (
+          <li><a href={`/codex/${e.slug}`}>{e.title}</a></li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</SkyLayout>

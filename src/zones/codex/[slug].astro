@@ -1,0 +1,38 @@
+---
+export const prerender = false;
+
+import fs from "fs";
+import path from "path";
+import { marked } from "marked";
+import SkyLayout from "../../layouts/SkyLayout.astro";
+
+const REG_PATH = path.join(process.cwd(), "starmap/registry/index.json");
+const registry = JSON.parse(fs.readFileSync(REG_PATH, "utf-8"));
+
+const { slug } = Astro.params;
+
+const entry = registry.find((e) => e.type === "codex" && e.slug === slug);
+if (!entry) return new Response("Not Found", { status: 404 });
+
+const filePath = path.join(process.cwd(), "starmap", entry.path);
+if (!fs.existsSync(filePath)) return new Response("Missing file", { status: 404 });
+
+const markdown = fs.readFileSync(filePath, "utf-8");
+const html = marked.parse(markdown);
+
+const stats = fs.statSync(filePath);
+---
+<SkyLayout title={entry.title} bg="sky">
+  <a href="/codex" style="display:inline-block; opacity:.75; text-decoration:none; margin-bottom:1rem;">
+    ← back to Codex
+  </a>
+
+  <h1>{entry.title}</h1>
+
+  <article set:html={html} />
+
+  <footer style="margin-top:2.5rem; opacity:.55; font-size:.9rem;">
+    <hr style="border:0; border-top:1px solid rgba(255,255,255,.10); margin:1.25rem 0;" />
+    Last updated: {stats.mtime.toLocaleString()}
+  </footer>
+</SkyLayout>
