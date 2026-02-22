@@ -1,0 +1,64 @@
+
+> starmap-site@0.0.6 build:core
+> npm run validate:prebuild && astro build && npm run validate:postbuild
+
+
+> starmap-site@0.0.6 validate:prebuild
+> npm run validate:courtyard && npm run validate:now && npm run validate:aliases && npm run validate:surfaces
+
+
+> starmap-site@0.0.6 validate:courtyard
+> node scripts/validate-courtyard-state.mjs
+
+[Courtyard Validator] OK: Validated src/content/courtyard.state.json (prev=quiet, state=open, steward=true, season=I).
+
+> starmap-site@0.0.6 validate:now
+> node scripts/validate-now-state.mjs
+
+[Now Validator] OK: Validated src/content/now.state.json (mode=live, season=II).
+
+> starmap-site@0.0.6 validate:aliases
+> node scripts/validate-alias-redirects.mjs
+
+[Alias Redirect Validator] OK: Validated 0 ALIAS route(s) contain redirect markers in src/pages.
+
+> starmap-site@0.0.6 validate:surfaces
+> node scripts/validate-surfaces.mjs
+
+[Surface Validator] OK: Validated 28 routes against allowlists.
+17:22:46 [@astrojs/node] Enabling sessions with filesystem storage
+17:22:46 [vite] Re-optimizing dependencies because vite config has changed
+17:22:47 [content] Syncing content
+17:22:47 [content] Synced content
+17:22:47 [types] Generated 503ms
+17:22:47 [build] output: "server"
+17:22:47 [build] mode: "server"
+17:22:47 [build] directory: /home/astralisren/projects/starmap-site/dist/
+17:22:47 [build] adapter: @astrojs/node
+17:22:47 [build] Collecting build info...
+17:22:47 [build] ✓ Completed in 537ms.
+17:22:47 [build] Building server entrypoints...
+17:22:50 [vite] ✓ built in 3.15s
+17:22:50 [build] ✓ Completed in 3.22s.
+
+ building client (vite) 
+17:22:50 [vite] transforming...
+17:22:50 [vite] ✓ 4 modules transformed.
+17:22:50 [vite] rendering chunks...
+17:22:50 [vite] ✓ built in 55ms
+
+ prerendering static routes 
+17:22:50 ✓ Completed in 29ms.
+
+17:22:50 [build] Rearranging server assets...
+17:22:50 [build] Server built in 3.87s
+17:22:50 [build] Complete!
+
+> starmap-site@0.0.6 validate:postbuild
+> npm run validate:dist
+
+
+> starmap-site@0.0.6 validate:dist
+> node scripts/validate-dist-namespaces.mjs
+
+[Dist Namespace Validator] OK: dist/ top-level namespaces match allowlist (22 dirs, 3 files).

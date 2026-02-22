@@ -97,13 +97,24 @@ const layoutClass = `layout ${pageClass}`.trim();
   line-height: 1.6;
 }
 
+  /* corner mark positioning */
+.corner-mark{
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  pointer-events: none;
+}
     </style>
  </head>
 
   <body class={bodyClass}>
     <div class="corner-mark">StarMap</div>
 
-    <main>
+     <main>
      <nav style="position:absolute; top:16px; right:18px; font-size:12px; opacity:.6;">
       <a href="/" style="margin-right:10px;">map</a>
       <a href="/codex" style="margin-right:10px;">codex</a>
